@@ -297,12 +297,13 @@ function LeftSidebar() {
 function TestimonialCard({ testimonial }: { testimonial: { company: string; person: string; text: string; date: string; image: string } }) {
   const [expanded, setExpanded] = useState(false)
 
-  // Lock body scroll when lightbox is open
+  // Lock body scroll + Escape key when lightbox is open
   useEffect(() => {
-    if (expanded) {
-      document.body.style.overflow = 'hidden'
-      return () => { document.body.style.overflow = '' }
-    }
+    if (!expanded) return
+    document.body.style.overflow = 'hidden'
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setExpanded(false) }
+    window.addEventListener('keydown', onKey)
+    return () => { document.body.style.overflow = ''; window.removeEventListener('keydown', onKey) }
   }, [expanded])
 
   return (
