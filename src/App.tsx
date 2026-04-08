@@ -2,7 +2,8 @@ import { useEffect, useState, useRef, useCallback } from 'react'
 import {
   Mail, Github, Send, Briefcase, GraduationCap, Code2, FolderOpen,
   MapPin, Building2, Calendar, ChevronDown, ExternalLink, Award,
-  Layout, MessageCircle, Menu, X
+  Layout, MessageCircle, Menu, X, Server, Database, Cloud, Sparkles,
+  BarChart3, Network, FileText
 } from 'lucide-react'
 import { translations } from './i18n'
 import { useLang } from './contexts/LangContext'
@@ -14,6 +15,16 @@ function LinkedInIcon({ className = "w-5 h-5" }: { className?: string }) {
       <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
     </svg>
   )
+}
+
+/* ─── Skill Category Icons ─── */
+const skillCategoryIcons: Record<string, React.ReactNode> = {
+  backend: <Server className="w-5 h-5 text-primary" />,
+  data: <Database className="w-5 h-5 text-primary" />,
+  infra: <Cloud className="w-5 h-5 text-primary" />,
+  ai: <Sparkles className="w-5 h-5 text-primary" />,
+  product: <BarChart3 className="w-5 h-5 text-primary" />,
+  architecture: <Network className="w-5 h-5 text-primary" />,
 }
 
 /* ─── Hooks ─── */
@@ -98,6 +109,79 @@ function DotGrid() {
     return () => { window.removeEventListener('resize', resize); mo.disconnect() }
   }, [])
   return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />
+}
+
+/* ─── Story / Narrative Section ─── */
+
+function StorySection() {
+  const { lang } = useLang()
+  const ref = useRef<HTMLDivElement>(null)
+  const visible = useInView(ref as React.RefObject<HTMLElement | null>)
+
+  const headline = lang === 'ru'
+    ? '14+ лет строю всё с нуля'
+    : '14+ years building everything from scratch'
+
+  const subtext = lang === 'ru'
+    ? 'От стартапов до крупнейших компаний России — backend, микросервисы, высоконагруженные системы. Сейчас изучаю продуктовый менеджмент и исследую агентный ИИ.'
+    : 'From startups to Russia\'s largest companies — backend, microservices, high-load systems. Currently studying product management and researching agentic AI.'
+
+  const bubbles = lang === 'ru'
+    ? [
+        { label: 'Мой путь', href: '#experience' },
+        { label: 'Что строю', href: '#portfolio' },
+        { label: 'Поговорим', href: '#contact' },
+        { label: 'Написать', href: 'https://t.me/sergey_in_job', external: true, highlighted: true },
+      ]
+    : [
+        { label: 'My path', href: '#experience' },
+        { label: 'What I build', href: '#portfolio' },
+        { label: "Let's talk", href: '#contact' },
+        { label: 'Message', href: 'https://t.me/sergey_in_job', external: true, highlighted: true },
+      ]
+
+  return (
+    <div ref={ref} className={`max-w-3xl mx-auto px-6 py-12 text-center transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      <p className="text-2xl sm:text-3xl font-display font-bold text-foreground mb-4" style={{ animation: visible ? 'nav-fade-in 0.8s ease-out' : 'none' }}>
+        {headline}
+      </p>
+      <p className="text-muted-foreground leading-relaxed mb-6 max-w-xl mx-auto" style={{ animation: visible ? 'nav-fade-in 1.2s ease-out' : 'none' }}>
+        {subtext}
+      </p>
+      <div className="flex flex-wrap justify-center gap-3" style={{ animation: visible ? 'nav-fade-in 1.5s ease-out' : 'none' }}>
+        {bubbles.map((b) =>
+          b.external ? (
+            <a
+              key={b.label}
+              href={b.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all ${
+                b.highlighted
+                  ? 'bg-gradient-theme text-white shadow-lg hover:shadow-xl hover:scale-105'
+                  : 'bg-card border border-border text-foreground hover:border-primary/50'
+              }`}
+            >
+              {b.highlighted && <Send className="w-4 h-4" />}
+              {b.label}
+            </a>
+          ) : (
+            <a
+              key={b.label}
+              href={b.href}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium bg-card border border-border text-foreground hover:border-primary/50 transition-all"
+              onClick={(e) => {
+                e.preventDefault()
+                document.querySelector(b.href)?.scrollIntoView({ behavior: 'smooth' })
+              }}
+            >
+              {b.label}
+            </a>
+          )
+        )}
+      </div>
+    </div>
+  )
 }
 
 /* ─── Sticky Nav ─── */
@@ -203,7 +287,7 @@ function FloatingCTA() {
 
   return (
     <a
-      href="https://t.me/fighter90"
+      href="https://t.me/sergey_in_job"
       target="_blank"
       rel="noopener noreferrer"
       className="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-5 py-3 rounded-full bg-gradient-theme text-white font-medium shadow-xl hover:shadow-2xl hover:scale-105 transition-all"
@@ -221,6 +305,11 @@ function FloatingCTA() {
 export default function App() {
   const { lang } = useLang()
   const t = translations[lang]
+
+  /* Filter out Авито Путешествия / Avito Travel from projects */
+  const filteredProjects = t.projects.filter(
+    (proj) => proj.name !== 'Авито Путешествия' && proj.name !== 'Avito Travel'
+  )
 
   return (
     <main className="min-h-screen bg-background text-foreground">
@@ -256,13 +345,16 @@ export default function App() {
               <a href={`https://linkedin.com/in/${t.contact.linkedin}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-card border border-border text-foreground font-medium hover:border-[hsl(var(--linkedin))]/50 transition-colors">
                 <LinkedInIcon className="w-4 h-4" />LinkedIn
               </a>
-              <a href="https://t.me/fighter90" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-card border border-border text-foreground font-medium hover:border-primary/50 transition-colors">
+              <a href="https://t.me/sergey_in_job" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-card border border-border text-foreground font-medium hover:border-primary/50 transition-colors">
                 <Send className="w-4 h-4" />{t.hero.telegram}
               </a>
             </div>
           </div>
         </div>
       </div>
+
+      {/* STORY / NARRATIVE */}
+      <StorySection />
 
       {/* STICKY NAV */}
       <StickyNav />
@@ -311,9 +403,29 @@ export default function App() {
 
         {/* PORTFOLIO (Webguru projects) */}
         <Section id="portfolio">
-          <h2 className="text-2xl sm:text-3xl font-display font-bold text-foreground mb-8 flex items-center gap-3">
+          <h2 className="text-2xl sm:text-3xl font-display font-bold text-foreground mb-4 flex items-center gap-3">
             <Layout className="w-7 h-7 text-primary" />{t.sections.portfolio}
           </h2>
+          <div className="flex flex-wrap gap-3 mb-8">
+            <a
+              href="/Portfolio.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-card border border-border text-foreground text-sm font-medium hover:border-primary/50 transition-colors"
+            >
+              <FileText className="w-4 h-4 text-primary" />
+              {lang === 'ru' ? 'Портфолио (PDF)' : 'Portfolio (PDF)'}
+            </a>
+            <a
+              href="/Portfolio.Services.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-card border border-border text-foreground text-sm font-medium hover:border-primary/50 transition-colors"
+            >
+              <FileText className="w-4 h-4 text-primary" />
+              {lang === 'ru' ? 'Портфолио сервисов (PDF)' : 'Services Portfolio (PDF)'}
+            </a>
+          </div>
           <div className="grid gap-5 sm:grid-cols-2">
             {t.portfolio.map((item, i) => (
               <div key={i} className="bg-card border border-border rounded-2xl p-6 hover:border-primary/30 transition-colors flex flex-col group">
@@ -340,7 +452,7 @@ export default function App() {
             <FolderOpen className="w-7 h-7 text-primary" />{t.sections.projects}
           </h2>
           <div className="grid gap-4 sm:grid-cols-2">
-            {t.projects.map((proj, i) => (
+            {filteredProjects.map((proj, i) => (
               <div key={i} className="bg-card border border-border rounded-2xl p-6 hover:border-primary/30 transition-colors flex flex-col">
                 <div className="flex items-start justify-between gap-2 mb-2">
                   <h3 className="text-lg font-display font-semibold text-foreground">{proj.name}</h3>
@@ -393,9 +505,12 @@ export default function App() {
             <Code2 className="w-7 h-7 text-primary" />{t.sections.skills}
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {Object.values(t.skills).map((cat) => (
+            {Object.entries(t.skills).map(([key, cat]) => (
               <div key={cat.title} className="bg-card border border-border rounded-2xl p-5 hover:border-primary/30 transition-colors">
-                <h3 className="font-display font-semibold text-foreground mb-3">{cat.title}</h3>
+                <h3 className="font-display font-semibold text-foreground mb-3 flex items-center gap-2">
+                  {skillCategoryIcons[key]}
+                  {cat.title}
+                </h3>
                 <div className="flex flex-wrap gap-1.5">
                   {cat.items.map((skill: string) => (
                     <span key={skill} className="badge px-2.5 py-1 bg-muted text-muted-foreground text-xs">{skill}</span>
@@ -414,11 +529,11 @@ export default function App() {
           <p className="text-muted-foreground mb-8">{t.sections.letsChatDesc}</p>
           <div className="bg-card border border-border rounded-2xl p-6 sm:p-8">
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              <a href={`mailto:${t.contact.email}`} className="flex items-center gap-3 p-4 rounded-xl bg-muted/30 hover:bg-primary/10 transition-colors group">
-                <Mail className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
-                <div>
+              <a href={`mailto:${t.contact.email}`} className="flex items-center gap-3 p-4 rounded-xl bg-muted/30 hover:bg-primary/10 transition-colors group min-w-0">
+                <Mail className="w-5 h-5 text-primary group-hover:scale-110 transition-transform shrink-0" />
+                <div className="min-w-0">
                   <p className="text-xs text-muted-foreground">Email</p>
-                  <p className="text-foreground font-medium text-sm">{t.contact.email}</p>
+                  <p className="text-foreground font-medium text-xs sm:text-sm truncate">{t.contact.email}</p>
                 </div>
               </a>
               <a href={`https://github.com/${t.contact.github}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-4 rounded-xl bg-muted/30 hover:bg-primary/10 transition-colors group">
@@ -428,14 +543,14 @@ export default function App() {
                   <p className="text-foreground font-medium text-sm">{t.contact.github}</p>
                 </div>
               </a>
-              <a href={`https://linkedin.com/in/${t.contact.linkedin}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-4 rounded-xl bg-muted/30 hover:bg-[hsl(var(--linkedin))]/10 transition-colors group">
-                <LinkedInIcon className="w-5 h-5 text-[hsl(var(--linkedin))] group-hover:scale-110 transition-transform" />
-                <div>
+              <a href={`https://linkedin.com/in/${t.contact.linkedin}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-4 rounded-xl bg-muted/30 hover:bg-[hsl(var(--linkedin))]/10 transition-colors group min-w-0">
+                <LinkedInIcon className="w-5 h-5 text-[hsl(var(--linkedin))] group-hover:scale-110 transition-transform shrink-0" />
+                <div className="min-w-0">
                   <p className="text-xs text-muted-foreground">LinkedIn</p>
-                  <p className="text-foreground font-medium text-sm">{t.contact.linkedin}</p>
+                  <p className="text-foreground font-medium text-xs sm:text-sm truncate">{t.contact.linkedin}</p>
                 </div>
               </a>
-              <a href="https://t.me/fighter90" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-4 rounded-xl bg-muted/30 hover:bg-primary/10 transition-colors group">
+              <a href="https://t.me/sergey_in_job" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-4 rounded-xl bg-muted/30 hover:bg-primary/10 transition-colors group">
                 <Send className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
                 <div>
                   <p className="text-xs text-muted-foreground">Telegram</p>
