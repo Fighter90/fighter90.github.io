@@ -69,8 +69,7 @@ You answer questions about Sergey's experience, skills, and projects. Be helpful
 /*  OpenRouter API                                                     */
 /* ------------------------------------------------------------------ */
 
-// OpenRouter key — will work once account is funded
-const OPENROUTER_KEY = '***REVOKED***'
+const OPENROUTER_KEY = import.meta.env.VITE_OPENROUTER_KEY ?? ''
 const MODEL = 'deepseek/deepseek-chat-v3-0324'
 
 async function callLLM(
