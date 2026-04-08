@@ -1,12 +1,14 @@
-import { useEffect, useState, useRef, useCallback } from 'react'
+import { useEffect, useState, useRef, useCallback, lazy, Suspense } from 'react'
 import {
   Mail, Github, Send, Briefcase, GraduationCap, Code2, FolderOpen,
-  MapPin, Building2, Calendar, ChevronDown, ExternalLink, Award,
-  Layout, MessageCircle, Menu, X, Server, Database, Cloud, Sparkles,
-  BarChart3, Network, FileText
+  MapPin, Building2, Calendar, Download, ExternalLink, Award,
+  Layout, Menu, X, Server, Database, Cloud, Sparkles,
+  BarChart3, Network, FileText, Quote, BookOpen
 } from 'lucide-react'
 import { translations } from './i18n'
 import { useLang } from './contexts/LangContext'
+
+const FloatingChat = lazy(() => import('./components/FloatingChat'))
 
 /* ─── LinkedIn SVG ─── */
 function LinkedInIcon({ className = "w-5 h-5" }: { className?: string }) {
@@ -18,13 +20,23 @@ function LinkedInIcon({ className = "w-5 h-5" }: { className?: string }) {
 }
 
 /* ─── Skill Category Icons ─── */
-const skillCategoryIcons: Record<string, React.ReactNode> = {
+const skillIcons: Record<string, React.ReactNode> = {
   backend: <Server className="w-5 h-5 text-primary" />,
   data: <Database className="w-5 h-5 text-primary" />,
   infra: <Cloud className="w-5 h-5 text-primary" />,
   ai: <Sparkles className="w-5 h-5 text-primary" />,
   product: <BarChart3 className="w-5 h-5 text-primary" />,
   architecture: <Network className="w-5 h-5 text-primary" />,
+}
+
+const sectionIcons: Record<string, React.ReactNode> = {
+  experience: <Briefcase className="w-4 h-4" />,
+  portfolio: <Layout className="w-4 h-4" />,
+  projects: <FolderOpen className="w-4 h-4" />,
+  education: <GraduationCap className="w-4 h-4" />,
+  skills: <Code2 className="w-4 h-4" />,
+  testimonials: <Quote className="w-4 h-4" />,
+  contact: <Mail className="w-4 h-4" />,
 }
 
 /* ─── Hooks ─── */
@@ -44,18 +56,11 @@ function useInView(ref: React.RefObject<HTMLElement | null>, threshold = 0.1) {
 function useActiveSection() {
   const [activeId, setActiveId] = useState<string | null>(null)
   useEffect(() => {
-    const headings = document.querySelectorAll('section[id]')
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id)
-          }
-        }
-      },
-      { rootMargin: '-80px 0px -75% 0px' }
-    )
-    headings.forEach((h) => io.observe(h))
+    const sections = document.querySelectorAll('section[id]')
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) if (e.isIntersecting) setActiveId(e.target.id)
+    }, { rootMargin: '-80px 0px -75% 0px' })
+    sections.forEach((s) => io.observe(s))
     return () => io.disconnect()
   }, [])
   return activeId
@@ -65,11 +70,7 @@ function Section({ id, children, className = '' }: { id: string; children: React
   const ref = useRef<HTMLElement>(null)
   const visible = useInView(ref)
   return (
-    <section
-      ref={ref}
-      id={id}
-      className={`transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} ${className}`}
-    >
+    <section ref={ref} id={id} className={`transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} ${className}`}>
       {children}
     </section>
   )
@@ -95,12 +96,9 @@ function DotGrid() {
       const w = canvas.offsetWidth, h = canvas.offsetHeight
       ctx.clearRect(0, 0, w, h)
       const gap = 28
-      const isDark = document.documentElement.classList.contains('dark')
-      ctx.fillStyle = isDark ? 'rgba(148,163,184,0.12)' : 'rgba(100,116,139,0.18)'
+      ctx.fillStyle = document.documentElement.classList.contains('dark') ? 'rgba(148,163,184,0.12)' : 'rgba(100,116,139,0.18)'
       for (let x = gap; x < w; x += gap)
-        for (let y = gap; y < h; y += gap) {
-          ctx.beginPath(); ctx.arc(x, y, 1, 0, Math.PI * 2); ctx.fill()
-        }
+        for (let y = gap; y < h; y += gap) { ctx.beginPath(); ctx.arc(x, y, 1, 0, Math.PI * 2); ctx.fill() }
     }
     resize()
     window.addEventListener('resize', resize)
@@ -111,7 +109,31 @@ function DotGrid() {
   return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />
 }
 
-/* ─── Story / Narrative Section ─── */
+/* ─── BeamPill (from santifer.io) ─── */
+
+const HEAL_PARTICLES = [
+  { char: '+', left: '10%', delay: '0s', dur: '2.8s', size: '20px' },
+  { char: '·', left: '30%', delay: '0.6s', dur: '2.2s', size: '16px' },
+  { char: '✦', left: '55%', delay: '1.2s', dur: '3s', size: '14px' },
+  { char: '0', left: '75%', delay: '0.3s', dur: '2.5s', size: '18px' },
+  { char: '1', left: '90%', delay: '1.8s', dur: '2.6s', size: '16px' },
+]
+
+function BeamPill({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="relative inline-block">
+      <span className="relative z-10 text-gradient-theme font-bold">{children}</span>
+      {HEAL_PARTICLES.map((p, i) => (
+        <span key={i} className="absolute pointer-events-none select-none" aria-hidden="true"
+          style={{ left: p.left, bottom: '50%', fontSize: p.size, color: '#4ade80', opacity: 0, animation: `heal-float ${p.dur} ease-out ${p.delay} infinite` }}>
+          {p.char}
+        </span>
+      ))}
+    </span>
+  )
+}
+
+/* ─── Story Section ─── */
 
 function StorySection() {
   const { lang } = useLang()
@@ -119,63 +141,56 @@ function StorySection() {
   const visible = useInView(ref as React.RefObject<HTMLElement | null>)
 
   const headline = lang === 'ru'
-    ? '14+ лет разрабатываю высоконагруженные системы'
-    : '14+ years building high-load systems'
+    ? { pre: '', highlight: '14+', post: ' лет разрабатываю высоконагруженные системы' }
+    : { pre: '', highlight: '14+', post: ' years building high-load systems' }
 
   const subtext = lang === 'ru'
-    ? 'От стартапов до крупнейших компаний России — backend, микросервисы, платёжные системы. Сейчас изучаю продуктовый менеджмент в НИУ ВШЭ и исследую агентный ИИ.'
-    : 'From startups to Russia\'s largest companies — backend, microservices, payment systems. Currently pursuing IT Product Management at HSE and researching agentic AI.'
+    ? 'От стартапов до крупнейших компаний России — backend, микросервисы, платёжные системы. Изучаю продуктовый менеджмент в НИУ ВШЭ и исследую агентный ИИ.'
+    : "From startups to Russia's largest companies — backend, microservices, payment systems. Pursuing IT Product Management at HSE and researching agentic AI."
 
   const bubbles = lang === 'ru'
     ? [
-        { label: 'Мой путь', href: '#experience' },
-        { label: 'Что строю', href: '#portfolio' },
-        { label: 'Поговорим', href: '#contact' },
-        { label: 'Написать', href: 'https://t.me/sergey_in_job', external: true, highlighted: true },
+        { icon: 'briefcase', label: 'Мой путь', href: '#experience' },
+        { icon: 'folder', label: 'Что строю', href: '#portfolio' },
+        { icon: 'mail', label: 'Поговорим', href: '#contact' },
+        { icon: 'send', label: 'Написать', href: 'https://t.me/sergey_in_job', external: true, highlighted: true },
       ]
     : [
-        { label: 'My path', href: '#experience' },
-        { label: 'What I build', href: '#portfolio' },
-        { label: "Let's talk", href: '#contact' },
-        { label: 'Message', href: 'https://t.me/sergey_in_job', external: true, highlighted: true },
+        { icon: 'briefcase', label: 'My path', href: '#experience' },
+        { icon: 'folder', label: 'What I build', href: '#portfolio' },
+        { icon: 'mail', label: "Let's talk", href: '#contact' },
+        { icon: 'send', label: 'Message', href: 'https://t.me/sergey_in_job', external: true, highlighted: true },
       ]
 
+  const iconMap: Record<string, React.ReactNode> = {
+    briefcase: <Briefcase className="w-4 h-4" />,
+    folder: <FolderOpen className="w-4 h-4" />,
+    mail: <Mail className="w-4 h-4" />,
+    send: <Send className="w-4 h-4" />,
+  }
+
   return (
-    <div ref={ref} className={`max-w-3xl mx-auto px-6 py-12 text-center transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-      <p className="text-2xl sm:text-3xl font-display font-bold text-foreground mb-4" style={{ animation: visible ? 'nav-fade-in 0.8s ease-out' : 'none' }}>
-        {headline}
+    <div ref={ref} className={`max-w-3xl mx-auto px-6 py-16 text-center transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      <p className="text-2xl sm:text-4xl font-display font-bold text-foreground mb-5">
+        {headline.pre}<BeamPill>{headline.highlight}</BeamPill>{headline.post}
       </p>
-      <p className="text-muted-foreground leading-relaxed mb-6 max-w-xl mx-auto" style={{ animation: visible ? 'nav-fade-in 1.2s ease-out' : 'none' }}>
+      <p className="text-muted-foreground leading-relaxed mb-8 max-w-xl mx-auto text-lg">
         {subtext}
       </p>
-      <div className="flex flex-wrap justify-center gap-3" style={{ animation: visible ? 'nav-fade-in 1.5s ease-out' : 'none' }}>
+      <div className="flex flex-wrap justify-center gap-3">
         {bubbles.map((b) =>
           b.external ? (
-            <a
-              key={b.label}
-              href={b.href}
-              target="_blank"
-              rel="noopener noreferrer"
+            <a key={b.label} href={b.href} target="_blank" rel="noopener noreferrer"
               className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all ${
-                b.highlighted
-                  ? 'bg-gradient-theme text-white shadow-lg hover:shadow-xl hover:scale-105'
-                  : 'bg-card border border-border text-foreground hover:border-primary/50'
-              }`}
-            >
-              {b.highlighted && <Send className="w-4 h-4" />}
-              {b.label}
+                b.highlighted ? 'bg-gradient-theme text-white shadow-lg hover:shadow-xl hover:scale-105' : 'bg-card border border-border text-foreground hover:border-primary/50'
+              }`}>
+              {iconMap[b.icon]}{b.label}
             </a>
           ) : (
-            <a
-              key={b.label}
-              href={b.href}
+            <a key={b.label} href={b.href}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium bg-card border border-border text-foreground hover:border-primary/50 transition-all"
-              onClick={(e) => {
-                e.preventDefault()
-                document.querySelector(b.href)?.scrollIntoView({ behavior: 'smooth' })
-              }}
-            >
-              {b.label}
+              onClick={(e) => { e.preventDefault(); document.querySelector(b.href)?.scrollIntoView({ behavior: 'smooth' }) }}>
+              {iconMap[b.icon]}{b.label}
             </a>
           )
         )}
@@ -184,16 +199,7 @@ function StorySection() {
   )
 }
 
-/* ─── Left Sidebar Nav ─── */
-
-const sectionIcons: Record<string, React.ReactNode> = {
-  experience: <Briefcase className="w-4 h-4" />,
-  portfolio: <Layout className="w-4 h-4" />,
-  projects: <FolderOpen className="w-4 h-4" />,
-  education: <GraduationCap className="w-4 h-4" />,
-  skills: <Code2 className="w-4 h-4" />,
-  contact: <Mail className="w-4 h-4" />,
-}
+/* ─── Left Sidebar ─── */
 
 function LeftSidebar() {
   const { lang } = useLang()
@@ -207,6 +213,7 @@ function LeftSidebar() {
     { id: 'projects', label: t.nav.projects },
     { id: 'education', label: t.nav.education },
     { id: 'skills', label: t.nav.skills },
+    { id: 'testimonials', label: t.sections.testimonials },
     { id: 'contact', label: t.nav.contact },
   ]
 
@@ -215,61 +222,42 @@ function LeftSidebar() {
     setMobileOpen(false)
   }, [])
 
+  const navItems = (isMobile: boolean) => (
+    <nav className="space-y-1">
+      {links.map(({ id, label }) => (
+        <button key={id} type="button" onClick={() => scrollTo(id)}
+          className={`flex items-center gap-2.5 w-full px-3 ${isMobile ? 'py-2.5' : 'py-2'} rounded-lg text-sm font-medium transition-all ${
+            activeSection === id
+              ? 'text-primary bg-primary/10 border-l-2 border-primary'
+              : 'text-muted-foreground hover:text-foreground hover:bg-muted/50 border-l-2 border-transparent'
+          }`}>
+          {sectionIcons[id]}{label}
+        </button>
+      ))}
+    </nav>
+  )
+
   return (
     <>
-      {/* Desktop: fixed left sidebar */}
-      <aside className="hidden xl:flex fixed left-0 top-0 bottom-0 w-52 z-40 flex-col justify-center pl-5 pr-3">
-        <nav className="space-y-1">
-          {links.map(({ id, label }) => (
-            <button
-              key={id}
-              type="button"
-              onClick={() => scrollTo(id)}
-              className={`flex items-center gap-2.5 w-full px-3 py-2 rounded-lg text-sm font-medium transition-all ${
-                activeSection === id
-                  ? 'text-primary bg-primary/10 border-l-2 border-primary'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/50 border-l-2 border-transparent'
-              }`}
-            >
-              {sectionIcons[id]}
-              {label}
-            </button>
-          ))}
-        </nav>
+      {/* Desktop sidebar — scrolls with page, not fixed */}
+      <aside className="hidden xl:block fixed left-0 top-1/2 -translate-y-1/2 w-48 z-40 pl-4 pr-2">
+        {navItems(false)}
       </aside>
 
-      {/* Mobile: hamburger button (fixed top-left) */}
-      <button
-        type="button"
-        onClick={() => setMobileOpen(!mobileOpen)}
+      {/* Mobile hamburger */}
+      <button type="button" onClick={() => setMobileOpen(!mobileOpen)}
         className="xl:hidden fixed top-4 left-4 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-card border border-border shadow-lg hover:border-primary/50 transition-colors"
-        aria-label="Menu"
-      >
+        aria-label="Menu">
         {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
       </button>
 
-      {/* Mobile: overlay sidebar */}
+      {/* Mobile overlay */}
       {mobileOpen && (
         <>
           <div className="xl:hidden fixed inset-0 z-40 bg-background/60 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
-          <aside className="xl:hidden fixed left-0 top-0 bottom-0 w-64 z-50 bg-card border-r border-border p-6 pt-20 shadow-2xl" style={{ animation: 'nav-fade-in 0.2s ease-out' }}>
-            <nav className="space-y-1">
-              {links.map(({ id, label }) => (
-                <button
-                  key={id}
-                  type="button"
-                  onClick={() => scrollTo(id)}
-                  className={`flex items-center gap-2.5 w-full px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
-                    activeSection === id
-                      ? 'text-primary bg-primary/10 border-l-2 border-primary'
-                      : 'text-muted-foreground hover:text-foreground hover:bg-muted/50 border-l-2 border-transparent'
-                  }`}
-                >
-                  {sectionIcons[id]}
-                  {label}
-                </button>
-              ))}
-            </nav>
+          <aside className="xl:hidden fixed left-0 top-0 bottom-0 w-64 z-50 bg-card border-r border-border p-6 pt-20 shadow-2xl"
+            style={{ animation: 'nav-fade-in 0.2s ease-out' }}>
+            {navItems(true)}
           </aside>
         </>
       )}
@@ -277,32 +265,40 @@ function LeftSidebar() {
   )
 }
 
-/* ─── Floating Telegram CTA ─── */
+/* ─── Testimonial with expandable image ─── */
 
-function FloatingCTA() {
-  const { lang } = useLang()
-  const t = translations[lang]
-  const [show, setShow] = useState(false)
-
-  useEffect(() => {
-    const timer = setTimeout(() => setShow(true), 1500)
-    return () => clearTimeout(timer)
-  }, [])
-
-  if (!show) return null
-
+function TestimonialCard({ testimonial }: { testimonial: { company: string; person: string; text: string; date: string; image: string } }) {
+  const [expanded, setExpanded] = useState(false)
   return (
-    <a
-      href="https://t.me/sergey_in_job"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-5 py-3 rounded-full bg-gradient-theme text-white font-medium shadow-xl hover:shadow-2xl hover:scale-105 transition-all"
-      style={{ animation: 'nav-fade-in 0.5s ease-out' }}
-      title={t.hero.askMe}
-    >
-      <MessageCircle className="w-5 h-5" />
-      <span className="hidden sm:inline">{t.hero.askMe}</span>
-    </a>
+    <>
+      <div className="bg-card border border-border rounded-2xl p-6 hover:border-primary/30 transition-colors">
+        <div className="flex items-start gap-3 mb-3">
+          <button type="button" onClick={() => setExpanded(true)}
+            className="w-14 h-14 rounded-xl border border-border overflow-hidden shrink-0 hover:border-primary/50 transition-colors cursor-pointer">
+            <img src={testimonial.image} alt={testimonial.company} className="w-full h-full object-cover" loading="lazy" />
+          </button>
+          <div>
+            <h3 className="font-display font-semibold text-foreground text-sm">{testimonial.company}</h3>
+            <p className="text-muted-foreground text-xs">{testimonial.person}</p>
+            <p className="text-muted-foreground text-xs">{testimonial.date}</p>
+          </div>
+        </div>
+        <p className="text-muted-foreground text-sm leading-relaxed italic">"{testimonial.text}"</p>
+      </div>
+
+      {/* Expanded image lightbox */}
+      {expanded && (
+        <div className="fixed inset-0 z-[60] bg-background/80 backdrop-blur-md flex items-center justify-center p-6" onClick={() => setExpanded(false)}>
+          <div className="relative max-w-2xl max-h-[80vh]">
+            <img src={testimonial.image} alt={testimonial.company} className="w-full h-full object-contain rounded-xl shadow-2xl" />
+            <button type="button" onClick={() => setExpanded(false)}
+              className="absolute top-2 right-2 w-8 h-8 rounded-full bg-card border border-border flex items-center justify-center">
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   )
 }
 
@@ -311,26 +307,23 @@ function FloatingCTA() {
 export default function App() {
   const { lang } = useLang()
   const t = translations[lang]
-
-  /* Filter out Авито Путешествия / Avito Travel from projects */
   const filteredProjects = t.projects.filter(
     (proj) => proj.name !== 'Авито Путешествия' && proj.name !== 'Avito Travel'
   )
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-      {/* HERO */}
+      {/* ═══ HERO ═══ */}
       <div className="relative overflow-hidden">
         <DotGrid />
         <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-[hsl(var(--hero-orb-primary))] blur-[120px] pointer-events-none" style={{ animation: 'hero-glow 8s ease-in-out infinite' }} />
         <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-[hsl(var(--hero-orb-accent))] blur-[100px] pointer-events-none" style={{ animation: 'hero-glow 10s ease-in-out infinite 2s' }} />
 
-        <div className="relative z-10 max-w-4xl mx-auto px-6 pt-24 pb-20 sm:pt-32 sm:pb-28">
+        <div className="relative z-10 max-w-4xl mx-auto px-6 pt-24 pb-16 sm:pt-32 sm:pb-24">
           <div className="flex flex-col items-center text-center gap-6">
-            <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full border-2 border-primary/30 overflow-hidden shadow-xl">
+            <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full border-2 border-primary/30 overflow-hidden shadow-xl animate-shimmer">
               <img src="/foto-avatar.webp" alt={t.hero.name} width={176} height={176} className="w-full h-full object-cover" />
             </div>
-
             <div>
               <h1 className="text-4xl sm:text-5xl font-display font-bold text-foreground mb-2">{t.hero.name}</h1>
               <p className="text-xl sm:text-2xl font-display text-primary font-medium">{t.hero.role}</p>
@@ -338,20 +331,23 @@ export default function App() {
                 <Building2 className="w-4 h-4" />{t.hero.company}
               </p>
             </div>
-
             <p className="max-w-2xl text-muted-foreground leading-relaxed">{t.hero.bio}</p>
 
             <div className="flex flex-wrap justify-center gap-3 mt-2">
-              <a href={lang === 'ru' ? '/Емельянов_Сергей_CV.pdf' : '/Sergey_Emelyanov_CV_EN.pdf'} download className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors">
-                <ChevronDown className="w-4 h-4" />{t.hero.downloadCV}
+              <a href={lang === 'ru' ? '/Емельянов_Сергей_CV.pdf' : '/Sergey_Emelyanov_CV_EN.pdf'} download
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors">
+                <Download className="w-4 h-4" />{t.hero.downloadCV}
               </a>
-              <a href="https://github.com/Fighter90" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-card border border-border text-foreground font-medium hover:border-primary/50 transition-colors">
+              <a href="https://github.com/Fighter90" target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-card border border-border text-foreground font-medium hover:border-primary/50 transition-colors">
                 <Github className="w-4 h-4" />GitHub
               </a>
-              <a href={`https://linkedin.com/in/${t.contact.linkedin}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-card border border-border text-foreground font-medium hover:border-[hsl(var(--linkedin))]/50 transition-colors">
+              <a href={`https://www.linkedin.com/in/${t.contact.linkedin}/`} target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-card border border-border text-foreground font-medium hover:border-[hsl(var(--linkedin))]/50 transition-colors">
                 <LinkedInIcon className="w-4 h-4" />LinkedIn
               </a>
-              <a href="https://t.me/sergey_in_job" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-card border border-border text-foreground font-medium hover:border-primary/50 transition-colors">
+              <a href="https://t.me/sergey_in_job" target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-card border border-border text-foreground font-medium hover:border-primary/50 transition-colors">
                 <Send className="w-4 h-4" />{t.hero.telegram}
               </a>
             </div>
@@ -359,13 +355,14 @@ export default function App() {
         </div>
       </div>
 
-      {/* STORY / NARRATIVE */}
+      {/* ═══ STORY ═══ */}
       <StorySection />
 
-      {/* LEFT SIDEBAR NAV */}
+      {/* ═══ LEFT SIDEBAR ═══ */}
       <LeftSidebar />
 
-      <div className="max-w-4xl mx-auto px-6 xl:ml-52 xl:mr-auto xl:max-w-3xl pb-20 space-y-20 mt-12">
+      {/* ═══ MAIN CONTENT (centered, not shifted) ═══ */}
+      <div className="max-w-4xl mx-auto px-6 pb-20 space-y-20">
 
         {/* EXPERIENCE */}
         <Section id="experience">
@@ -407,35 +404,32 @@ export default function App() {
           </div>
         </Section>
 
-        {/* PORTFOLIO (Webguru projects) */}
+        {/* PORTFOLIO */}
         <Section id="portfolio">
           <h2 className="text-2xl sm:text-3xl font-display font-bold text-foreground mb-4 flex items-center gap-3">
             <Layout className="w-7 h-7 text-primary" />{t.sections.portfolio}
           </h2>
           <div className="flex flex-wrap gap-3 mb-8">
-            <a
-              href="/Portfolio.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-card border border-border text-foreground text-sm font-medium hover:border-primary/50 transition-colors"
-            >
-              <FileText className="w-4 h-4 text-primary" />
-              {lang === 'ru' ? 'Портфолио (PDF)' : 'Portfolio (PDF)'}
+            <a href="/Portfolio.pdf" target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-card border border-border text-foreground text-sm font-medium hover:border-primary/50 transition-colors">
+              <FileText className="w-4 h-4 text-primary" />{lang === 'ru' ? 'Портфолио (PDF)' : 'Portfolio (PDF)'}
             </a>
-            <a
-              href="/Portfolio.Services.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-card border border-border text-foreground text-sm font-medium hover:border-primary/50 transition-colors"
-            >
-              <FileText className="w-4 h-4 text-primary" />
-              {lang === 'ru' ? 'Портфолио сервисов (PDF)' : 'Services Portfolio (PDF)'}
+            <a href="/Portfolio.Services.pdf" target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-card border border-border text-foreground text-sm font-medium hover:border-primary/50 transition-colors">
+              <FileText className="w-4 h-4 text-primary" />{lang === 'ru' ? 'Портфолио сервисов (PDF)' : 'Services Portfolio (PDF)'}
             </a>
           </div>
           <div className="grid gap-5 sm:grid-cols-2">
             {t.portfolio.map((item, i) => (
               <div key={i} className="bg-card border border-border rounded-2xl p-6 hover:border-primary/30 transition-colors flex flex-col group">
-                <h3 className="text-lg font-display font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">{item.name}</h3>
+                <div className="flex items-start justify-between gap-2 mb-1">
+                  <h3 className="text-lg font-display font-semibold text-foreground group-hover:text-primary transition-colors">{item.name}</h3>
+                  {'url' in item && item.url && (
+                    <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80 shrink-0" aria-label={item.name}>
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
+                  )}
+                </div>
                 <p className="text-primary text-sm font-medium mb-3">{item.description}</p>
                 <ul className="space-y-1.5 mb-4 flex-1">
                   {item.details.map((d: string, j: number) => (
@@ -463,7 +457,7 @@ export default function App() {
                 <div className="flex items-start justify-between gap-2 mb-2">
                   <h3 className="text-lg font-display font-semibold text-foreground">{proj.name}</h3>
                   {'url' in proj && proj.url && (
-                    <a href={proj.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80 shrink-0" aria-label={`Open ${proj.name}`}>
+                    <a href={proj.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80 shrink-0" aria-label={proj.name}>
                       <ExternalLink className="w-4 h-4" />
                     </a>
                   )}
@@ -488,7 +482,7 @@ export default function App() {
           <div className="grid gap-4">
             {t.education.map((edu, i) => (
               <div key={i} className="bg-card border border-border rounded-2xl p-6 hover:border-primary/30 transition-colors">
-                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 mb-2">
                   <div>
                     <h3 className="text-lg font-display font-semibold text-foreground">{edu.institution}</h3>
                     <p className="text-primary font-medium">{edu.degree} — {edu.field}</p>
@@ -500,6 +494,16 @@ export default function App() {
                     )}
                   </div>
                 </div>
+                {'courses' in edu && edu.courses && (
+                  <div className="flex items-start gap-2 mt-2">
+                    <BookOpen className="w-4 h-4 text-muted-foreground mt-0.5 shrink-0" />
+                    <div className="flex flex-wrap gap-1.5">
+                      {edu.courses.map((c: string) => (
+                        <span key={c} className="badge px-2 py-0.5 bg-muted text-muted-foreground text-xs">{c}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -514,8 +518,7 @@ export default function App() {
             {Object.entries(t.skills).map(([key, cat]) => (
               <div key={cat.title} className="bg-card border border-border rounded-2xl p-5 hover:border-primary/30 transition-colors">
                 <h3 className="font-display font-semibold text-foreground mb-3 flex items-center gap-2">
-                  {skillCategoryIcons[key]}
-                  {cat.title}
+                  {skillIcons[key]}{cat.title}
                 </h3>
                 <div className="flex flex-wrap gap-1.5">
                   {cat.items.map((skill: string) => (
@@ -523,6 +526,18 @@ export default function App() {
                   ))}
                 </div>
               </div>
+            ))}
+          </div>
+        </Section>
+
+        {/* TESTIMONIALS */}
+        <Section id="testimonials">
+          <h2 className="text-2xl sm:text-3xl font-display font-bold text-foreground mb-8 flex items-center gap-3">
+            <Quote className="w-7 h-7 text-primary" />{t.sections.testimonials}
+          </h2>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {t.testimonials.map((item, i) => (
+              <TestimonialCard key={i} testimonial={item} />
             ))}
           </div>
         </Section>
@@ -544,24 +559,15 @@ export default function App() {
               </a>
               <a href={`https://github.com/${t.contact.github}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-4 rounded-xl bg-muted/30 hover:bg-primary/10 transition-colors group">
                 <Github className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
-                <div>
-                  <p className="text-xs text-muted-foreground">GitHub</p>
-                  <p className="text-foreground font-medium text-sm">{t.contact.github}</p>
-                </div>
+                <div><p className="text-xs text-muted-foreground">GitHub</p><p className="text-foreground font-medium text-sm">{t.contact.github}</p></div>
               </a>
-              <a href={`https://linkedin.com/in/${t.contact.linkedin}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-4 rounded-xl bg-muted/30 hover:bg-[hsl(var(--linkedin))]/10 transition-colors group min-w-0">
+              <a href={`https://www.linkedin.com/in/${t.contact.linkedin}/`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-4 rounded-xl bg-muted/30 hover:bg-[hsl(var(--linkedin))]/10 transition-colors group min-w-0">
                 <LinkedInIcon className="w-5 h-5 text-[hsl(var(--linkedin))] group-hover:scale-110 transition-transform shrink-0" />
-                <div className="min-w-0">
-                  <p className="text-xs text-muted-foreground">LinkedIn</p>
-                  <p className="text-foreground font-medium text-xs sm:text-sm truncate">{t.contact.linkedin}</p>
-                </div>
+                <div className="min-w-0"><p className="text-xs text-muted-foreground">LinkedIn</p><p className="text-foreground font-medium text-xs sm:text-sm truncate">{t.contact.linkedin}</p></div>
               </a>
               <a href="https://t.me/sergey_in_job" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-4 rounded-xl bg-muted/30 hover:bg-primary/10 transition-colors group">
                 <Send className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
-                <div>
-                  <p className="text-xs text-muted-foreground">Telegram</p>
-                  <p className="text-foreground font-medium text-sm">{t.contact.telegram}</p>
-                </div>
+                <div><p className="text-xs text-muted-foreground">Telegram</p><p className="text-foreground font-medium text-sm">{t.contact.telegram}</p></div>
               </a>
             </div>
           </div>
@@ -573,8 +579,10 @@ export default function App() {
         <p className="text-muted-foreground text-sm">{t.footer.builtWith}</p>
       </footer>
 
-      {/* Floating Telegram CTA */}
-      <FloatingCTA />
+      {/* AI CHAT ASSISTANT */}
+      <Suspense fallback={null}>
+        <FloatingChat />
+      </Suspense>
     </main>
   )
 }

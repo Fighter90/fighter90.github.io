@@ -493,6 +493,14 @@ button, a, [role="button"], summary { cursor: pointer; }
   text-align: center;
 }
 
+/* BeamPill healing particles (from santifer.io) */
+@keyframes heal-float {
+  0% { opacity: 0; transform: translateY(0) scale(0.5); }
+  20% { opacity: 0.8; transform: translateY(-12px) scale(1); }
+  80% { opacity: 0.3; transform: translateY(-40px) scale(0.8); }
+  100% { opacity: 0; transform: translateY(-60px) scale(0.3); }
+}
+
 /* Typewriter cursor blink animation */
 @keyframes blink {
   0%, 100% { opacity: 1; }
