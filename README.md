@@ -1,6 +1,6 @@
 # Сергей Емельянов — Portfolio
 
-**[:ru: Русский](#о-проекте)** | **[:gb: English](#about)**
+**[Русский](#о-проекте)** | **[English](#about)**
 
 > Двуязычное интерактивное портфолио Senior Software Engineer (PHP/Go) с 14+ годами опыта. Деплой на GitHub Pages.
 
@@ -120,7 +120,7 @@ MIT
 
 ---
 
-# :gb: About
+## About
 
 > Bilingual interactive portfolio of a Senior Software Engineer (PHP/Go) with 14+ years of experience. Deployed on GitHub Pages.
 
