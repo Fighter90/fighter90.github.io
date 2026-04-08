@@ -19,6 +19,32 @@ function LinkedInIcon({ className = "w-5 h-5" }: { className?: string }) {
   )
 }
 
+/* ─── Typewriter Hook (from santifer.io) ─── */
+
+function useTypewriter(roles: readonly string[], { typeSpeed = 70, deleteSpeed = 50, pause = 2000 } = {}) {
+  const [roleIndex, setRoleIndex] = useState(0)
+  const [text, setText] = useState('')
+  const [deleting, setDeleting] = useState(false)
+
+  useEffect(() => {
+    const current = roles[roleIndex]
+    let timeout: ReturnType<typeof setTimeout>
+
+    if (!deleting && text === current) {
+      timeout = setTimeout(() => setDeleting(true), pause)
+    } else if (deleting && text === '') {
+      timeout = setTimeout(() => { setRoleIndex((i) => (i + 1) % roles.length); setDeleting(false) }, 300)
+    } else if (deleting) {
+      timeout = setTimeout(() => setText(current.slice(0, text.length - 1)), deleteSpeed)
+    } else {
+      timeout = setTimeout(() => setText(current.slice(0, text.length + 1)), typeSpeed + Math.random() * 40)
+    }
+    return () => clearTimeout(timeout)
+  }, [text, deleting, roleIndex, roles, typeSpeed, deleteSpeed, pause])
+
+  return text
+}
+
 /* ─── Skill Category Icons ─── */
 const skillIcons: Record<string, React.ReactNode> = {
   backend: <Server className="w-5 h-5 text-primary" />,
@@ -226,7 +252,7 @@ function LeftSidebar() {
     <nav className="space-y-1">
       {links.map(({ id, label }) => (
         <button key={id} type="button" onClick={() => scrollTo(id)}
-          className={`flex items-center gap-2.5 w-full px-3 ${isMobile ? 'py-2.5' : 'py-2'} rounded-lg text-sm font-medium transition-all ${
+          className={`sidebar-link flex items-center gap-2.5 w-full px-3 ${isMobile ? 'py-2.5' : 'py-2'} rounded-lg text-sm font-medium ${
             activeSection === id
               ? 'text-primary bg-primary/10 border-l-2 border-primary'
               : 'text-muted-foreground hover:text-foreground hover:bg-muted/50 border-l-2 border-transparent'
@@ -288,12 +314,13 @@ function TestimonialCard({ testimonial }: { testimonial: { company: string; pers
 
       {/* Expanded image lightbox */}
       {expanded && (
-        <div className="fixed inset-0 z-[60] bg-background/80 backdrop-blur-md flex items-center justify-center p-6" onClick={() => setExpanded(false)}>
-          <div className="relative max-w-2xl max-h-[80vh]">
-            <img src={testimonial.image} alt={testimonial.company} className="w-full h-full object-contain rounded-xl shadow-2xl" />
+        <div className="fixed inset-0 z-[60] bg-background/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6" onClick={() => setExpanded(false)}
+          style={{ animation: 'lightbox-in 0.3s ease-out' }}>
+          <div className="relative max-w-3xl w-full max-h-[85vh]" onClick={(e) => e.stopPropagation()}>
+            <img src={testimonial.image} alt={testimonial.company} className="w-full h-auto object-contain rounded-2xl shadow-2xl border border-border" />
             <button type="button" onClick={() => setExpanded(false)}
-              className="absolute top-2 right-2 w-8 h-8 rounded-full bg-card border border-border flex items-center justify-center">
-              <X className="w-4 h-4" />
+              className="absolute -top-3 -right-3 w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center shadow-lg hover:bg-primary/10 transition-colors">
+              <X className="w-5 h-5" />
             </button>
           </div>
         </div>
@@ -307,6 +334,11 @@ function TestimonialCard({ testimonial }: { testimonial: { company: string; pers
 export default function App() {
   const { lang } = useLang()
   const t = translations[lang]
+  const roles = lang === 'ru'
+    ? ['Senior Software Engineer', 'Backend-архитектор', 'PHP/Go разработчик', 'AI-исследователь'] as const
+    : ['Senior Software Engineer', 'Backend Architect', 'PHP/Go Developer', 'AI Researcher'] as const
+  const typedRole = useTypewriter(roles)
+
   const filteredProjects = t.projects.filter(
     (proj) => proj.name !== 'Авито Путешествия' && proj.name !== 'Avito Travel'
   )
@@ -326,7 +358,9 @@ export default function App() {
             </div>
             <div>
               <h1 className="text-4xl sm:text-5xl font-display font-bold text-foreground mb-2">{t.hero.name}</h1>
-              <p className="text-xl sm:text-2xl font-display text-primary font-medium">{t.hero.role}</p>
+              <p className="text-xl sm:text-2xl font-display text-primary font-medium h-8 sm:h-10">
+                {typedRole}<span className="inline-block w-0.5 h-5 sm:h-6 bg-primary ml-0.5 align-middle" style={{ animation: 'blink 1s step-end infinite' }} />
+              </p>
               <p className="text-muted-foreground mt-1 flex items-center justify-center gap-1.5">
                 <Building2 className="w-4 h-4" />{t.hero.company}
               </p>
@@ -371,7 +405,7 @@ export default function App() {
           </h2>
           <div className="space-y-6">
             {t.experience.map((job, i) => (
-              <div key={i} className="bg-card border border-border rounded-2xl p-6 hover:border-primary/30 transition-colors">
+              <div key={i} className="bg-card border border-border rounded-2xl p-6 card-hover hover:border-primary/30" style={{ animation: `stagger-in 0.5s ease-out ${i * 0.1}s both` }}>
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 mb-3">
                   <div>
                     <h3 className="text-lg font-display font-semibold text-foreground">{job.company}</h3>
@@ -421,7 +455,7 @@ export default function App() {
           </div>
           <div className="grid gap-5 sm:grid-cols-2">
             {t.portfolio.map((item, i) => (
-              <div key={i} className="bg-card border border-border rounded-2xl p-6 hover:border-primary/30 transition-colors flex flex-col group">
+              <div key={i} className="bg-card border border-border rounded-2xl p-6 card-hover hover:border-primary/30 flex flex-col group" style={{ animation: `stagger-in 0.4s ease-out ${i * 0.08}s both` }}>
                 <div className="flex items-start justify-between gap-2 mb-1">
                   <h3 className="text-lg font-display font-semibold text-foreground group-hover:text-primary transition-colors">{item.name}</h3>
                   {'url' in item && item.url && (
