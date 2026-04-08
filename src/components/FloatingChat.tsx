@@ -173,6 +173,28 @@ const headerCopy: Record<Lang, { name: string; subtitle: string; greeting: strin
 let _id = 0
 const uid = () => `msg-${++_id}-${Date.now()}`
 
+/** Auto-link URLs, emails, @telegram handles, and LinkedIn usernames in text */
+function Linkify({ text }: { text: string }) {
+  const parts = text.split(/(\bhttps?:\/\/\S+|[\w.+-]+@[\w.-]+\.\w+|@[\w_]+|linkedin:[\w-]+)/g)
+  return (
+    <>
+      {parts.map((part, i) => {
+        if (/^https?:\/\//.test(part))
+          return <a key={i} href={part} target="_blank" rel="noopener noreferrer" className="underline text-primary hover:text-primary/80">{part}</a>
+        if (/^[\w.+-]+@[\w.-]+\.\w+$/.test(part))
+          return <a key={i} href={`mailto:${part}`} className="underline text-primary hover:text-primary/80">{part}</a>
+        if (/^@[\w_]+$/.test(part))
+          return <a key={i} href={`https://t.me/${part.slice(1)}`} target="_blank" rel="noopener noreferrer" className="underline text-primary hover:text-primary/80">{part}</a>
+        if (/^linkedin:/.test(part)) {
+          const handle = part.replace('linkedin:', '')
+          return <a key={i} href={`https://www.linkedin.com/in/${handle}/`} target="_blank" rel="noopener noreferrer" className="underline text-primary hover:text-primary/80">LinkedIn</a>
+        }
+        return <span key={i}>{part}</span>
+      })}
+    </>
+  )
+}
+
 /* ------------------------------------------------------------------ */
 /*  Component                                                          */
 /* ------------------------------------------------------------------ */
@@ -233,8 +255,8 @@ export default function FloatingChat() {
         : 'Deep backend expertise (14+ years) + pursuing Product Management master\'s at HSE. I design architecture, mentor teams, ship to production. Researching AI in business processes.'
     if (lower.includes('контакт') || lower.includes('contact') || lower.includes('связ'))
       return lang === 'ru'
-        ? 'Email: pochtasergeia@gmail.com\nTelegram: @sergey_in_job\nLinkedIn: sergey-emelyanov-in-job\nGitHub: Fighter90'
-        : 'Email: pochtasergeia@gmail.com\nTelegram: @sergey_in_job\nLinkedIn: sergey-emelyanov-in-job\nGitHub: Fighter90'
+        ? 'Email: pochtasergeia@gmail.com\nTelegram: @sergey_in_job\nLinkedIn: linkedin:sergey-emelyanov-in-job\nGitHub: https://github.com/Fighter90'
+        : 'Email: pochtasergeia@gmail.com\nTelegram: @sergey_in_job\nLinkedIn: linkedin:sergey-emelyanov-in-job\nGitHub: https://github.com/Fighter90'
     return lang === 'ru'
       ? 'Спасибо за вопрос! Для подробного ответа напишите мне в Telegram: @sergey_in_job — отвечу лично.'
       : 'Thanks for asking! For a detailed answer, message me on Telegram: @sergey_in_job — I\'ll reply personally.'
@@ -343,7 +365,7 @@ export default function FloatingChat() {
                   ? 'bg-primary text-primary-foreground rounded-br-sm'
                   : 'bg-muted text-foreground rounded-bl-sm'
               }`}>
-                {msg.text}
+                <Linkify text={msg.text} />
               </div>
             </div>
           ))}
@@ -352,7 +374,7 @@ export default function FloatingChat() {
           {isStreaming && (
             <div className="flex justify-start animate-chat-msg">
               <div className="max-w-[85%] rounded-2xl rounded-bl-sm bg-muted text-foreground px-3.5 py-2.5 text-sm leading-relaxed whitespace-pre-wrap">
-                {streamText || (
+                {streamText ? <Linkify text={streamText} /> : (
                   <span className="flex items-center gap-1">
                     <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted-foreground [animation-delay:0ms]" />
                     <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted-foreground [animation-delay:150ms]" />
