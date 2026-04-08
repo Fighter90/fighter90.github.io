@@ -300,8 +300,8 @@ export const translations = {
       title: 'Связаться со мной',
       email: 'pochtasergeia@gmail.com',
       github: 'Fighter90',
-      telegram: '@fighter90',
-      linkedin: 'sergey-emelyanov-dev',
+      telegram: '@sergey_in_job',
+      linkedin: 'sergey-emelyanov-in-job',
     },
     footer: {
       builtWith: 'Собрано с помощью React, TypeScript и Claude',
@@ -606,8 +606,8 @@ export const translations = {
       title: 'Get in Touch',
       email: 'pochtasergeia@gmail.com',
       github: 'Fighter90',
-      telegram: '@fighter90',
-      linkedin: 'sergey-emelyanov-dev',
+      telegram: '@sergey_in_job',
+      linkedin: 'sergey-emelyanov-in-job',
     },
     footer: {
       builtWith: 'Built with React, TypeScript & Claude',
