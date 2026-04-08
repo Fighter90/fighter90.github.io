@@ -39,8 +39,8 @@
 ## Быстрый старт
 
 ```bash
-git clone https://github.com/Fighter90/cv-santiago.git
-cd cv-santiago
+git clone https://github.com/Fighter90/fighter90.github.io.git
+cd fighter90.github.io
 npm install
 npm run dev
 ```
@@ -162,8 +162,8 @@ An interactive portfolio that **demonstrates skills in practice**: modern tech s
 ## Quick Start
 
 ```bash
-git clone https://github.com/Fighter90/cv-santiago.git
-cd cv-santiago
+git clone https://github.com/Fighter90/fighter90.github.io.git
+cd fighter90.github.io
 npm install
 npm run dev
 ```
