@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef, useCallback, lazy, Suspense } from 'react'
+import { createPortal } from 'react-dom'
 import {
   Mail, Github, Send, Briefcase, GraduationCap, Code2, FolderOpen,
   MapPin, Building2, Calendar, Download, ExternalLink, Award,
@@ -265,8 +266,8 @@ function LeftSidebar() {
 
   return (
     <>
-      {/* Desktop sidebar — scrolls with page, not fixed */}
-      <aside className="hidden xl:block fixed left-0 top-1/2 -translate-y-1/2 w-48 z-40 pl-4 pr-2">
+      {/* Desktop sidebar — centered vertically, fixed */}
+      <aside className="hidden xl:flex fixed left-0 top-0 bottom-0 w-52 z-40 flex-col justify-center pl-5 pr-3">
         {navItems(false)}
       </aside>
 
@@ -295,12 +296,21 @@ function LeftSidebar() {
 
 function TestimonialCard({ testimonial }: { testimonial: { company: string; person: string; text: string; date: string; image: string } }) {
   const [expanded, setExpanded] = useState(false)
+
+  // Lock body scroll when lightbox is open
+  useEffect(() => {
+    if (expanded) {
+      document.body.style.overflow = 'hidden'
+      return () => { document.body.style.overflow = '' }
+    }
+  }, [expanded])
+
   return (
     <>
-      <div className="bg-card border border-border rounded-2xl p-6 hover:border-primary/30 transition-colors">
+      <div className="bg-card border border-border rounded-2xl p-6 card-hover hover:border-primary/30">
         <div className="flex items-start gap-3 mb-3">
           <button type="button" onClick={() => setExpanded(true)}
-            className="w-14 h-14 rounded-xl border border-border overflow-hidden shrink-0 hover:border-primary/50 transition-colors cursor-pointer">
+            className="w-16 h-16 rounded-xl border-2 border-border overflow-hidden shrink-0 hover:border-primary/50 hover:shadow-lg transition-all cursor-pointer">
             <img src={testimonial.image} alt={testimonial.company} className="w-full h-full object-cover" loading="lazy" />
           </button>
           <div>
@@ -312,18 +322,20 @@ function TestimonialCard({ testimonial }: { testimonial: { company: string; pers
         <p className="text-muted-foreground text-sm leading-relaxed italic">"{testimonial.text}"</p>
       </div>
 
-      {/* Expanded image lightbox */}
-      {expanded && (
-        <div className="fixed inset-0 z-[60] bg-background/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6" onClick={() => setExpanded(false)}
-          style={{ animation: 'lightbox-in 0.3s ease-out' }}>
-          <div className="relative max-w-3xl w-full max-h-[85vh]" onClick={(e) => e.stopPropagation()}>
-            <img src={testimonial.image} alt={testimonial.company} className="w-full h-auto object-contain rounded-2xl shadow-2xl border border-border" />
+      {/* Lightbox — z-[200] to cover EVERYTHING including sidebar and chat */}
+      {expanded && createPortal(
+        <div className="fixed inset-0 z-[200] bg-black/85 backdrop-blur-lg flex items-center justify-center p-3 sm:p-6"
+          onClick={() => setExpanded(false)} style={{ animation: 'lightbox-in 0.3s ease-out' }}>
+          <div className="relative max-w-4xl w-full" onClick={(e) => e.stopPropagation()}>
+            <img src={testimonial.image} alt={testimonial.company}
+              className="w-full h-auto max-h-[90vh] object-contain rounded-2xl shadow-2xl" />
             <button type="button" onClick={() => setExpanded(false)}
-              className="absolute -top-3 -right-3 w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center shadow-lg hover:bg-primary/10 transition-colors">
+              className="absolute top-3 right-3 w-10 h-10 rounded-full bg-white/90 dark:bg-card flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
               <X className="w-5 h-5" />
             </button>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   )
