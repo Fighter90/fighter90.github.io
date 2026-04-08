@@ -4,7 +4,7 @@ import {
   Mail, Github, Send, Briefcase, GraduationCap, Code2, FolderOpen,
   MapPin, Building2, Calendar, Download, ExternalLink, Award,
   Layout, Menu, X, Server, Database, Cloud, Sparkles,
-  BarChart3, Network, FileText, Quote, BookOpen, Newspaper, Pen
+  BarChart3, Network, FileText, Quote, BookOpen, Newspaper
 } from 'lucide-react'
 import { translations } from './i18n'
 import { useLang } from './contexts/LangContext'
@@ -609,35 +609,34 @@ export default function App() {
           </div>
         </Section>
 
-        {/* PUBLICATIONS */}
+        {/* PUBLICATIONS (LinkedIn embeds) */}
         <Section id="publications">
           <h2 className="text-2xl sm:text-3xl font-display font-bold text-foreground mb-8 flex items-center gap-3">
             <Newspaper className="w-7 h-7 text-primary" />{t.sections.publications}
           </h2>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {t.publications.map((pub, i) => {
-              const typeIcon = pub.type === 'research' ? <BookOpen className="w-4 h-4" /> : pub.type === 'project' ? <Code2 className="w-4 h-4" /> : <Pen className="w-4 h-4" />
-              const typeColor = pub.type === 'research' ? 'text-accent bg-accent/10 border-accent/20' : pub.type === 'project' ? 'text-primary bg-primary/10 border-primary/20' : 'text-gold bg-gold/10 border-gold/20'
-              return (
-                <a key={i} href={pub.url} target="_blank" rel="noopener noreferrer"
-                  className="bg-card border border-border rounded-2xl p-6 card-hover hover:border-primary/30 flex flex-col group"
-                  style={{ animation: `stagger-in 0.4s ease-out ${i * 0.1}s both` }}>
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className={`badge inline-flex items-center gap-1 px-2.5 py-0.5 border text-xs ${typeColor}`}>
-                      {typeIcon}{pub.type}
-                    </span>
-                    <span className="text-xs text-muted-foreground">{pub.date}</span>
-                  </div>
-                  <h3 className="font-display font-semibold text-foreground mb-2 group-hover:text-primary transition-colors leading-snug">{pub.title}</h3>
-                  <p className="text-muted-foreground text-sm flex-1">{pub.description}</p>
-                  <div className="flex items-center gap-1 mt-3 text-primary text-sm font-medium">
-                    <LinkedInIcon className="w-4 h-4" />
-                    <span className="group-hover:underline">LinkedIn</span>
-                    <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </div>
-                </a>
-              )
-            })}
+          <div className="grid gap-6 sm:grid-cols-2">
+            <div className="rounded-2xl overflow-hidden border border-border card-hover">
+              <iframe
+                src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7447067513676251136?collapsed=1"
+                height="533"
+                width="100%"
+                frameBorder="0"
+                allowFullScreen
+                title={lang === 'ru' ? 'Публикация LinkedIn' : 'LinkedIn Post'}
+                className="w-full"
+              />
+            </div>
+            <div className="rounded-2xl overflow-hidden border border-border card-hover">
+              <iframe
+                src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7438922296997687296?collapsed=1"
+                height="567"
+                width="100%"
+                frameBorder="0"
+                allowFullScreen
+                title={lang === 'ru' ? 'Публикация LinkedIn — ICAIMT 2026' : 'LinkedIn Post — ICAIMT 2026'}
+                className="w-full"
+              />
+            </div>
           </div>
         </Section>
 
