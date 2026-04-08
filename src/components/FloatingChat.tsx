@@ -7,85 +7,162 @@ import type { Lang } from '../i18n'
 /*  Types                                                              */
 /* ------------------------------------------------------------------ */
 
-type MessageRole = 'user' | 'assistant'
-
 interface ChatMessage {
   id: string
-  role: MessageRole
+  role: 'user' | 'assistant'
   text: string
-  html?: boolean
 }
 
-type PromptKey = 'experience' | 'projects' | 'why' | 'contact'
-
 interface QuickPrompt {
-  key: PromptKey
+  key: string
   icon: React.ReactNode
   label: Record<Lang, string>
+  message: Record<Lang, string>
 }
 
 /* ------------------------------------------------------------------ */
-/*  Static data                                                        */
+/*  System prompt — Sergey's CV knowledge base                         */
+/* ------------------------------------------------------------------ */
+
+const SYSTEM_PROMPT = `You are Sergey Emelyanov's AI portfolio assistant. You respond in the same language the user writes to you (Russian or English).
+
+About Sergey:
+- Senior Software Engineer (PHP/Go) at Rambler&Co, Moscow (since March 2024)
+- 14+ years of backend development experience
+- Previous companies: Lamoda Tech (2022-2024), Rambler&Co (2021-2022), MTS Fintech (2020-2021), ETP Gazprombank (2016-2020), Avito (2016), Mamba/Tourbar (2015-2016), Sutochno.ru (2011-2015)
+
+Key achievements:
+- Migrated PHP 7.4→8.1 at Lamoda: 25% faster queries, 15% less memory
+- Optimized CI/CD pipelines: 30% faster delivery at Lamoda
+- Built config microservice from scratch using DDD at MTS Fintech, 85% test coverage
+- Reporting subsystem 5x faster at Rambler&Co
+- Government procurement integration via microservices at ETP GPB
+- Payment system integrations at Avito (billing microservice)
+- Grew Sutochno.ru from prototype to production with thousands of users, automated 90% accounting
+
+Core stack: PHP 8, Go, Symfony 4, Laravel, PostgreSQL, MySQL, MongoDB, Redis, Kafka, RabbitMQ, Docker, Kubernetes, CI/CD
+AI/ML: Python, FastAPI, Claude API, OpenAI API, Prompt Engineering
+
+Education:
+- HSE University — Master's in IT Product Management (2025-2027, in progress)
+- Kuban State University — Master's in Psychology (2023-2025)
+- Ulyanovsk State Technical University — Information Systems (2007-2012)
+
+Side projects:
+- ResumeCraft (resumecraft.ru) — Multi-agent SaaS resume optimizer with 5 LLM providers
+- ICAIMT 2026 — Research paper "Agentic AI in Enterprise" (EAAMM model), 136 respondents, accepted at international conference
+- Career-Ops — AI job search system for Russian market (hh.ru, Habr Career integration)
+
+Portfolio (Webguru.pro era):
+- Alicebot.pro — Yandex Alice skill builder with amoCRM/Bitrix24 integration
+- vl-taxi.ru — Taxi service with Telegram bot notifications and CMS
+- HR Survey System — Chatbots for Telegram/Viber/VK/Facebook for MegaFon Retail and Alliance Retail Security
+- Telegram shop @braidsBot, StartBiz.Space HRM, Karpala.ru taxi system
+
+Client testimonials: MegaFon Retail, Alliance Retail Security, CS GARANT — all praise professionalism and quality.
+
+Contact: pochtasergeia@gmail.com | Telegram: @sergey_in_job | LinkedIn: sergey-emelyanov-in-job | GitHub: Fighter90
+
+You answer questions about Sergey's experience, skills, and projects. Be helpful, concise, and professional. If asked about something you don't know, say so honestly and suggest contacting Sergey directly.`
+
+/* ------------------------------------------------------------------ */
+/*  OpenRouter API                                                     */
+/* ------------------------------------------------------------------ */
+
+const OPENROUTER_KEY = '***REVOKED***'
+const MODEL = 'deepseek/deepseek-chat-v3-0324'
+
+async function callLLM(
+  messages: { role: string; content: string }[],
+  onChunk: (text: string) => void,
+  signal?: AbortSignal,
+): Promise<void> {
+  const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${OPENROUTER_KEY}`,
+      'Content-Type': 'application/json',
+      'HTTP-Referer': 'https://fighter90.github.io',
+      'X-Title': 'Sergey Emelyanov Portfolio',
+    },
+    body: JSON.stringify({
+      model: MODEL,
+      messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...messages],
+      stream: true,
+      max_tokens: 500,
+      temperature: 0.7,
+    }),
+    signal,
+  })
+
+  if (!res.ok) {
+    const err = await res.text()
+    throw new Error(`OpenRouter error: ${res.status} ${err}`)
+  }
+
+  const reader = res.body?.getReader()
+  if (!reader) throw new Error('No response body')
+
+  const decoder = new TextDecoder()
+  let buffer = ''
+
+  while (true) {
+    const { done, value } = await reader.read()
+    if (done) break
+
+    buffer += decoder.decode(value, { stream: true })
+    const lines = buffer.split('\n')
+    buffer = lines.pop() || ''
+
+    for (const line of lines) {
+      const trimmed = line.trim()
+      if (!trimmed.startsWith('data: ')) continue
+      const data = trimmed.slice(6)
+      if (data === '[DONE]') return
+
+      try {
+        const parsed = JSON.parse(data)
+        const delta = parsed.choices?.[0]?.delta?.content
+        if (delta) onChunk(delta)
+      } catch { /* skip malformed chunks */ }
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Quick prompts                                                      */
 /* ------------------------------------------------------------------ */
 
 const quickPrompts: QuickPrompt[] = [
-  { key: 'experience', icon: <Briefcase className="w-4 h-4" />, label: { ru: 'Опыт работы', en: 'Work experience' } },
-  { key: 'projects',   icon: <Rocket className="w-4 h-4" />,    label: { ru: 'Проекты', en: 'Featured projects' } },
-  { key: 'why',        icon: <CircleHelp className="w-4 h-4" />, label: { ru: 'Почему я?', en: 'Why hire me?' } },
-  { key: 'contact',    icon: <Mail className="w-4 h-4" />,       label: { ru: 'Контакт', en: 'Contact' } },
+  {
+    key: 'experience',
+    icon: <Briefcase className="w-3.5 h-3.5" />,
+    label: { ru: 'Опыт работы', en: 'Work experience' },
+    message: { ru: 'Расскажи о своём опыте работы', en: 'Tell me about your work experience' },
+  },
+  {
+    key: 'projects',
+    icon: <Rocket className="w-3.5 h-3.5" />,
+    label: { ru: 'Проекты', en: 'Projects' },
+    message: { ru: 'Какие проекты ты делал?', en: 'What projects have you built?' },
+  },
+  {
+    key: 'why',
+    icon: <CircleHelp className="w-3.5 h-3.5" />,
+    label: { ru: 'Почему я?', en: 'Why hire me?' },
+    message: { ru: 'Почему стоит тебя нанять?', en: 'Why should we hire you?' },
+  },
+  {
+    key: 'contact',
+    icon: <Mail className="w-3.5 h-3.5" />,
+    label: { ru: 'Контакт', en: 'Contact' },
+    message: { ru: 'Как с тобой связаться?', en: 'How can I contact you?' },
+  },
 ]
 
-const predefinedResponses: Record<PromptKey, Record<Lang, { text: string; html?: boolean }>> = {
-  experience: {
-    ru: {
-      text: '14+ лет в backend: PHP, Go, Symfony. Rambler&Co, Lamoda, Авито, МТС Финтех. Высоконагруженные системы, микросервисы, CI/CD.',
-    },
-    en: {
-      text: '14+ years in backend: PHP, Go, Symfony. Rambler&Co, Lamoda, Avito, MTS Fintech. High-load systems, microservices, CI/CD.',
-    },
-  },
-  projects: {
-    ru: {
-      text: 'ResumeCraft — мульти-агентный SaaS (5 LLM). ICAIMT 2026 — научная статья об агентном ИИ. Career-Ops — AI-поиск работы.',
-    },
-    en: {
-      text: 'ResumeCraft — multi-agent SaaS (5 LLMs). ICAIMT 2026 — research paper on agentic AI. Career-Ops — AI-powered job search.',
-    },
-  },
-  why: {
-    ru: {
-      text: 'Глубокая экспертиза в backend + изучаю продуктовый менеджмент в ВШЭ. Умею выстраивать архитектуру, менторить команды и доводить проекты до продакшена.',
-    },
-    en: {
-      text: 'Deep backend expertise + studying product management at HSE. I design architecture, mentor teams, and ship projects to production.',
-    },
-  },
-  contact: {
-    ru: {
-      text: '<a href="mailto:pochtasergeia@gmail.com" class="underline hover:text-primary">pochtasergeia@gmail.com</a><br/><a href="https://t.me/sergey_in_job" target="_blank" rel="noopener noreferrer" class="underline hover:text-primary">Telegram</a><br/><a href="https://linkedin.com/in/sergey-emelyanov-in-job" target="_blank" rel="noopener noreferrer" class="underline hover:text-primary">LinkedIn</a>',
-      html: true,
-    },
-    en: {
-      text: '<a href="mailto:pochtasergeia@gmail.com" class="underline hover:text-primary">pochtasergeia@gmail.com</a><br/><a href="https://t.me/sergey_in_job" target="_blank" rel="noopener noreferrer" class="underline hover:text-primary">Telegram</a><br/><a href="https://linkedin.com/in/sergey-emelyanov-in-job" target="_blank" rel="noopener noreferrer" class="underline hover:text-primary">LinkedIn</a>',
-      html: true,
-    },
-  },
-}
-
-const fallbackResponse: Record<Lang, { text: string; html: boolean }> = {
-  ru: {
-    text: 'Напишите мне в Telegram для подробного ответа! <a href="https://t.me/sergey_in_job" target="_blank" rel="noopener noreferrer" class="underline font-medium hover:text-primary">@sergey_in_job</a>',
-    html: true,
-  },
-  en: {
-    text: 'Message me on Telegram for a detailed answer! <a href="https://t.me/sergey_in_job" target="_blank" rel="noopener noreferrer" class="underline font-medium hover:text-primary">@sergey_in_job</a>',
-    html: true,
-  },
-}
-
-const headerCopy: Record<Lang, { name: string; subtitle: string }> = {
-  ru: { name: 'Сергей', subtitle: 'Спросите о моём опыте' },
-  en: { name: 'Sergey', subtitle: 'Ask me about my experience' },
+const headerCopy: Record<Lang, { name: string; subtitle: string; greeting: string }> = {
+  ru: { name: 'Сергей', subtitle: 'AI-ассистент портфолио', greeting: 'Привет! Я AI-ассистент Сергея. Спросите что угодно о моём опыте, проектах или навыках.' },
+  en: { name: 'Sergey', subtitle: 'AI Portfolio Assistant', greeting: "Hi! I'm Sergey's AI assistant. Ask me anything about his experience, projects, or skills." },
 }
 
 /* ------------------------------------------------------------------ */
@@ -93,9 +170,7 @@ const headerCopy: Record<Lang, { name: string; subtitle: string }> = {
 /* ------------------------------------------------------------------ */
 
 let _id = 0
-function uid(): string {
-  return `msg-${++_id}-${Date.now()}`
-}
+const uid = () => `msg-${++_id}-${Date.now()}`
 
 /* ------------------------------------------------------------------ */
 /*  Component                                                          */
@@ -107,82 +182,87 @@ export default function FloatingChat() {
   const [open, setOpen] = useState(false)
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [input, setInput] = useState('')
-  const [isTyping, setIsTyping] = useState(false)
+  const [isStreaming, setIsStreaming] = useState(false)
+  const [streamText, setStreamText] = useState('')
 
   const scrollRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const abortRef = useRef<AbortController | null>(null)
 
-  /* auto-scroll on new messages */
+  // Auto-scroll
   useEffect(() => {
     const el = scrollRef.current
     if (el) el.scrollTop = el.scrollHeight
-  }, [messages, isTyping])
+  }, [messages, streamText, isStreaming])
 
-  /* focus input when panel opens */
+  // Focus input
   useEffect(() => {
     if (open) inputRef.current?.focus()
   }, [open])
 
-  /* ---- reply helpers ---- */
+  // Show greeting on first open
+  useEffect(() => {
+    if (open && messages.length === 0) {
+      setMessages([{ id: uid(), role: 'assistant', text: headerCopy[lang].greeting }])
+    }
+  }, [open, lang, messages.length])
 
-  const pushAssistantReply = useCallback(
-    (text: string, html?: boolean) => {
-      setIsTyping(true)
-      setTimeout(() => {
-        setIsTyping(false)
-        setMessages((prev) => [
-          ...prev,
-          { id: uid(), role: 'assistant', text, html },
-        ])
-      }, 500)
-    },
-    [],
-  )
+  const sendToLLM = useCallback(async (userText: string) => {
+    const userMsg: ChatMessage = { id: uid(), role: 'user', text: userText }
+    setMessages(prev => [...prev, userMsg])
+    setIsStreaming(true)
+    setStreamText('')
 
-  const handleQuickPrompt = useCallback(
-    (prompt: QuickPrompt) => {
-      const userText = prompt.label[lang]
-      setMessages((prev) => [
-        ...prev,
-        { id: uid(), role: 'user', text: userText },
-      ])
+    const history = [...messages, userMsg].map(m => ({ role: m.role, content: m.text }))
 
-      const response = predefinedResponses[prompt.key][lang]
-      pushAssistantReply(response.text, response.html)
-    },
-    [lang, pushAssistantReply],
-  )
+    const controller = new AbortController()
+    abortRef.current = controller
+
+    let fullText = ''
+    try {
+      await callLLM(history, (chunk) => {
+        fullText += chunk
+        setStreamText(fullText)
+      }, controller.signal)
+
+      setMessages(prev => [...prev, { id: uid(), role: 'assistant', text: fullText || 'Не удалось получить ответ.' }])
+    } catch (err) {
+      if ((err as Error).name !== 'AbortError') {
+        setMessages(prev => [...prev, { id: uid(), role: 'assistant', text: lang === 'ru'
+          ? 'Ошибка соединения. Напишите в Telegram: @sergey_in_job'
+          : 'Connection error. Message me on Telegram: @sergey_in_job'
+        }])
+      }
+    } finally {
+      setIsStreaming(false)
+      setStreamText('')
+      abortRef.current = null
+    }
+  }, [messages, lang])
+
+  const handleQuickPrompt = useCallback((qp: QuickPrompt) => {
+    if (isStreaming) return
+    sendToLLM(qp.message[lang])
+  }, [sendToLLM, lang, isStreaming])
 
   const handleSend = useCallback(() => {
     const text = input.trim()
-    if (!text) return
-
+    if (!text || isStreaming) return
     setInput('')
-    setMessages((prev) => [...prev, { id: uid(), role: 'user', text }])
+    sendToLLM(text)
+  }, [input, isStreaming, sendToLLM])
 
-    const fb = fallbackResponse[lang]
-    pushAssistantReply(fb.text, fb.html)
-  }, [input, lang, pushAssistantReply])
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend() }
+  }, [handleSend])
 
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault()
-        handleSend()
-      }
-    },
-    [handleSend],
-  )
-
-  /* ---- render ---- */
-
-  const showQuickPrompts = messages.length === 0
+  const showQuickPrompts = messages.length <= 1 && !isStreaming
 
   return (
     <>
-      {/* ---- toggle button ---- */}
+      {/* Toggle button */}
       <button
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => setOpen(v => !v)}
         aria-label={open ? 'Close chat' : 'Open chat'}
         className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-theme text-white shadow-xl transition-transform hover:scale-110 active:scale-95"
         style={{ animation: open ? 'none' : 'chat-glow 2s ease-in-out infinite' }}
@@ -190,118 +270,96 @@ export default function FloatingChat() {
         {open ? <X className="h-6 w-6" /> : <MessageCircle className="h-6 w-6" />}
       </button>
 
-      {/* ---- chat panel ---- */}
+      {/* Chat panel */}
       <div
         className={`fixed z-50 flex flex-col overflow-hidden border border-border bg-card shadow-2xl transition-all duration-300 origin-bottom-right
-          sm:bottom-24 sm:right-6 sm:w-[380px] sm:h-[520px] sm:rounded-2xl
+          sm:bottom-24 sm:right-6 sm:w-[400px] sm:h-[560px] sm:rounded-2xl
           max-sm:inset-0 max-sm:rounded-none max-sm:w-full max-sm:h-full
           ${open ? 'pointer-events-auto scale-100 translate-y-0 opacity-100' : 'pointer-events-none scale-95 translate-y-4 opacity-0'}`}
       >
-        {/* header */}
+        {/* Header */}
         <div className="flex items-center justify-between border-b border-border bg-gradient-theme-10 px-4 py-3">
           <div className="flex items-center gap-3">
-            <img
-              src="/foto-avatar-sm.webp"
-              alt={headerCopy[lang].name}
-              className="h-10 w-10 rounded-full object-cover ring-2 ring-primary/20"
-            />
-            <div className="min-w-0">
-              <p className="text-sm font-display font-semibold leading-tight text-foreground">
-                {headerCopy[lang].name}
-              </p>
-              <p className="text-xs text-muted-foreground">
+            <img src="/foto-avatar-sm.webp" alt={headerCopy[lang].name}
+              className="h-10 w-10 rounded-full object-cover ring-2 ring-primary/20" />
+            <div>
+              <p className="text-sm font-display font-semibold text-foreground">{headerCopy[lang].name}</p>
+              <p className="text-xs text-muted-foreground flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
                 {headerCopy[lang].subtitle}
               </p>
             </div>
           </div>
           <button type="button" onClick={() => setOpen(false)}
             className="w-8 h-8 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
-            aria-label="Close chat">
+            aria-label="Close">
             <X className="w-4 h-4" />
           </button>
         </div>
 
-        {/* messages area */}
-        <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-3 space-y-3">
+        {/* Messages */}
+        <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-3 space-y-3 custom-scrollbar">
+          {messages.map((msg) => (
+            <div key={msg.id} className={`flex animate-chat-msg ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+              <div className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed whitespace-pre-wrap ${
+                msg.role === 'user'
+                  ? 'bg-primary text-primary-foreground rounded-br-sm'
+                  : 'bg-muted text-foreground rounded-bl-sm'
+              }`}>
+                {msg.text}
+              </div>
+            </div>
+          ))}
+
+          {/* Streaming response */}
+          {isStreaming && (
+            <div className="flex justify-start animate-chat-msg">
+              <div className="max-w-[85%] rounded-2xl rounded-bl-sm bg-muted text-foreground px-3.5 py-2.5 text-sm leading-relaxed whitespace-pre-wrap">
+                {streamText || (
+                  <span className="flex items-center gap-1">
+                    <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted-foreground [animation-delay:0ms]" />
+                    <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted-foreground [animation-delay:150ms]" />
+                    <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted-foreground [animation-delay:300ms]" />
+                  </span>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Quick prompts */}
           {showQuickPrompts && (
-            <div className="flex flex-wrap gap-2 animate-fade-in">
+            <div className="flex flex-wrap gap-2 pt-1">
               {quickPrompts.map((qp) => (
-                <button
-                  key={qp.key}
-                  onClick={() => handleQuickPrompt(qp)}
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted"
-                >
-                  {qp.icon}
-                  {qp.label[lang]}
+                <button key={qp.key} type="button" onClick={() => handleQuickPrompt(qp)}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary hover:bg-primary/20 hover:border-primary/40 transition-colors">
+                  {qp.icon}{qp.label[lang]}
                 </button>
               ))}
             </div>
           )}
-
-          {messages.map((msg) => (
-            <div
-              key={msg.id}
-              className={`flex animate-fade-in ${
-                msg.role === 'user' ? 'justify-end' : 'justify-start'
-              }`}
-            >
-              <div
-                className={`max-w-[85%] rounded-2xl px-3 py-2 text-sm leading-relaxed ${
-                  msg.role === 'user'
-                    ? 'bg-primary text-primary-foreground rounded-br-sm'
-                    : 'bg-muted text-foreground rounded-bl-sm'
-                }`}
-                {...(msg.html
-                  ? { dangerouslySetInnerHTML: { __html: msg.text } }
-                  : { children: msg.text })}
-              />
-            </div>
-          ))}
-
-          {isTyping && (
-            <div className="flex justify-start animate-fade-in">
-              <div className="flex items-center gap-1 rounded-2xl rounded-bl-sm bg-muted px-4 py-2">
-                <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted-foreground [animation-delay:0ms]" />
-                <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted-foreground [animation-delay:150ms]" />
-                <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted-foreground [animation-delay:300ms]" />
-              </div>
-            </div>
-          )}
         </div>
 
-        {/* input bar */}
-        <div className="border-t border-border px-3 py-2">
+        {/* Input */}
+        <div className="border-t border-border px-3 py-2.5">
           <div className="flex items-center gap-2">
-            <input
-              ref={inputRef}
-              type="text"
-              value={input}
+            <input ref={inputRef} type="text" value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder={lang === 'ru' ? 'Напишите сообщение...' : 'Type a message...'}
-              className="flex-1 rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground outline-none focus:ring-1 focus:ring-primary/50"
-            />
-            <button
-              onClick={handleSend}
-              disabled={!input.trim()}
+              disabled={isStreaming}
+              placeholder={lang === 'ru' ? 'Спросите что-нибудь...' : 'Ask me anything...'}
+              className="flex-1 rounded-xl border border-border bg-muted px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-colors disabled:opacity-50" />
+            <button type="button" onClick={handleSend} disabled={!input.trim() || isStreaming}
               aria-label="Send"
-              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground transition-opacity disabled:opacity-40"
-            >
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-theme text-white transition-opacity disabled:opacity-40">
               <Send className="h-4 w-4" />
             </button>
           </div>
         </div>
       </div>
 
-      {/* keyframe for fade-in (injected once) */}
       <style>{`
-        @keyframes fade-in {
-          from { opacity: 0; transform: translateY(4px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in {
-          animation: fade-in 0.3s ease-out both;
-        }
+        @keyframes chat-msg-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-chat-msg { animation: chat-msg-in 0.3s ease-out both; }
       `}</style>
     </>
   )
