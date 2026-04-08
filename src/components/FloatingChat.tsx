@@ -69,6 +69,7 @@ You answer questions about Sergey's experience, skills, and projects. Be helpful
 /*  OpenRouter API                                                     */
 /* ------------------------------------------------------------------ */
 
+// OpenRouter key — will work once account is funded
 const OPENROUTER_KEY = '***REVOKED***'
 const MODEL = 'deepseek/deepseek-chat-v3-0324'
 
@@ -215,14 +216,45 @@ export default function FloatingChat() {
     }
   }, [open, lang, messages.length])
 
+  // Local fallback responses for when OpenRouter is unavailable
+  const localFallback = useCallback((text: string): string => {
+    const lower = text.toLowerCase()
+    if (lower.includes('опыт') || lower.includes('experience') || lower.includes('работ'))
+      return lang === 'ru'
+        ? '14+ лет в backend-разработке: PHP 8, Go, Symfony. Работал в Rambler&Co, Lamoda, Авито, МТС Финтех, ЭТП Газпромбанка. Строю высоконагруженные системы, микросервисы, настраиваю CI/CD.'
+        : '14+ years in backend: PHP 8, Go, Symfony. Worked at Rambler&Co, Lamoda, Avito, MTS Fintech, ETP Gazprombank. High-load systems, microservices, CI/CD.'
+    if (lower.includes('проект') || lower.includes('project') || lower.includes('portfolio'))
+      return lang === 'ru'
+        ? 'Ключевые проекты: ResumeCraft (мульти-агентный SaaS с 5 LLM), научная статья ICAIMT 2026 (агентный ИИ, 136 респондентов), Career-Ops (AI-поиск работы). Также 7+ веб-сервисов в рамках Webguru.pro: чат-боты, CMS, HRM-системы.'
+        : 'Key projects: ResumeCraft (multi-agent SaaS with 5 LLMs), ICAIMT 2026 research paper (agentic AI, 136 respondents), Career-Ops (AI job search). Also 7+ web services at Webguru.pro: chatbots, CMS, HRM systems.'
+    if (lower.includes('почему') || lower.includes('why') || lower.includes('hire') || lower.includes('нанять'))
+      return lang === 'ru'
+        ? 'Глубокая экспертиза в backend (14+ лет) + магистратура по продуктовому менеджменту в ВШЭ. Умею выстраивать архитектуру, менторить команды, доводить проекты до продакшена. Исследую применение ИИ в бизнесе.'
+        : 'Deep backend expertise (14+ years) + pursuing Product Management master\'s at HSE. I design architecture, mentor teams, ship to production. Researching AI in business processes.'
+    if (lower.includes('контакт') || lower.includes('contact') || lower.includes('связ'))
+      return lang === 'ru'
+        ? 'Email: pochtasergeia@gmail.com\nTelegram: @sergey_in_job\nLinkedIn: sergey-emelyanov-in-job\nGitHub: Fighter90'
+        : 'Email: pochtasergeia@gmail.com\nTelegram: @sergey_in_job\nLinkedIn: sergey-emelyanov-in-job\nGitHub: Fighter90'
+    return lang === 'ru'
+      ? 'Спасибо за вопрос! Для подробного ответа напишите мне в Telegram: @sergey_in_job — отвечу лично.'
+      : 'Thanks for asking! For a detailed answer, message me on Telegram: @sergey_in_job — I\'ll reply personally.'
+  }, [lang])
+
   const sendToLLM = useCallback(async (userText: string) => {
     const userMsg: ChatMessage = { id: uid(), role: 'user', text: userText }
     setMessages(prev => [...prev, userMsg])
     setIsStreaming(true)
     setStreamText('')
 
-    const history = [...messages, userMsg].map(m => ({ role: m.role, content: m.text }))
+    // If no API key, use local fallback
+    if (!OPENROUTER_KEY) {
+      await new Promise(r => setTimeout(r, 600))
+      setMessages(prev => [...prev, { id: uid(), role: 'assistant', text: localFallback(userText) }])
+      setIsStreaming(false)
+      return
+    }
 
+    const history = [...messages, userMsg].map(m => ({ role: m.role, content: m.text }))
     const controller = new AbortController()
     abortRef.current = controller
 
@@ -232,21 +264,18 @@ export default function FloatingChat() {
         fullText += chunk
         setStreamText(fullText)
       }, controller.signal)
-
-      setMessages(prev => [...prev, { id: uid(), role: 'assistant', text: fullText || 'Не удалось получить ответ.' }])
+      setMessages(prev => [...prev, { id: uid(), role: 'assistant', text: fullText || localFallback(userText) }])
     } catch (err) {
       if ((err as Error).name !== 'AbortError') {
-        setMessages(prev => [...prev, { id: uid(), role: 'assistant', text: lang === 'ru'
-          ? 'Ошибка соединения. Напишите в Telegram: @sergey_in_job'
-          : 'Connection error. Message me on Telegram: @sergey_in_job'
-        }])
+        // Fallback to local on API error
+        setMessages(prev => [...prev, { id: uid(), role: 'assistant', text: localFallback(userText) }])
       }
     } finally {
       setIsStreaming(false)
       setStreamText('')
       abortRef.current = null
     }
-  }, [messages, lang])
+  }, [messages, lang, localFallback])
 
   const handleQuickPrompt = useCallback((qp: QuickPrompt) => {
     if (isStreaming) return

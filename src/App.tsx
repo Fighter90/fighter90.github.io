@@ -4,7 +4,7 @@ import {
   Mail, Github, Send, Briefcase, GraduationCap, Code2, FolderOpen,
   MapPin, Building2, Calendar, Download, ExternalLink, Award,
   Layout, Menu, X, Server, Database, Cloud, Sparkles,
-  BarChart3, Network, FileText, Quote, BookOpen
+  BarChart3, Network, FileText, Quote, BookOpen, Newspaper, Pen
 } from 'lucide-react'
 import { translations } from './i18n'
 import { useLang } from './contexts/LangContext'
@@ -18,6 +18,22 @@ function LinkedInIcon({ className = "w-5 h-5" }: { className?: string }) {
       <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
     </svg>
   )
+}
+
+/* ─── Mouse Parallax Hook ─── */
+
+function useMouseParallax(strength = 20) {
+  const [offset, setOffset] = useState({ x: 0, y: 0 })
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      const cx = window.innerWidth / 2
+      const cy = window.innerHeight / 2
+      setOffset({ x: (e.clientX - cx) / cx * strength, y: (e.clientY - cy) / cy * strength })
+    }
+    window.addEventListener('mousemove', handler)
+    return () => window.removeEventListener('mousemove', handler)
+  }, [strength])
+  return offset
 }
 
 /* ─── Typewriter Hook (from santifer.io) ─── */
@@ -63,6 +79,7 @@ const sectionIcons: Record<string, React.ReactNode> = {
   education: <GraduationCap className="w-4 h-4" />,
   skills: <Code2 className="w-4 h-4" />,
   testimonials: <Quote className="w-4 h-4" />,
+  publications: <Newspaper className="w-4 h-4" />,
   contact: <Mail className="w-4 h-4" />,
 }
 
@@ -241,6 +258,7 @@ function LeftSidebar() {
     { id: 'education', label: t.nav.education },
     { id: 'skills', label: t.nav.skills },
     { id: 'testimonials', label: t.sections.testimonials },
+    { id: 'publications', label: t.nav.publications },
     { id: 'contact', label: t.nav.contact },
   ]
 
@@ -352,6 +370,8 @@ export default function App() {
     : ['Senior Software Engineer', 'Backend Architect', 'PHP/Go Developer', 'AI Researcher'] as const
   const typedRole = useTypewriter(roles)
 
+  const parallax = useMouseParallax(15)
+
   const filteredProjects = t.projects.filter(
     (proj) => proj.name !== 'Авито Путешествия' && proj.name !== 'Avito Travel'
   )
@@ -361,8 +381,8 @@ export default function App() {
       {/* ═══ HERO ═══ */}
       <div className="relative overflow-hidden">
         <DotGrid />
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-[hsl(var(--hero-orb-primary))] blur-[120px] pointer-events-none" style={{ animation: 'hero-glow 8s ease-in-out infinite' }} />
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-[hsl(var(--hero-orb-accent))] blur-[100px] pointer-events-none" style={{ animation: 'hero-glow 10s ease-in-out infinite 2s' }} />
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-[hsl(var(--hero-orb-primary))] blur-[120px] pointer-events-none" style={{ animation: 'hero-glow 8s ease-in-out infinite', transform: `translate(${parallax.x}px, ${parallax.y}px)` }} />
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-[hsl(var(--hero-orb-accent))] blur-[100px] pointer-events-none" style={{ animation: 'hero-glow 10s ease-in-out infinite 2s', transform: `translate(${-parallax.x * 0.7}px, ${-parallax.y * 0.7}px)` }} />
 
         <div className="relative z-10 max-w-4xl mx-auto px-6 pt-24 pb-16 sm:pt-32 sm:pb-24">
           <div className="flex flex-col items-center text-center gap-6">
@@ -528,7 +548,7 @@ export default function App() {
           </h2>
           <div className="grid gap-4">
             {t.education.map((edu, i) => (
-              <div key={i} className="bg-card border border-border rounded-2xl p-6 hover:border-primary/30 transition-colors">
+              <div key={i} className="bg-card border border-border rounded-2xl p-6 card-hover hover:border-primary/30">
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 mb-2">
                   <div>
                     <h3 className="text-lg font-display font-semibold text-foreground">{edu.institution}</h3>
@@ -563,7 +583,7 @@ export default function App() {
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {Object.entries(t.skills).map(([key, cat]) => (
-              <div key={cat.title} className="bg-card border border-border rounded-2xl p-5 hover:border-primary/30 transition-colors">
+              <div key={cat.title} className="bg-card border border-border rounded-2xl p-5 card-hover hover:border-primary/30">
                 <h3 className="font-display font-semibold text-foreground mb-3 flex items-center gap-2">
                   {skillIcons[key]}{cat.title}
                 </h3>
@@ -582,10 +602,42 @@ export default function App() {
           <h2 className="text-2xl sm:text-3xl font-display font-bold text-foreground mb-8 flex items-center gap-3">
             <Quote className="w-7 h-7 text-primary" />{t.sections.testimonials}
           </h2>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {t.testimonials.map((item, i) => (
               <TestimonialCard key={i} testimonial={item} />
             ))}
+          </div>
+        </Section>
+
+        {/* PUBLICATIONS */}
+        <Section id="publications">
+          <h2 className="text-2xl sm:text-3xl font-display font-bold text-foreground mb-8 flex items-center gap-3">
+            <Newspaper className="w-7 h-7 text-primary" />{t.sections.publications}
+          </h2>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {t.publications.map((pub, i) => {
+              const typeIcon = pub.type === 'research' ? <BookOpen className="w-4 h-4" /> : pub.type === 'project' ? <Code2 className="w-4 h-4" /> : <Pen className="w-4 h-4" />
+              const typeColor = pub.type === 'research' ? 'text-accent bg-accent/10 border-accent/20' : pub.type === 'project' ? 'text-primary bg-primary/10 border-primary/20' : 'text-gold bg-gold/10 border-gold/20'
+              return (
+                <a key={i} href={pub.url} target="_blank" rel="noopener noreferrer"
+                  className="bg-card border border-border rounded-2xl p-6 card-hover hover:border-primary/30 flex flex-col group"
+                  style={{ animation: `stagger-in 0.4s ease-out ${i * 0.1}s both` }}>
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className={`badge inline-flex items-center gap-1 px-2.5 py-0.5 border text-xs ${typeColor}`}>
+                      {typeIcon}{pub.type}
+                    </span>
+                    <span className="text-xs text-muted-foreground">{pub.date}</span>
+                  </div>
+                  <h3 className="font-display font-semibold text-foreground mb-2 group-hover:text-primary transition-colors leading-snug">{pub.title}</h3>
+                  <p className="text-muted-foreground text-sm flex-1">{pub.description}</p>
+                  <div className="flex items-center gap-1 mt-3 text-primary text-sm font-medium">
+                    <LinkedInIcon className="w-4 h-4" />
+                    <span className="group-hover:underline">LinkedIn</span>
+                    <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </div>
+                </a>
+              )
+            })}
           </div>
         </Section>
 
