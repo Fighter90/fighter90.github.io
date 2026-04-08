@@ -631,29 +631,27 @@ export default function App() {
           <h2 className="text-2xl sm:text-3xl font-display font-bold text-foreground mb-8 flex items-center gap-3">
             <Newspaper className="w-7 h-7 text-primary" />{t.sections.publications}
           </h2>
-          <div className="grid gap-6 sm:grid-cols-2">
-            <div className="rounded-2xl overflow-hidden border border-border card-hover bg-white">
+          <div className="space-y-6">
+            <div className="rounded-2xl overflow-hidden border border-border card-hover bg-white max-w-2xl mx-auto">
               <iframe
-                src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7447067513676251136?collapsed=1"
-                height="600"
+                src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7447067513676251136"
+                height="700"
                 width="100%"
                 frameBorder="0"
                 allowFullScreen
                 title={lang === 'ru' ? 'Публикация LinkedIn' : 'LinkedIn Post'}
-                className="w-full min-h-[500px]"
-                style={{ minHeight: 500 }}
+                className="w-full"
               />
             </div>
-            <div className="rounded-2xl overflow-hidden border border-border card-hover bg-white">
+            <div className="rounded-2xl overflow-hidden border border-border card-hover bg-white max-w-2xl mx-auto">
               <iframe
-                src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7438922296997687296?collapsed=1"
-                height="620"
+                src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7438922296997687296"
+                height="700"
                 width="100%"
                 frameBorder="0"
                 allowFullScreen
                 title={lang === 'ru' ? 'Публикация LinkedIn — ICAIMT 2026' : 'LinkedIn Post — ICAIMT 2026'}
-                className="w-full min-h-[500px]"
-                style={{ minHeight: 500 }}
+                className="w-full"
               />
             </div>
           </div>
