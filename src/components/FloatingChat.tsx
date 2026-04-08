@@ -62,11 +62,11 @@ const predefinedResponses: Record<PromptKey, Record<Lang, { text: string; html?:
   },
   contact: {
     ru: {
-      text: '<a href="mailto:sergey@santifer.io" class="underline hover:text-primary">sergey@santifer.io</a><br/><a href="https://t.me/sergey_in_job" target="_blank" rel="noopener noreferrer" class="underline hover:text-primary">Telegram</a><br/><a href="https://linkedin.com/in/sergey-emelyanov-dev" target="_blank" rel="noopener noreferrer" class="underline hover:text-primary">LinkedIn</a>',
+      text: '<a href="mailto:pochtasergeia@gmail.com" class="underline hover:text-primary">pochtasergeia@gmail.com</a><br/><a href="https://t.me/sergey_in_job" target="_blank" rel="noopener noreferrer" class="underline hover:text-primary">Telegram</a><br/><a href="https://linkedin.com/in/sergey-emelyanov-in-job" target="_blank" rel="noopener noreferrer" class="underline hover:text-primary">LinkedIn</a>',
       html: true,
     },
     en: {
-      text: '<a href="mailto:sergey@santifer.io" class="underline hover:text-primary">sergey@santifer.io</a><br/><a href="https://t.me/sergey_in_job" target="_blank" rel="noopener noreferrer" class="underline hover:text-primary">Telegram</a><br/><a href="https://linkedin.com/in/sergey-emelyanov-dev" target="_blank" rel="noopener noreferrer" class="underline hover:text-primary">LinkedIn</a>',
+      text: '<a href="mailto:pochtasergeia@gmail.com" class="underline hover:text-primary">pochtasergeia@gmail.com</a><br/><a href="https://t.me/sergey_in_job" target="_blank" rel="noopener noreferrer" class="underline hover:text-primary">Telegram</a><br/><a href="https://linkedin.com/in/sergey-emelyanov-in-job" target="_blank" rel="noopener noreferrer" class="underline hover:text-primary">LinkedIn</a>',
       html: true,
     },
   },
@@ -184,35 +184,41 @@ export default function FloatingChat() {
       <button
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? 'Close chat' : 'Open chat'}
-        className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-lg transition-transform hover:scale-105 active:scale-95"
+        className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-theme text-white shadow-xl transition-transform hover:scale-110 active:scale-95"
+        style={{ animation: open ? 'none' : 'chat-glow 2s ease-in-out infinite' }}
       >
         {open ? <X className="h-6 w-6" /> : <MessageCircle className="h-6 w-6" />}
       </button>
 
       {/* ---- chat panel ---- */}
       <div
-        className={`fixed bottom-24 right-6 z-50 flex w-[360px] flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-2xl transition-all duration-300 origin-bottom-right ${
-          open
-            ? 'pointer-events-auto scale-100 translate-y-0 opacity-100'
-            : 'pointer-events-none scale-95 translate-y-4 opacity-0'
-        }`}
-        style={{ height: 500 }}
+        className={`fixed z-50 flex flex-col overflow-hidden border border-border bg-card shadow-2xl transition-all duration-300 origin-bottom-right
+          sm:bottom-24 sm:right-6 sm:w-[380px] sm:h-[520px] sm:rounded-2xl
+          max-sm:inset-0 max-sm:rounded-none max-sm:w-full max-sm:h-full
+          ${open ? 'pointer-events-auto scale-100 translate-y-0 opacity-100' : 'pointer-events-none scale-95 translate-y-4 opacity-0'}`}
       >
         {/* header */}
-        <div className="flex items-center gap-3 border-b border-border px-4 py-3">
-          <img
-            src="/foto-avatar-sm.webp"
-            alt={headerCopy[lang].name}
-            className="h-10 w-10 rounded-full object-cover"
-          />
-          <div className="min-w-0">
-            <p className="text-sm font-semibold leading-tight text-foreground">
-              {headerCopy[lang].name}
-            </p>
-            <p className="text-xs text-muted-foreground">
-              {headerCopy[lang].subtitle}
-            </p>
+        <div className="flex items-center justify-between border-b border-border bg-gradient-theme-10 px-4 py-3">
+          <div className="flex items-center gap-3">
+            <img
+              src="/foto-avatar-sm.webp"
+              alt={headerCopy[lang].name}
+              className="h-10 w-10 rounded-full object-cover ring-2 ring-primary/20"
+            />
+            <div className="min-w-0">
+              <p className="text-sm font-display font-semibold leading-tight text-foreground">
+                {headerCopy[lang].name}
+              </p>
+              <p className="text-xs text-muted-foreground">
+                {headerCopy[lang].subtitle}
+              </p>
+            </div>
           </div>
+          <button type="button" onClick={() => setOpen(false)}
+            className="w-8 h-8 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
+            aria-label="Close chat">
+            <X className="w-4 h-4" />
+          </button>
         </div>
 
         {/* messages area */}
