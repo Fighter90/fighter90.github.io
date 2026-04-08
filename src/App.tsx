@@ -372,9 +372,7 @@ export default function App() {
 
   const parallax = useMouseParallax(15)
 
-  const filteredProjects = t.projects.filter(
-    (proj) => proj.name !== 'Авито Путешествия' && proj.name !== 'Avito Travel'
-  )
+  const filteredProjects = t.projects
 
   return (
     <main className="min-h-screen bg-background text-foreground">
