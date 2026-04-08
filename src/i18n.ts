@@ -8,6 +8,7 @@ export const translations = {
       projects: 'Проекты',
       portfolio: 'Портфолио',
       skills: 'Навыки',
+      publications: 'Публикации',
       contact: 'Контакты',
     },
     hero: {
@@ -32,6 +33,7 @@ export const translations = {
       letsChat: 'Давайте поговорим',
       letsChatDesc: 'Открыт к предложениям о работе, коллаборации и интересным проектам',
       testimonials: 'Отзывы клиентов',
+      publications: 'Публикации',
     },
     experience: [
       {
@@ -250,8 +252,6 @@ export const translations = {
           'Чат-боты для 4 платформ',
           'Генерация QR-кода для оффлайн-размещения',
           'Отправка карточек соискателей в филиалы компании',
-          'Клиенты: МегаФон Ритейл, Альянс Ритейл Секьюрити',
-          'Использовалась для МегаФон Ритейл и Альянс Ритейл Секьюрити',
         ],
         tags: ['PHP', 'Telegram', 'Viber', 'VK', 'HR'],
       },
@@ -332,6 +332,29 @@ export const translations = {
       product: { title: 'Продукт', items: ['Unit Economics', 'A/B testing', 'JTBD', 'CJM', 'Scrum'] },
       architecture: { title: 'Архитектура', items: ['ArchiMate', 'Microservices', 'Event-Driven', 'DDD', 'SOLID'] },
     },
+    publications: [
+      {
+        title: 'Agentic AI in Enterprise Business Processes — EAAMM Model',
+        description: 'Исследование агентного ИИ в корпоративных процессах. Модель зрелости EAAMM, опрос 136 IT-специалистов. Принята на ICAIMT 2026.',
+        url: 'https://www.linkedin.com/posts/sergey-emelyanov-in-job_agentic-ai-in-enterprise-business-processes-activity-7438922298000269312-ThEp',
+        date: 'Апрель 2026',
+        type: 'research',
+      },
+      {
+        title: 'ResumeCraft — мульти-агентный SaaS для оптимизации резюме',
+        description: 'Как я построил SaaS с 5 LLM-провайдерами (Claude, GPT, GigaChat, OpenRouter, Groq) на Python/FastAPI/React.',
+        url: 'https://www.linkedin.com/in/sergey-emelyanov-in-job/',
+        date: 'Март 2026',
+        type: 'project',
+      },
+      {
+        title: 'Миграция PHP 7.4 → 8.1 в Lamoda: уроки и результаты',
+        description: 'Ускорение критических запросов на 25%, снижение потребления памяти на 15%, оптимизация CI/CD на 30%.',
+        url: 'https://www.linkedin.com/in/sergey-emelyanov-in-job/',
+        date: 'Февраль 2026',
+        type: 'article',
+      },
+    ],
     contact: {
       title: 'Связаться со мной',
       email: 'pochtasergeia@gmail.com',
@@ -350,6 +373,7 @@ export const translations = {
       projects: 'Projects',
       portfolio: 'Portfolio',
       skills: 'Skills',
+      publications: 'Publications',
       contact: 'Contact',
     },
     hero: {
@@ -374,6 +398,7 @@ export const translations = {
       letsChat: "Let's Talk",
       letsChatDesc: 'Open to job offers, collaborations, and interesting projects',
       testimonials: 'Client Testimonials',
+      publications: 'Publications',
     },
     experience: [
       {
@@ -592,8 +617,6 @@ export const translations = {
           'Chatbots for 4 platforms',
           'QR code generation for offline placement',
           'Candidate card delivery to branches',
-          'Clients: MegaFon Retail, Alliance Retail Security',
-          'Used by MegaFon Retail and Alliance Retail Security',
         ],
         tags: ['PHP', 'Telegram', 'Viber', 'VK', 'HR'],
       },
@@ -674,6 +697,29 @@ export const translations = {
       product: { title: 'Product', items: ['Unit Economics', 'A/B testing', 'JTBD', 'CJM', 'Scrum'] },
       architecture: { title: 'Architecture', items: ['ArchiMate', 'Microservices', 'Event-Driven', 'DDD', 'SOLID'] },
     },
+    publications: [
+      {
+        title: 'Agentic AI in Enterprise Business Processes — EAAMM Model',
+        description: 'Research on agentic AI in enterprise processes. EAAMM maturity model, survey of 136 IT professionals. Accepted at ICAIMT 2026.',
+        url: 'https://www.linkedin.com/posts/sergey-emelyanov-in-job_agentic-ai-in-enterprise-business-processes-activity-7438922298000269312-ThEp',
+        date: 'April 2026',
+        type: 'research',
+      },
+      {
+        title: 'ResumeCraft — Multi-agent SaaS for Resume Optimization',
+        description: 'How I built a SaaS with 5 LLM providers (Claude, GPT, GigaChat, OpenRouter, Groq) on Python/FastAPI/React.',
+        url: 'https://www.linkedin.com/in/sergey-emelyanov-in-job/',
+        date: 'March 2026',
+        type: 'project',
+      },
+      {
+        title: 'PHP 7.4 → 8.1 Migration at Lamoda: Lessons and Results',
+        description: '25% faster critical queries, 15% less memory, 30% faster CI/CD delivery.',
+        url: 'https://www.linkedin.com/in/sergey-emelyanov-in-job/',
+        date: 'February 2026',
+        type: 'article',
+      },
+    ],
     contact: {
       title: 'Get in Touch',
       email: 'pochtasergeia@gmail.com',
