@@ -1,32 +1,138 @@
 # fighter90.github.io
 
-> Интерактивное портфолио Senior Software Engineer (PHP/Go) с 14+ годами опыта в высоконагруженных системах
+> Интерактивное портфолио Senior Software Engineer (PHP/Go) с 14+ годами опыта в высоконагруженных системах. AI-ассистент на DeepSeek V3, параллакс-анимации, LinkedIn-интеграция.
 
 [![Сайт](https://img.shields.io/badge/demo-fighter90.github.io-blue?style=flat-square)](https://fighter90.github.io)
 [![Built with Claude Code](https://img.shields.io/badge/built%20with-Claude%20Code-blueviolet?style=flat-square)](https://claude.ai/code)
 
 ---
 
-## Проблема
+## Что реализовано
 
-Статичное резюме в PDF не показывает, что ты умеешь строить. Оно описывает навыки — но не доказывает их.
+### AI-ассистент (чат-бот)
+Плавающий чат в правом нижнем углу с реальной LLM:
+- **DeepSeek V3** через OpenRouter API — стриминг токен-за-токеном
+- **System prompt** обучен на полном CV: опыт, проекты, навыки, образование, контакты
+- **Гибридный режим**: если OpenRouter недоступен → автоматический fallback на локальные ответы по ключевым словам
+- **Quick prompts**: 4 кнопки быстрых вопросов (Опыт, Проекты, Почему я?, Контакт)
+- **Auto-linkify**: ссылки, email, @telegram, LinkedIn — кликабельные в ответах
+- **Мобильная версия**: полноэкранный чат на телефонах
+- **Escape** закрывает чат, кнопка закрытия в хедере
+- **Пульсирующая кнопка** (chat-glow анимация)
 
-## Решение
+### Hero-секция
+- **90vh** полноэкранный hero с immersive-эффектом
+- **3 параллакс-орба** следуют за курсором мыши в разных направлениях
+- **Плавающие символы кода** (`</>`, `{}`, `$`) с float-анимацией + параллакс
+- **Пульсирующие кольца** вокруг аватара (2 кольца, разные скорости)
+- **Градиентное имя** (cyan → purple)
+- **Typewriter**: ротация 4 ролей с печатающимся текстом и мигающим курсором
+- **Каскадная анимация** section-reveal с задержками
 
-Интерактивное портфолио, которое **демонстрирует навыки на практике**: двуязычный интерфейс (RU/EN), тёмная/светлая тема, анимированный hero с dot grid, sticky-навигация с подсветкой секций, портфолио веб-сервисов, SEO-оптимизация и деплой на GitHub Pages.
+### Story-секция
+- **BeamPill**: анимированные частицы (+ · ✦ 0 1) вокруг "14+"
+- Навигационные пузыри: Мой путь, Что строю, Поговорим, Написать
 
-**Ключевые фичи:**
-- **Двуязычность (RU/EN)** — переключатель с флагами, localStorage, автоопределение по браузеру
-- **Тёмная/светлая тема** — мгновенное переключение без FOUC, CSS-first
-- **Story-секция** — анимированный narrative block с навигационными «пузырями» в стиле santifer.io
-- **Sticky-навигация** — секционные якоря с подсветкой активного раздела, mobile hamburger
-- **Портфолио** — 7 реализованных веб-сервисов (чат-боты, CMS, HRM, e-commerce) + PDF-скачивание
-- **8 мест работы** — Rambler&Co, Lamoda, МТС Финтех, ЭТП ГПБ, Авито, Мамба, Суточно.ру
-- **4 проекта** — ResumeCraft (SaaS), ICAIMT 2026 (Research), Career-Ops (AI), HSE
-- **Skills с иконками** — 6 категорий: Backend, Data, Infra, AI/ML, Product, Architecture
-- **Floating Telegram CTA** — плавающая кнопка «Написать мне» (bottom-right)
-- **LinkedIn** — интеграция в hero и контактах
-- **GEO-ready** — `llms.txt`, JSON-LD, `robots.txt`
+### Контент
+- **8 мест работы**: Rambler&Co, Lamoda, МТС Финтех, ЭТП ГПБ, Авито, Мамба, Суточно.ру — с обязанностями, достижениями и стеком
+- **7 проектов в портфолио**: Alicebot.pro, vl-taxi.ru, система анкетирования, горячая линия, @braidsBot, StartBiz.Space, Karpala.ru
+- **4 проекта**: ResumeCraft (SaaS), ICAIMT 2026 (Research), MirPrognoz (GraphRAG), Career-Ops (AI)
+- **3 образования**: НИУ ВШЭ (в процессе), Кубанский ГУ, УлГТУ — с предметами
+- **6 категорий навыков** с Lucide-иконками
+- **3 отзыва клиентов**: МегаФон Ритейл, Альянс Ритейл Секьюрити, ЦС «ГАРАНТ» — с lightbox
+- **LinkedIn-публикации**: iframe embed реальных постов
+
+### Двуязычность (RU/EN)
+- Переключатель с флагами (RU/EN)
+- localStorage + автоопределение по `navigator.language`
+- Все секции, кнопки, навигация — полностью на двух языках
+
+### Навигация
+- **Левый sidebar** (desktop xl+): фиксированный, с иконками секций, подсветка активного раздела
+- **Mobile**: hamburger-кнопка с overlay-сайдбаром
+- **Тёмная/светлая тема**: мгновенное переключение без FOUC
+
+### Анимации
+- Параллакс орбов за курсором мыши
+- Card hover: подъём + тень
+- Stagger-in: каскадное появление карточек
+- Lightbox: zoom-анимация + body scroll lock + Escape
+- Sidebar: translateX при наведении
+- Button press: scale(0.97)
+- Chat glow: пульсация кнопки чата
+
+### SEO
+- JSON-LD structured data (Person, WebSite)
+- Open Graph мета-теги
+- `llms.txt` для AI-краулеров
+- `robots.txt`
+- SVG favicon "SE"
+
+---
+
+## Архитектура AI-ассистента
+
+```
+User message
+  │
+  ▼
+FloatingChat.tsx (React component, lazy-loaded)
+  │
+  ├─ Quick Prompt clicked?
+  │   └─ Yes → sendToLLM(predefined question)
+  │   └─ No  → sendToLLM(user typed text)
+  │
+  ▼
+sendToLLM()
+  │
+  ├─ OPENROUTER_KEY exists?
+  │   │
+  │   ├─ Yes → callLLM() ──────────────────────────────────┐
+  │   │         │                                           │
+  │   │         ▼                                           │
+  │   │   fetch('https://openrouter.ai/api/v1/chat/completions')
+  │   │         │  POST, stream: true                       │
+  │   │         │  model: deepseek/deepseek-chat-v3-0324    │
+  │   │         │  headers: Authorization Bearer key        │
+  │   │         │  body: system prompt + chat history        │
+  │   │         │                                           │
+  │   │         ▼                                           │
+  │   │   ReadableStream reader                             │
+  │   │         │  parse SSE: data: {"choices":[...]}       │
+  │   │         │  extract delta.content                    │
+  │   │         │  onChunk(token) → setStreamText()         │
+  │   │         │  tokens appear in UI in real-time         │
+  │   │         │                                           │
+  │   │         ▼                                           │
+  │   │   [DONE] → save full response as message            │
+  │   │                                                     │
+  │   └─ Error (401/network) → localFallback()  ◄───────────┘
+  │
+  └─ No key → localFallback()
+              │
+              ▼
+        Keyword matching:
+        "опыт/experience" → CV summary
+        "проект/project"  → projects list
+        "почему/why/hire" → value proposition
+        "контакт/contact" → clickable links
+        default           → "Напишите в Telegram"
+
+System Prompt (trained on):
+  ├─ 8 work experiences with details
+  ├─ Tech stack (PHP, Go, Symfony, etc.)
+  ├─ Education (HSE, Kuban SU, UlSTU)
+  ├─ Projects (ResumeCraft, ICAIMT, MirPrognoz, Career-Ops)
+  ├─ Portfolio (7 Webguru services)
+  ├─ Client testimonials
+  └─ Contact information
+
+Linkify (auto-linking in responses):
+  ├─ URLs → <a href>
+  ├─ Emails → mailto:
+  ├─ @handles → t.me/
+  └─ linkedin:handle → linkedin.com/in/
+```
 
 ---
 
@@ -36,30 +142,9 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite_7-646CFF?style=flat&logo=vite&logoColor=white)
 ![Tailwind](https://img.shields.io/badge/Tailwind_v4-06B6D4?style=flat&logo=tailwindcss&logoColor=white)
+![DeepSeek](https://img.shields.io/badge/DeepSeek_V3-000000?style=flat&logoColor=white)
+![OpenRouter](https://img.shields.io/badge/OpenRouter-6366F1?style=flat&logoColor=white)
 ![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-222222?style=flat&logo=github&logoColor=white)
-
----
-
-## Архитектура
-
-```
-Browser → index.html → main.tsx (React 19 + BrowserRouter)
-                         ├── LangProvider (RU/EN context)
-                         ├── GlobalNav (theme + lang switcher)
-                         └── App.tsx
-                              ├── Hero (DotGrid canvas + ambient orbs + avatar + CTA buttons)
-                              ├── StorySection (animated narrative + nav bubbles)
-                              ├── StickyNav (section anchors + active highlight)
-                              ├── Experience (8 companies, achievements, stack)
-                              ├── Portfolio (7 Webguru projects + PDF downloads)
-                              ├── Projects (ResumeCraft, ICAIMT 2026, Career-Ops)
-                              ├── Education (HSE, Kuban SU, UlSTU)
-                              ├── Skills (6 categories with Lucide icons)
-                              ├── Contact (Email, GitHub, LinkedIn, Telegram)
-                              └── FloatingCTA (Telegram button, delayed appear)
-
-GitHub Actions → npm ci → tsc → vite build → upload artifact → deploy-pages
-```
 
 ---
 
@@ -67,48 +152,38 @@ GitHub Actions → npm ci → tsc → vite build → upload artifact → deploy-
 
 ```
 src/
-├── App.tsx                  # Все секции: Hero, Story, Experience, Portfolio,
-│                            # Projects, Education, Skills, Contact + FloatingCTA
-├── GlobalNav.tsx            # Theme toggle (Sun/Moon) + LangSwitcher
+├── App.tsx                  # Hero (parallax, typewriter, BeamPill), Story,
+│                            # Experience, Portfolio, Projects, Education,
+│                            # Skills, Testimonials, Publications, Contact
+├── GlobalNav.tsx            # Theme toggle + LangSwitcher
 ├── main.tsx                 # React entry: BrowserRouter + LangProvider
-├── i18n.ts                  # Полный контент RU/EN (опыт, проекты, навыки)
-├── index.css                # Tailwind v4, CSS variables, анимации, шрифты
+├── i18n.ts                  # Полный контент RU/EN (600+ строк)
+├── index.css                # Tailwind v4, CSS variables, 15+ анимаций
 ├── contexts/
-│   └── LangContext.tsx      # React Context: detectLang, toggleLang, localStorage
+│   └── LangContext.tsx      # React Context: lang state, localStorage, auto-detect
 └── components/
-    └── LangSwitcher.tsx     # RU/EN toggle с SVG-флагами
+    ├── LangSwitcher.tsx     # RU/EN toggle с SVG-флагами
+    └── FloatingChat.tsx     # AI-ассистент: OpenRouter + local fallback + Linkify
 
 public/
 ├── 404.html                 # SPA redirect для GitHub Pages
-├── favicon.svg              # "SE" initials favicon
+├── favicon.svg              # "SE" initials
 ├── foto-avatar.webp         # Фото (384px)
-├── foto-avatar-sm.webp      # Фото (192px)
+├── foto-avatar-sm.webp      # Фото (192px, для чата)
+├── testimonial-*.jpg        # 3 рекомендательных письма
 ├── Емельянов_Сергей_CV.pdf  # CV (русский)
 ├── Sergey_Emelyanov_CV_EN.pdf # CV (английский)
 ├── Portfolio.pdf            # Портфолио Webguru
 ├── Portfolio.Services.pdf   # Портфолио сервисов
-├── llms.txt                 # AI crawler info (GEO)
+├── llms.txt                 # AI crawler info
 ├── robots.txt               # Search bot rules
-└── fonts/                   # Space Grotesk + DM Sans (self-hosted)
+└── fonts/                   # Space Grotesk + DM Sans
+
+docs/                        # Исходные документы (не деплоятся)
 
 .github/workflows/
-└── deploy.yml               # Build + Deploy to GitHub Pages
+└── deploy.yml               # npm ci → tsc → vite build → GitHub Pages
 ```
-
----
-
-## Секции портфолио
-
-| Секция | Описание |
-| ------ | -------- |
-| Hero | Аватар, имя, роль, bio, CTA (CV, GitHub, LinkedIn, Telegram) |
-| Story | Animated narrative: «14+ лет строю всё с нуля» + nav bubbles |
-| Опыт | 8 компаний: обязанности, достижения, стек |
-| Портфолио | 7 веб-сервисов (Alicebot, vl-taxi, HR-боты, Telegram-магазин) + PDF |
-| Проекты | ResumeCraft (SaaS), ICAIMT 2026 (Research), Career-Ops (AI) |
-| Образование | НИУ ВШЭ (в процессе), Кубанский ГУ, УлГТУ |
-| Навыки | Backend, Data, Infra, AI/ML, Product, Architecture |
-| Контакты | Email, GitHub, LinkedIn, Telegram |
 
 ---
 
@@ -120,27 +195,6 @@ cd fighter90.github.io
 npm install
 npm run dev
 ```
-
-Открыть [localhost:5173](http://localhost:5173)
-
-### Сборка
-
-```bash
-npm run build    # tsc → vite build → dist/
-npm run preview  # Локальный превью
-```
-
----
-
-## Деплой
-
-Автоматический при пуше в `main`:
-
-1. GitHub Actions: `npm ci → npm run build`
-2. `actions/upload-pages-artifact` → `dist/`
-3. `actions/deploy-pages` → https://fighter90.github.io
-
-**Настройка:** Settings → Pages → Source: **GitHub Actions**
 
 ---
 
