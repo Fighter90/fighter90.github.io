@@ -206,17 +206,18 @@ export const translations = {
         tags: ['Research', 'AI', 'Enterprise'],
       },
       {
+        name: 'MirPrognoz',
+        url: 'https://mirprognoz.ru/',
+        description: 'Система прогнозирования социальных реакций',
+        details: 'GraphRAG + мультиагентная симуляция. Из документов строится граф знаний, генерируются AI-агенты с индивидуальными профилями. Агенты взаимодействуют в симулированной среде, прогнозируя реакцию аудитории.',
+        tags: ['GraphRAG', 'Multi-Agent', 'AI', 'Python'],
+      },
+      {
         name: 'Career-Ops',
         url: 'https://github.com/santifer/career-ops/',
         description: 'AI-система поиска работы',
         details: 'Интеграция с hh.ru, Хабр Карьера, trudvsem.ru.',
         tags: ['AI', 'Automation', 'Open Source'],
-      },
-      {
-        name: 'Авито Путешествия',
-        description: 'Продуктовый анализ для НИУ ВШЭ',
-        details: 'PAM/TAM/SAM/SOM, PESTLE, конкурентный бенчмаркинг.',
-        tags: ['Product', 'Analytics', 'HSE'],
       },
     ],
     portfolio: [
@@ -557,17 +558,18 @@ export const translations = {
         tags: ['Research', 'AI', 'Enterprise'],
       },
       {
+        name: 'MirPrognoz',
+        url: 'https://mirprognoz.ru/',
+        description: 'Social reaction forecasting system',
+        details: 'GraphRAG + multi-agent simulation. Builds knowledge graphs from documents, generates AI agents with individual profiles. Agents interact in simulated environments, predicting audience reactions.',
+        tags: ['GraphRAG', 'Multi-Agent', 'AI', 'Python'],
+      },
+      {
         name: 'Career-Ops',
         url: 'https://github.com/santifer/career-ops/',
         description: 'AI job search system',
         details: 'Integration with hh.ru, Habr Career, trudvsem.ru.',
         tags: ['AI', 'Automation', 'Open Source'],
-      },
-      {
-        name: 'Avito Travel',
-        description: 'Product analysis for HSE University',
-        details: 'PAM/TAM/SAM/SOM, PESTLE, competitive benchmarking.',
-        tags: ['Product', 'Analytics', 'HSE'],
       },
     ],
     portfolio: [
