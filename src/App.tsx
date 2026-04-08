@@ -271,7 +271,7 @@ function LeftSidebar() {
     <nav className="space-y-1">
       {links.map(({ id, label }) => (
         <button key={id} type="button" onClick={() => scrollTo(id)}
-          className={`sidebar-link flex items-center gap-2.5 w-full px-3 ${isMobile ? 'py-2.5' : 'py-2'} rounded-lg text-sm font-medium ${
+          className={`sidebar-link flex items-center gap-2 w-full px-3 ${isMobile ? 'py-2.5' : 'py-2'} rounded-lg text-xs font-medium whitespace-nowrap ${
             activeSection === id
               ? 'text-primary bg-primary/10 border-l-2 border-primary'
               : 'text-muted-foreground hover:text-foreground hover:bg-muted/50 border-l-2 border-transparent'
@@ -379,42 +379,59 @@ export default function App() {
   return (
     <main className="min-h-screen bg-background text-foreground">
       {/* ═══ HERO ═══ */}
-      <div className="relative overflow-hidden">
+      <div className="relative overflow-hidden min-h-[90vh] flex items-center">
         <DotGrid />
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-[hsl(var(--hero-orb-primary))] blur-[120px] pointer-events-none" style={{ animation: 'hero-glow 8s ease-in-out infinite', transform: `translate(${parallax.x}px, ${parallax.y}px)` }} />
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-[hsl(var(--hero-orb-accent))] blur-[100px] pointer-events-none" style={{ animation: 'hero-glow 10s ease-in-out infinite 2s', transform: `translate(${-parallax.x * 0.7}px, ${-parallax.y * 0.7}px)` }} />
+        {/* Parallax orbs — follow mouse */}
+        <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full bg-[hsl(var(--hero-orb-primary))] blur-[140px] pointer-events-none" style={{ animation: 'hero-glow 8s ease-in-out infinite', transform: `translate(${parallax.x}px, ${parallax.y}px)` }} />
+        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-[hsl(var(--hero-orb-accent))] blur-[120px] pointer-events-none" style={{ animation: 'hero-glow 10s ease-in-out infinite 2s', transform: `translate(${-parallax.x * 0.7}px, ${-parallax.y * 0.7}px)` }} />
+        {/* Extra subtle orb */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-[hsl(var(--gradient-to))] opacity-[0.04] blur-[80px] pointer-events-none" style={{ transform: `translate(calc(-50% + ${parallax.x * 0.3}px), calc(-50% + ${parallax.y * 0.3}px))` }} />
 
-        <div className="relative z-10 max-w-4xl mx-auto px-6 pt-24 pb-16 sm:pt-32 sm:pb-24">
+        {/* Floating decorative elements */}
+        <div className="absolute top-20 right-[15%] text-primary/10 text-6xl font-mono pointer-events-none select-none" style={{ animation: 'float 4s ease-in-out infinite', transform: `translate(${parallax.x * 0.5}px, ${parallax.y * 0.5}px)` }}>&lt;/&gt;</div>
+        <div className="absolute bottom-32 left-[10%] text-accent/10 text-5xl font-mono pointer-events-none select-none" style={{ animation: 'float 5s ease-in-out infinite 1s', transform: `translate(${-parallax.x * 0.4}px, ${-parallax.y * 0.4}px)` }}>&#123;&#125;</div>
+        <div className="absolute top-[40%] right-[8%] text-primary/8 text-4xl font-mono pointer-events-none select-none hidden sm:block" style={{ animation: 'float 6s ease-in-out infinite 2s', transform: `translate(${parallax.x * 0.6}px, ${parallax.y * 0.3}px)` }}>$</div>
+
+        <div className="relative z-10 max-w-4xl mx-auto px-6 py-16 sm:py-24">
           <div className="flex flex-col items-center text-center gap-6">
-            <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full border-2 border-primary/30 overflow-hidden shadow-xl animate-shimmer">
-              <img src="/foto-avatar.webp" alt={t.hero.name} width={176} height={176} className="w-full h-full object-cover" />
+            {/* Avatar with pulsing ring */}
+            <div className="relative">
+              <div className="absolute inset-0 rounded-full border-2 border-primary/40 scale-110" style={{ animation: 'hero-glow 3s ease-in-out infinite' }} />
+              <div className="absolute inset-0 rounded-full border border-accent/20 scale-125" style={{ animation: 'hero-glow 4s ease-in-out infinite 1s' }} />
+              <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full border-2 border-primary/30 overflow-hidden shadow-xl relative z-10 animate-shimmer">
+                <img src="/foto-avatar.webp" alt={t.hero.name} width={176} height={176} className="w-full h-full object-cover" />
+              </div>
             </div>
-            <div>
-              <h1 className="text-4xl sm:text-5xl font-display font-bold text-foreground mb-2">{t.hero.name}</h1>
+
+            <div style={{ animation: 'section-reveal 0.8s ease-out 0.2s both' }}>
+              <h1 className="text-4xl sm:text-6xl font-display font-bold mb-3">
+                <span className="text-gradient-theme">{t.hero.name}</span>
+              </h1>
               <p className="text-xl sm:text-2xl font-display text-primary font-medium h-8 sm:h-10">
                 {typedRole}<span className="inline-block w-0.5 h-5 sm:h-6 bg-primary ml-0.5 align-middle" style={{ animation: 'blink 1s step-end infinite' }} />
               </p>
-              <p className="text-muted-foreground mt-1 flex items-center justify-center gap-1.5">
+              <p className="text-muted-foreground mt-2 flex items-center justify-center gap-1.5">
                 <Building2 className="w-4 h-4" />{t.hero.company}
               </p>
             </div>
-            <p className="max-w-2xl text-muted-foreground leading-relaxed">{t.hero.bio}</p>
 
-            <div className="flex flex-wrap justify-center gap-3 mt-2">
+            <p className="max-w-2xl text-muted-foreground leading-relaxed text-lg" style={{ animation: 'section-reveal 0.8s ease-out 0.4s both' }}>{t.hero.bio}</p>
+
+            <div className="flex flex-wrap justify-center gap-3 mt-2" style={{ animation: 'section-reveal 0.8s ease-out 0.6s both' }}>
               <a href={lang === 'ru' ? '/Емельянов_Сергей_CV.pdf' : '/Sergey_Emelyanov_CV_EN.pdf'} download
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors">
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-theme text-white font-medium shadow-lg hover:shadow-xl hover:scale-105 transition-all">
                 <Download className="w-4 h-4" />{t.hero.downloadCV}
               </a>
               <a href="https://github.com/Fighter90" target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-card border border-border text-foreground font-medium hover:border-primary/50 transition-colors">
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-card border border-border text-foreground font-medium hover:border-primary/50 hover:shadow-lg transition-all">
                 <Github className="w-4 h-4" />GitHub
               </a>
               <a href={`https://www.linkedin.com/in/${t.contact.linkedin}/`} target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-card border border-border text-foreground font-medium hover:border-[hsl(var(--linkedin))]/50 transition-colors">
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-card border border-border text-foreground font-medium hover:border-[hsl(var(--linkedin))]/50 hover:shadow-lg transition-all">
                 <LinkedInIcon className="w-4 h-4" />LinkedIn
               </a>
               <a href="https://t.me/sergey_in_job" target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-card border border-border text-foreground font-medium hover:border-primary/50 transition-colors">
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-card border border-border text-foreground font-medium hover:border-primary/50 hover:shadow-lg transition-all">
                 <Send className="w-4 h-4" />{t.hero.telegram}
               </a>
             </div>
@@ -615,26 +632,28 @@ export default function App() {
             <Newspaper className="w-7 h-7 text-primary" />{t.sections.publications}
           </h2>
           <div className="grid gap-6 sm:grid-cols-2">
-            <div className="rounded-2xl overflow-hidden border border-border card-hover">
+            <div className="rounded-2xl overflow-hidden border border-border card-hover bg-white">
               <iframe
                 src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7447067513676251136?collapsed=1"
-                height="533"
+                height="600"
                 width="100%"
                 frameBorder="0"
                 allowFullScreen
                 title={lang === 'ru' ? 'Публикация LinkedIn' : 'LinkedIn Post'}
-                className="w-full"
+                className="w-full min-h-[500px]"
+                style={{ minHeight: 500 }}
               />
             </div>
-            <div className="rounded-2xl overflow-hidden border border-border card-hover">
+            <div className="rounded-2xl overflow-hidden border border-border card-hover bg-white">
               <iframe
                 src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7438922296997687296?collapsed=1"
-                height="567"
+                height="620"
                 width="100%"
                 frameBorder="0"
                 allowFullScreen
                 title={lang === 'ru' ? 'Публикация LinkedIn — ICAIMT 2026' : 'LinkedIn Post — ICAIMT 2026'}
-                className="w-full"
+                className="w-full min-h-[500px]"
+                style={{ minHeight: 500 }}
               />
             </div>
           </div>

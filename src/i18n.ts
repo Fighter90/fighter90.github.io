@@ -16,7 +16,7 @@ export const translations = {
       role: 'Senior Software Engineer (PHP/Go)',
       company: 'Rambler&Co, Москва',
       bio: 'Senior Software Engineer с 14+ годами опыта в backend-разработке. Строю высоконагруженные системы на PHP и Go. Изучаю продуктовый менеджмент в НИУ ВШЭ и исследую агентный ИИ в корпоративных процессах.',
-      downloadCV: 'CV',
+      downloadCV: 'Резюме',
       telegram: 'Telegram',
       askMe: 'Написать мне',
     },
