@@ -119,12 +119,12 @@ function StorySection() {
   const visible = useInView(ref as React.RefObject<HTMLElement | null>)
 
   const headline = lang === 'ru'
-    ? '14+ лет строю всё с нуля'
-    : '14+ years building everything from scratch'
+    ? '14+ лет разрабатываю высоконагруженные системы'
+    : '14+ years building high-load systems'
 
   const subtext = lang === 'ru'
-    ? 'От стартапов до крупнейших компаний России — backend, микросервисы, высоконагруженные системы. Сейчас изучаю продуктовый менеджмент и исследую агентный ИИ.'
-    : 'From startups to Russia\'s largest companies — backend, microservices, high-load systems. Currently studying product management and researching agentic AI.'
+    ? 'От стартапов до крупнейших компаний России — backend, микросервисы, платёжные системы. Сейчас изучаю продуктовый менеджмент в НИУ ВШЭ и исследую агентный ИИ.'
+    : 'From startups to Russia\'s largest companies — backend, microservices, payment systems. Currently pursuing IT Product Management at HSE and researching agentic AI.'
 
   const bubbles = lang === 'ru'
     ? [
@@ -184,9 +184,18 @@ function StorySection() {
   )
 }
 
-/* ─── Sticky Nav ─── */
+/* ─── Left Sidebar Nav ─── */
 
-function StickyNav() {
+const sectionIcons: Record<string, React.ReactNode> = {
+  experience: <Briefcase className="w-4 h-4" />,
+  portfolio: <Layout className="w-4 h-4" />,
+  projects: <FolderOpen className="w-4 h-4" />,
+  education: <GraduationCap className="w-4 h-4" />,
+  skills: <Code2 className="w-4 h-4" />,
+  contact: <Mail className="w-4 h-4" />,
+}
+
+function LeftSidebar() {
   const { lang } = useLang()
   const t = translations[lang]
   const activeSection = useActiveSection()
@@ -207,67 +216,64 @@ function StickyNav() {
   }, [])
 
   return (
-    <nav className="sticky top-0 z-40 bg-background/80 backdrop-blur-md border-b border-border">
-      <div className="max-w-4xl mx-auto px-6 flex items-center justify-between h-14">
-        <button
-          type="button"
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="font-display font-bold text-foreground text-lg hover:text-primary transition-colors"
-        >
-          {lang === 'ru' ? 'СЕ' : 'SE'}
-        </button>
-
-        {/* Desktop */}
-        <div className="hidden md:flex items-center gap-1">
+    <>
+      {/* Desktop: fixed left sidebar */}
+      <aside className="hidden xl:flex fixed left-0 top-0 bottom-0 w-52 z-40 flex-col justify-center pl-5 pr-3">
+        <nav className="space-y-1">
           {links.map(({ id, label }) => (
             <button
               key={id}
               type="button"
               onClick={() => scrollTo(id)}
-              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+              className={`flex items-center gap-2.5 w-full px-3 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeSection === id
-                  ? 'text-primary bg-primary/10'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
+                  ? 'text-primary bg-primary/10 border-l-2 border-primary'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/50 border-l-2 border-transparent'
               }`}
             >
+              {sectionIcons[id]}
               {label}
             </button>
           ))}
-        </div>
+        </nav>
+      </aside>
 
-        {/* Mobile hamburger */}
-        <button
-          type="button"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden w-10 h-10 flex items-center justify-center rounded-lg hover:bg-muted/50 transition-colors"
-          aria-label="Menu"
-        >
-          {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
-      </div>
+      {/* Mobile: hamburger button (fixed top-left) */}
+      <button
+        type="button"
+        onClick={() => setMobileOpen(!mobileOpen)}
+        className="xl:hidden fixed top-4 left-4 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-card border border-border shadow-lg hover:border-primary/50 transition-colors"
+        aria-label="Menu"
+      >
+        {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+      </button>
 
-      {/* Mobile dropdown */}
+      {/* Mobile: overlay sidebar */}
       {mobileOpen && (
-        <div className="md:hidden border-t border-border bg-background/95 backdrop-blur-md">
-          <div className="px-6 py-3 space-y-1">
-            {links.map(({ id, label }) => (
-              <button
-                key={id}
-                type="button"
-                onClick={() => scrollTo(id)}
-                className={`block w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  activeSection === id
-                    ? 'text-primary bg-primary/10'
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-        </div>
+        <>
+          <div className="xl:hidden fixed inset-0 z-40 bg-background/60 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
+          <aside className="xl:hidden fixed left-0 top-0 bottom-0 w-64 z-50 bg-card border-r border-border p-6 pt-20 shadow-2xl" style={{ animation: 'nav-fade-in 0.2s ease-out' }}>
+            <nav className="space-y-1">
+              {links.map(({ id, label }) => (
+                <button
+                  key={id}
+                  type="button"
+                  onClick={() => scrollTo(id)}
+                  className={`flex items-center gap-2.5 w-full px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                    activeSection === id
+                      ? 'text-primary bg-primary/10 border-l-2 border-primary'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-muted/50 border-l-2 border-transparent'
+                  }`}
+                >
+                  {sectionIcons[id]}
+                  {label}
+                </button>
+              ))}
+            </nav>
+          </aside>
+        </>
       )}
-    </nav>
+    </>
   )
 }
 
@@ -356,10 +362,10 @@ export default function App() {
       {/* STORY / NARRATIVE */}
       <StorySection />
 
-      {/* STICKY NAV */}
-      <StickyNav />
+      {/* LEFT SIDEBAR NAV */}
+      <LeftSidebar />
 
-      <div className="max-w-4xl mx-auto px-6 pb-20 space-y-20 mt-12">
+      <div className="max-w-4xl mx-auto px-6 xl:ml-52 xl:mr-auto xl:max-w-3xl pb-20 space-y-20 mt-12">
 
         {/* EXPERIENCE */}
         <Section id="experience">
