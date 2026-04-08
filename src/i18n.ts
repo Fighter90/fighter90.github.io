@@ -340,20 +340,6 @@ export const translations = {
         date: 'Апрель 2026',
         type: 'research',
       },
-      {
-        title: 'ResumeCraft — мульти-агентный SaaS для оптимизации резюме',
-        description: 'Как я построил SaaS с 5 LLM-провайдерами (Claude, GPT, GigaChat, OpenRouter, Groq) на Python/FastAPI/React.',
-        url: 'https://www.linkedin.com/in/sergey-emelyanov-in-job/',
-        date: 'Март 2026',
-        type: 'project',
-      },
-      {
-        title: 'Миграция PHP 7.4 → 8.1 в Lamoda: уроки и результаты',
-        description: 'Ускорение критических запросов на 25%, снижение потребления памяти на 15%, оптимизация CI/CD на 30%.',
-        url: 'https://www.linkedin.com/in/sergey-emelyanov-in-job/',
-        date: 'Февраль 2026',
-        type: 'article',
-      },
     ],
     contact: {
       title: 'Связаться со мной',
@@ -704,20 +690,6 @@ export const translations = {
         url: 'https://www.linkedin.com/posts/sergey-emelyanov-in-job_agentic-ai-in-enterprise-business-processes-activity-7438922298000269312-ThEp',
         date: 'April 2026',
         type: 'research',
-      },
-      {
-        title: 'ResumeCraft — Multi-agent SaaS for Resume Optimization',
-        description: 'How I built a SaaS with 5 LLM providers (Claude, GPT, GigaChat, OpenRouter, Groq) on Python/FastAPI/React.',
-        url: 'https://www.linkedin.com/in/sergey-emelyanov-in-job/',
-        date: 'March 2026',
-        type: 'project',
-      },
-      {
-        title: 'PHP 7.4 → 8.1 Migration at Lamoda: Lessons and Results',
-        description: '25% faster critical queries, 15% less memory, 30% faster CI/CD delivery.',
-        url: 'https://www.linkedin.com/in/sergey-emelyanov-in-job/',
-        date: 'February 2026',
-        type: 'article',
       },
     ],
     contact: {
