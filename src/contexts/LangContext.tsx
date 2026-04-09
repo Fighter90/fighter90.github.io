@@ -23,7 +23,9 @@ export function LangProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>('ru')
 
   useEffect(() => {
-    setLangState(detectLang())
+    const detected = detectLang()
+    setLangState(detected)
+    document.documentElement.lang = detected
   }, [])
 
   const setLang = (l: Lang) => {

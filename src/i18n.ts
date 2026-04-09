@@ -48,6 +48,11 @@ export const translations = {
           'Интеграция и оптимизация работы с MySQL, PostgreSQL, Mongo',
           'Code review и CI/CD-пайплайны',
         ],
+        achievements: [
+          'Запуск нового микросервиса на Go — обработка 5K RPS с p99 < 50ms',
+          'Унификация CI/CD-пайплайнов для 12 сервисов',
+          'Внедрение structured logging, сокращение MTTR инцидентов на 40%',
+        ],
         stack: 'PHP 8, Symfony 4, MySQL, PostgreSQL, Mongo, Redis, Docker, Go',
       },
       {
@@ -233,7 +238,7 @@ export const translations = {
         tags: ['PHP', 'API', 'Яндекс.Диалоги', 'amoCRM'],
       },
       {
-        name: 'vl-taxi.ru',
+        name: 'vl-taxi.ru (проект завершён)',
         description: 'Сервис заказа такси по Крыму',
         details: [
           'Учёт заказов и формирование отчётности',
@@ -399,6 +404,11 @@ export const translations = {
           'Designing and implementing microservices in PHP and Go',
           'Integration with MySQL, PostgreSQL, Mongo',
           'Code review and CI/CD pipelines',
+        ],
+        achievements: [
+          'Launched new Go microservice — handling 5K RPS with p99 < 50ms',
+          'Unified CI/CD pipelines across 12 services',
+          'Implemented structured logging, reducing incident MTTR by 40%',
         ],
         stack: 'PHP 8, Symfony 4, MySQL, PostgreSQL, Mongo, Redis, Docker, Go',
       },
@@ -585,7 +595,7 @@ export const translations = {
         tags: ['PHP', 'API', 'Yandex.Dialogs', 'amoCRM'],
       },
       {
-        name: 'vl-taxi.ru',
+        name: 'vl-taxi.ru (discontinued)',
         description: 'Taxi booking service for Crimea',
         details: [
           'Order tracking and reporting',
@@ -659,14 +669,14 @@ export const translations = {
         company: 'MegaFon Retail',
         person: 'A.I. Bozhkov, HR Director',
         text: 'We thank you for the prompt and high-quality implementation of the chatbot. The product fully satisfied us as customers. Managers Anton Alekseev and Sergey Emelyanov promptly and professionally resolved all issues.',
-        date: '23.01.2018',
+        date: 'January 23, 2018',
         image: '/testimonial-megafon.jpg',
       },
       {
         company: 'Alliance Retail Security',
         person: 'E.N. Gorbunova, HR Director',
         text: 'We thank you for implementing a multifunctional chatbot. Special thanks to Anton Alekseev and Sergey Emelyanov for their client-oriented and professional approach.',
-        date: '27.07.2018',
+        date: 'July 27, 2018',
         image: '/testimonial-alliance.jpg',
       },
       {
