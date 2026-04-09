@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Sun, Moon } from 'lucide-react'
 import LangSwitcher from './components/LangSwitcher'
+import { useLang } from './contexts/LangContext'
 
 function useTheme() {
   const [isDark, setIsDark] = useState(true)
@@ -48,6 +49,7 @@ function useTheme() {
 
 export default function GlobalNav() {
   const { isDark, toggleTheme } = useTheme()
+  const { lang } = useLang()
   const [hydrated, setHydrated] = useState(false)
   useEffect(() => setHydrated(true), [])
 
@@ -59,7 +61,7 @@ export default function GlobalNav() {
       <button
         onClick={toggleTheme}
         className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center shadow-lg hover:border-primary/50 hover:shadow-primary/20 hover:shadow-xl transition-colors"
-        aria-label="Toggle theme"
+        aria-label={lang === 'ru' ? 'Переключить тему' : 'Toggle theme'}
       >
         {isDark ? <Sun className="w-5 h-5 text-primary" /> : <Moon className="w-5 h-5 text-primary" />}
       </button>

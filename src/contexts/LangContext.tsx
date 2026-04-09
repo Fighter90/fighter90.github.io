@@ -10,6 +10,8 @@ interface LangContextType {
 const LangContext = createContext<LangContextType | null>(null)
 
 function detectLang(): Lang {
+  const urlLang = new URLSearchParams(window.location.search).get('lang')
+  if (urlLang === 'en' || urlLang === 'ru') return urlLang
   const stored = localStorage.getItem('lang')
   if (stored === 'en' || stored === 'ru') return stored
   const browserLang = navigator.language.toLowerCase()

@@ -184,7 +184,7 @@ export const translations = {
       },
       {
         institution: 'УлГТУ',
-        degree: 'Высшее',
+        degree: 'Специалитет',
         field: 'Информационные системы и технологии',
         period: '2007 — 2012',
         courses: ['Базы данных', 'Компьютерная графика', 'Программирование', 'Сети и телекоммуникации', 'Системное администрирование'],
@@ -214,7 +214,7 @@ export const translations = {
       },
       {
         name: 'Career-Ops',
-        url: 'https://github.com/santifer/career-ops/',
+        url: 'https://github.com/Fighter90/career-ops/',
         description: 'AI-система поиска работы',
         details: 'Интеграция с hh.ru, Хабр Карьера, trudvsem.ru.',
         tags: ['AI', 'Automation', 'Open Source'],
@@ -536,7 +536,7 @@ export const translations = {
       },
       {
         institution: 'Ulyanovsk State Technical University',
-        degree: "Bachelor's",
+        degree: "Specialist (5-year Engineer's Degree)",
         field: 'Information Systems and Technologies',
         period: '2007 — 2012',
         courses: ['Databases', 'Computer Graphics', 'Programming', 'Networks & Telecommunications', 'System Administration'],
@@ -566,7 +566,7 @@ export const translations = {
       },
       {
         name: 'Career-Ops',
-        url: 'https://github.com/santifer/career-ops/',
+        url: 'https://github.com/Fighter90/career-ops/',
         description: 'AI job search system',
         details: 'Integration with hh.ru, Habr Career, trudvsem.ru.',
         tags: ['AI', 'Automation', 'Open Source'],
@@ -673,7 +673,7 @@ export const translations = {
         company: 'CS GARANT',
         person: 'R.A. Tillayev, CEO',
         text: 'We thank you for the fruitful cooperation, timeliness, responsiveness, and responsibility in fulfilling the order.',
-        date: '01.12.2017',
+        date: 'December 1, 2017',
         image: '/testimonial-garant.jpg',
       },
     ],

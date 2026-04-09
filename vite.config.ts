@@ -13,14 +13,8 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
-            if (id.includes('react-dom') || (id.includes('react') && !id.includes('react-router'))) {
+            if (id.includes('react-dom') || id.includes('react')) {
               return 'vendor-react'
-            }
-            if (id.includes('react-router') || id.includes('@remix-run')) {
-              return 'vendor-router'
-            }
-            if (id.includes('motion')) {
-              return 'vendor-motion'
             }
           }
         },

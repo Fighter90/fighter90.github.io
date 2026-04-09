@@ -171,7 +171,7 @@ public/
 ├── foto-avatar.webp         # Фото (384px)
 ├── foto-avatar-sm.webp      # Фото (192px, для чата)
 ├── testimonial-*.jpg        # 3 рекомендательных письма
-├── Емельянов_Сергей_CV.pdf  # CV (русский)
+├── Emelyanov_Sergey_CV.pdf   # CV (русский)
 ├── Sergey_Emelyanov_CV_EN.pdf # CV (английский)
 ├── Portfolio.pdf            # Портфолио Webguru
 ├── Portfolio.Services.pdf   # Портфолио сервисов

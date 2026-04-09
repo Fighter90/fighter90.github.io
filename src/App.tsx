@@ -416,7 +416,7 @@ export default function App() {
             <p className="max-w-2xl text-muted-foreground leading-relaxed text-lg" style={{ animation: 'section-reveal 0.8s ease-out 0.4s both' }}>{t.hero.bio}</p>
 
             <div className="flex flex-wrap justify-center gap-3 mt-2" style={{ animation: 'section-reveal 0.8s ease-out 0.6s both' }}>
-              <a href={lang === 'ru' ? '/Емельянов_Сергей_CV.pdf' : '/Sergey_Emelyanov_CV_EN.pdf'} download
+              <a href={lang === 'ru' ? '/Emelyanov_Sergey_CV.pdf' : '/Sergey_Emelyanov_CV_EN.pdf'} download
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-theme text-white font-medium shadow-lg hover:shadow-xl hover:scale-105 transition-all">
                 <Download className="w-4 h-4" />{t.hero.downloadCV}
               </a>
@@ -635,7 +635,7 @@ export default function App() {
                 src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7447067513676251136?collapsed=1"
                 height="200"
                 width="100%"
-                frameBorder="0"
+                style={{ border: 0 }}
                 allowFullScreen
                 title={lang === 'ru' ? 'Публикация LinkedIn' : 'LinkedIn Post'}
                 className="w-full"
@@ -646,7 +646,7 @@ export default function App() {
                 src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7438922296997687296?collapsed=1"
                 height="200"
                 width="100%"
-                frameBorder="0"
+                style={{ border: 0 }}
                 allowFullScreen
                 title={lang === 'ru' ? 'Публикация LinkedIn — ICAIMT 2026' : 'LinkedIn Post — ICAIMT 2026'}
                 className="w-full"
@@ -689,7 +689,7 @@ export default function App() {
 
       {/* FOOTER */}
       <footer className="border-t border-border py-8 text-center">
-        <p className="text-muted-foreground text-sm">{t.footer.builtWith}</p>
+        <p className="text-muted-foreground text-sm">&copy; {new Date().getFullYear()} {t.footer.builtWith}</p>
       </footer>
 
       {/* AI CHAT ASSISTANT */}
