@@ -37,7 +37,7 @@ export default function LangSwitcher() {
       className="inline-flex items-center justify-center gap-1.5 w-[4.5rem] h-10 rounded-full bg-card border border-border text-sm font-medium text-muted-foreground hover:text-foreground hover:border-primary/50 transition-colors"
       aria-label={lang === 'ru' ? 'Switch to English' : 'Переключить на русский'}
     >
-      {lang === 'ru' ? <FlagRU className="w-3.5 h-3.5" /> : <FlagEN className="w-3.5 h-3.5" />}
+      {lang === 'ru' ? <FlagEN className="w-3.5 h-3.5" /> : <FlagRU className="w-3.5 h-3.5" />}
       {lang === 'ru' ? 'EN' : 'RU'}
     </button>
   )
