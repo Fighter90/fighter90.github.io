@@ -197,8 +197,8 @@ function ChatMarkdown({ text }: { text: string }) {
       {lines.map((line, i) => {
         const trimmed = line.trim()
         if (!trimmed) return <div key={i} className="h-1" />
-        if (/^#{1,3}\s/.test(trimmed))
-          return <p key={i} className="font-bold text-foreground mt-1.5">{renderInline(trimmed.replace(/^#{1,3}\s+/, ''))}</p>
+        if (/^#{1,6}\s/.test(trimmed))
+          return <p key={i} className="font-bold text-foreground mt-1.5">{renderInline(trimmed.replace(/^#{1,6}\s+/, ''))}</p>
         if (/^[-*]\s/.test(trimmed))
           return <p key={i} className="pl-3 before:content-['•'] before:mr-1.5 before:text-muted-foreground">{renderInline(trimmed.replace(/^[-*]\s+/, ''))}</p>
         if (/^\d+\.\s/.test(trimmed))

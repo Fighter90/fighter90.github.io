@@ -291,9 +291,9 @@ function LeftSidebar() {
 
       {/* Mobile hamburger */}
       <button type="button" onClick={() => setMobileOpen(!mobileOpen)}
-        className="xl:hidden fixed top-4 left-4 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-card border border-border shadow-lg hover:border-primary/50 transition-colors"
+        className="xl:hidden fixed top-4 left-4 z-[60] w-10 h-10 flex items-center justify-center rounded-full bg-card border border-border shadow-lg hover:border-primary/50 transition-colors"
         aria-label="Menu">
-        {mobileOpen ? <X className="w-5 h-5 dark:text-black dark:drop-shadow-[0_0_1px_white]" /> : <Menu className="w-5 h-5" />}
+        {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
       </button>
 
       {/* Mobile overlay */}
