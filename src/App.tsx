@@ -293,7 +293,7 @@ function LeftSidebar() {
       <button type="button" onClick={() => setMobileOpen(!mobileOpen)}
         className="xl:hidden fixed top-4 left-4 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-card border border-border shadow-lg hover:border-primary/50 transition-colors"
         aria-label="Menu">
-        {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        {mobileOpen ? <X className="w-5 h-5 dark:text-black dark:drop-shadow-[0_0_1px_white]" /> : <Menu className="w-5 h-5" />}
       </button>
 
       {/* Mobile overlay */}
@@ -629,11 +629,11 @@ export default function App() {
           <h2 className="text-2xl sm:text-3xl font-display font-bold text-foreground mb-8 flex items-center gap-3">
             <Newspaper className="w-7 h-7 text-primary" />{t.sections.publications}
           </h2>
-          <div className="space-y-4">
+          <div className="grid gap-4 sm:grid-cols-2">
             <div className="rounded-xl overflow-hidden border border-border card-hover bg-white">
               <iframe
-                src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7447067513676251136?collapsed=1"
-                height="200"
+                src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7447067513676251136"
+                height="400"
                 width="100%"
                 style={{ border: 0 }}
                 allowFullScreen
@@ -643,12 +643,23 @@ export default function App() {
             </div>
             <div className="rounded-xl overflow-hidden border border-border card-hover bg-white">
               <iframe
-                src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7438922296997687296?collapsed=1"
-                height="200"
+                src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7438922296997687296"
+                height="400"
                 width="100%"
                 style={{ border: 0 }}
                 allowFullScreen
                 title={lang === 'ru' ? 'Публикация LinkedIn — ICAIMT 2026' : 'LinkedIn Post — ICAIMT 2026'}
+                className="w-full"
+              />
+            </div>
+            <div className="rounded-xl overflow-hidden border border-border card-hover bg-white sm:col-span-2 sm:max-w-[calc(50%-0.5rem)]">
+              <iframe
+                src="https://www.linkedin.com/embed/feed/update/urn:li:share:7448495920008167425"
+                height="400"
+                width="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                title={lang === 'ru' ? 'Публикация LinkedIn' : 'LinkedIn Post'}
                 className="w-full"
               />
             </div>

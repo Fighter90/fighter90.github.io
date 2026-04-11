@@ -172,25 +172,40 @@ const headerCopy: Record<Lang, { name: string; subtitle: string; greeting: strin
 let _id = 0
 const uid = () => `msg-${++_id}-${Date.now()}`
 
-/** Auto-link URLs, emails, @telegram handles, and LinkedIn usernames in text */
-function Linkify({ text }: { text: string }) {
-  const parts = text.split(/(\bhttps?:\/\/\S+|[\w.+-]+@[\w.-]+\.\w+|@[\w_]+|linkedin:[\w-]+)/g)
+/** Render markdown-like text: **bold**, ### headings, - lists, URLs */
+function ChatMarkdown({ text }: { text: string }) {
+  const lines = text.split('\n')
+
+  function renderInline(line: string) {
+    // Bold **text** and links
+    const parts = line.split(/(\*\*[^*]+\*\*|\bhttps?:\/\/\S+|[\w.+-]+@[\w.-]+\.\w+|@[\w_]+)/g)
+    return parts.map((part, i) => {
+      if (/^\*\*(.+)\*\*$/.test(part))
+        return <strong key={i}>{part.slice(2, -2)}</strong>
+      if (/^https?:\/\//.test(part))
+        return <a key={i} href={part} target="_blank" rel="noopener noreferrer" className="underline text-primary hover:text-primary/80">{part}</a>
+      if (/^[\w.+-]+@[\w.-]+\.\w+$/.test(part))
+        return <a key={i} href={`mailto:${part}`} className="underline text-primary hover:text-primary/80">{part}</a>
+      if (/^@[\w_]+$/.test(part))
+        return <a key={i} href={`https://t.me/${part.slice(1)}`} target="_blank" rel="noopener noreferrer" className="underline text-primary hover:text-primary/80">{part}</a>
+      return <span key={i}>{part}</span>
+    })
+  }
+
   return (
-    <>
-      {parts.map((part, i) => {
-        if (/^https?:\/\//.test(part))
-          return <a key={i} href={part} target="_blank" rel="noopener noreferrer" className="underline text-primary hover:text-primary/80">{part}</a>
-        if (/^[\w.+-]+@[\w.-]+\.\w+$/.test(part))
-          return <a key={i} href={`mailto:${part}`} className="underline text-primary hover:text-primary/80">{part}</a>
-        if (/^@[\w_]+$/.test(part))
-          return <a key={i} href={`https://t.me/${part.slice(1)}`} target="_blank" rel="noopener noreferrer" className="underline text-primary hover:text-primary/80">{part}</a>
-        if (/^linkedin:/.test(part)) {
-          const handle = part.replace('linkedin:', '')
-          return <a key={i} href={`https://www.linkedin.com/in/${handle}/`} target="_blank" rel="noopener noreferrer" className="underline text-primary hover:text-primary/80">LinkedIn</a>
-        }
-        return <span key={i}>{part}</span>
+    <div className="space-y-1">
+      {lines.map((line, i) => {
+        const trimmed = line.trim()
+        if (!trimmed) return <div key={i} className="h-1" />
+        if (/^#{1,3}\s/.test(trimmed))
+          return <p key={i} className="font-bold text-foreground mt-1.5">{renderInline(trimmed.replace(/^#{1,3}\s+/, ''))}</p>
+        if (/^[-*]\s/.test(trimmed))
+          return <p key={i} className="pl-3 before:content-['•'] before:mr-1.5 before:text-muted-foreground">{renderInline(trimmed.replace(/^[-*]\s+/, ''))}</p>
+        if (/^\d+\.\s/.test(trimmed))
+          return <p key={i} className="pl-3">{renderInline(trimmed)}</p>
+        return <p key={i}>{renderInline(trimmed)}</p>
       })}
-    </>
+    </div>
   )
 }
 
@@ -359,12 +374,12 @@ export default function FloatingChat() {
         <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-3 space-y-3 custom-scrollbar">
           {messages.map((msg) => (
             <div key={msg.id} className={`flex animate-chat-msg ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-              <div className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed whitespace-pre-wrap ${
+              <div className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
                 msg.role === 'user'
-                  ? 'bg-primary text-primary-foreground rounded-br-sm'
+                  ? 'bg-primary text-primary-foreground rounded-br-sm whitespace-pre-wrap'
                   : 'bg-muted text-foreground rounded-bl-sm'
               }`}>
-                <Linkify text={msg.text} />
+                {msg.role === 'user' ? msg.text : <ChatMarkdown text={msg.text} />}
               </div>
             </div>
           ))}
@@ -372,8 +387,8 @@ export default function FloatingChat() {
           {/* Streaming response */}
           {isStreaming && (
             <div className="flex justify-start animate-chat-msg">
-              <div className="max-w-[85%] rounded-2xl rounded-bl-sm bg-muted text-foreground px-3.5 py-2.5 text-sm leading-relaxed whitespace-pre-wrap">
-                {streamText ? <Linkify text={streamText} /> : (
+              <div className="max-w-[85%] rounded-2xl rounded-bl-sm bg-muted text-foreground px-3.5 py-2.5 text-sm leading-relaxed">
+                {streamText ? <ChatMarkdown text={streamText} /> : (
                   <span className="flex items-center gap-1">
                     <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted-foreground [animation-delay:0ms]" />
                     <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted-foreground [animation-delay:150ms]" />

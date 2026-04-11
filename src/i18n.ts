@@ -224,6 +224,20 @@ export const translations = {
         details: 'Интеграция с hh.ru, Хабр Карьера, trudvsem.ru.',
         tags: ['AI', 'Automation', 'Open Source'],
       },
+      {
+        name: 'RAG на N8N',
+        url: 'https://github.com/Fighter90/RAG',
+        description: 'RAG-пайплайн на платформе N8N',
+        details: 'Retrieval-Augmented Generation для работы с документами через визуальные воркфлоу N8N.',
+        tags: ['RAG', 'N8N', 'AI', 'LLM'],
+      },
+      {
+        name: 'My Brain Is Full — Crew',
+        url: 'https://github.com/Fighter90/My-Brain-Is-Full-Crew',
+        description: 'Команда 8+ AI-агентов для управления Obsidian',
+        details: 'На базе Claude Code и Obsidian. 13 специализированных навыков: организация, поиск, расшифровка, сортировка почты. Мультиязычная поддержка.',
+        tags: ['Claude Code', 'Obsidian', 'AI Agents', 'Automation'],
+      },
     ],
     portfolio: [
       {
@@ -294,7 +308,7 @@ export const translations = {
         tags: ['Telegram Bot', 'HRM', 'PHP'],
       },
       {
-        name: 'Karpala.ru',
+        name: 'Karpala.ru (проект завершён)',
         description: 'Система поиска заказов такси',
         details: [
           'Создание заказов водителями и диспетчерами',
@@ -581,6 +595,20 @@ export const translations = {
         details: 'Integration with hh.ru, Habr Career, trudvsem.ru.',
         tags: ['AI', 'Automation', 'Open Source'],
       },
+      {
+        name: 'RAG on N8N',
+        url: 'https://github.com/Fighter90/RAG',
+        description: 'RAG pipeline on the N8N platform',
+        details: 'Retrieval-Augmented Generation for document processing via visual N8N workflows.',
+        tags: ['RAG', 'N8N', 'AI', 'LLM'],
+      },
+      {
+        name: 'My Brain Is Full — Crew',
+        url: 'https://github.com/Fighter90/My-Brain-Is-Full-Crew',
+        description: 'Team of 8+ AI agents for Obsidian management',
+        details: 'Built on Claude Code and Obsidian. 13 specialized skills: organizing, searching, transcribing, sorting mail. Multi-language support.',
+        tags: ['Claude Code', 'Obsidian', 'AI Agents', 'Automation'],
+      },
     ],
     portfolio: [
       {
@@ -651,7 +679,7 @@ export const translations = {
         tags: ['Telegram Bot', 'HRM', 'PHP'],
       },
       {
-        name: 'Karpala.ru',
+        name: 'Karpala.ru (discontinued)',
         description: 'Taxi order search system',
         details: [
           'Order creation by drivers and dispatchers',
