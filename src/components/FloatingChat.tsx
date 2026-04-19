@@ -32,26 +32,24 @@ About Sergey:
 - Previous companies: Lamoda Tech (2022-2024), Rambler&Co (2021-2022), MTS Fintech (2020-2021), ETP Gazprombank (2016-2020), Avito (2016), Mamba/Tourbar (2015-2016), Sutochno.ru (2011-2015)
 
 Key achievements:
-- Migrated PHP 7.4→8.1 at Lamoda: 25% faster queries, 15% less memory
-- Optimized CI/CD pipelines: 30% faster delivery at Lamoda
-- Built config microservice from scratch using DDD at MTS Fintech, 85% test coverage
-- Reporting subsystem 5x faster at Rambler&Co
-- Government procurement integration via microservices at ETP GPB
-- Payment system integrations at Avito (billing microservice)
-- Grew Sutochno.ru from prototype to production with thousands of users, automated 90% accounting
+- Rambler&Co (2024-present): designed and shipped 10+ Go microservices, contributed to breaking up the PHP/Symfony 4 monolith, reworked portal authorization system
+- Lamoda Tech: migrated all team services from PHP 7.4 to PHP 8.1, optimized CI/CD pipelines (~30% faster delivery), adapted services to Chestny Znak / CRPT labeling requirements
+- Rambler&Co (2021-2022): improved Go-based ad-position bid management service, accelerated report generation for advertisers
+- MTS Fintech (Tech Lead): built config microservice from scratch using DDD (feature flags, pricing, RBAC, admin panel), raised test coverage to 85%
+- ETP Gazprombank: implemented 44-FZ/223-FZ integration with zakupki.gov.ru, built dedicated billing microservice on Phalcon, migrated PHP 5.6→7
+- Avito: integrated MIR card payments into billing microservice, improved payment-pipeline stability
+- Mamba/Tourbar: built REST API from scratch for iOS+Android apps, full-text search on Elasticsearch over millions of profiles
+- Sutochno.ru: grew OTA service from prototype to stable product with hundreds of thousands of guests, designed auction-based top-listing system, automated ~90% of accounting routine
 
 Core stack: PHP 8, Go, Symfony 4, Laravel, PostgreSQL, MySQL, MongoDB, Redis, Kafka, RabbitMQ, Docker, Kubernetes, CI/CD
 AI/ML: Python, FastAPI, Claude API, OpenAI API, Prompt Engineering
 
 Education:
 - HSE University — Master's in IT Product Management (2025-2027, in progress)
-- Kuban State University — Master's in Psychology (2023-2025)
 - Ulyanovsk State Technical University — Information Systems (2007-2012)
 
-Side projects:
-- ResumeCraft (resumecraft.ru) — Multi-agent SaaS resume optimizer with 5 LLM providers
+Research:
 - ICAIMT 2026 — Research paper "Agentic AI in Enterprise" (EAAMM model), 136 respondents, accepted at international conference
-- Career-Ops — AI job search system for Russian market (hh.ru, Habr Career integration)
 
 Portfolio (Webguru.pro era):
 - Alicebot.pro — Yandex Alice skill builder with amoCRM/Bitrix24 integration
@@ -61,7 +59,7 @@ Portfolio (Webguru.pro era):
 
 Client testimonials: MegaFon Retail, Alliance Retail Security, CS GARANT — all praise professionalism and quality.
 
-Contact: pochtasergeia@gmail.com | Telegram: @sergey_in_job | LinkedIn: sergey-emelyanov-in-job | GitHub: Fighter90
+Contact: pochtasergeia@gmail.com | Telegram: @sergey_in_job | LinkedIn: sergey-emelyanov-in-job
 
 You answer questions about Sergey's experience, skills, and projects. Be helpful, concise, and professional. If asked about something you don't know, say so honestly and suggest contacting Sergey directly.`
 
@@ -82,7 +80,7 @@ async function callLLM(
     headers: {
       'Authorization': `Bearer ${OPENROUTER_KEY}`,
       'Content-Type': 'application/json',
-      'HTTP-Referer': 'https://fighter90.github.io',
+      'HTTP-Referer': typeof window !== 'undefined' ? window.location.origin : '',
       'X-Title': 'Sergey Emelyanov Portfolio',
     },
     body: JSON.stringify({
@@ -261,16 +259,16 @@ export default function FloatingChat() {
         : '14+ years in backend: PHP 8, Go, Symfony. Worked at Rambler&Co, Lamoda, Avito, MTS Fintech, ETP Gazprombank. High-load systems, microservices, CI/CD.'
     if (lower.includes('проект') || lower.includes('project') || lower.includes('portfolio'))
       return lang === 'ru'
-        ? 'Ключевые проекты: ResumeCraft (мульти-агентный SaaS с 5 LLM), научная статья ICAIMT 2026 (агентный ИИ, 136 респондентов), Career-Ops (AI-поиск работы). Также 7+ веб-сервисов в рамках Webguru.pro: чат-боты, CMS, HRM-системы.'
-        : 'Key projects: ResumeCraft (multi-agent SaaS with 5 LLMs), ICAIMT 2026 research paper (agentic AI, 136 respondents), Career-Ops (AI job search). Also 7+ web services at Webguru.pro: chatbots, CMS, HRM systems.'
+        ? 'В Webguru.pro делал 7+ веб-сервисов: Alicebot.pro (конструктор навыков Алисы), vl-taxi.ru, HR-анкетирование для МегаФон Ритейл и Альянс Ритейл Секьюрити, Telegram-магазин @braidsBot, StartBiz.Space, Karpala.ru. Научная работа — ICAIMT 2026 (EAAMM, 136 респондентов).'
+        : 'At Webguru.pro I built 7+ web services: Alicebot.pro (Yandex Alice skill builder), vl-taxi.ru, HR surveys for MegaFon Retail and Alliance Retail Security, Telegram shop @braidsBot, StartBiz.Space, Karpala.ru. Research — ICAIMT 2026 (EAAMM, 136 respondents).'
     if (lower.includes('почему') || lower.includes('why') || lower.includes('hire') || lower.includes('нанять'))
       return lang === 'ru'
         ? 'Глубокая экспертиза в backend (14+ лет) + магистратура по продуктовому менеджменту в ВШЭ. Умею выстраивать архитектуру, менторить команды, доводить проекты до продакшена. Исследую применение ИИ в бизнесе.'
         : 'Deep backend expertise (14+ years) + pursuing Product Management master\'s at HSE. I design architecture, mentor teams, ship to production. Researching AI in business processes.'
     if (lower.includes('контакт') || lower.includes('contact') || lower.includes('связ'))
       return lang === 'ru'
-        ? 'Email: pochtasergeia@gmail.com\nTelegram: @sergey_in_job\nLinkedIn: linkedin:sergey-emelyanov-in-job\nGitHub: https://github.com/Fighter90'
-        : 'Email: pochtasergeia@gmail.com\nTelegram: @sergey_in_job\nLinkedIn: linkedin:sergey-emelyanov-in-job\nGitHub: https://github.com/Fighter90'
+        ? 'Email: pochtasergeia@gmail.com\nTelegram: @sergey_in_job\nLinkedIn: linkedin:sergey-emelyanov-in-job'
+        : 'Email: pochtasergeia@gmail.com\nTelegram: @sergey_in_job\nLinkedIn: linkedin:sergey-emelyanov-in-job'
     return lang === 'ru'
       ? 'Спасибо за вопрос! Для подробного ответа напишите мне в Telegram: @sergey_in_job — отвечу лично.'
       : 'Thanks for asking! For a detailed answer, message me on Telegram: @sergey_in_job — I\'ll reply personally.'

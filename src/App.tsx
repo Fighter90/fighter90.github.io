@@ -1,10 +1,10 @@
 import { useEffect, useState, useRef, useCallback, lazy, Suspense } from 'react'
 import { createPortal } from 'react-dom'
 import {
-  Mail, Github, Send, Briefcase, GraduationCap, Code2, FolderOpen,
+  Mail, Send, Briefcase, GraduationCap, Code2, FolderOpen,
   MapPin, Building2, Calendar, Download, ExternalLink, Award,
   Layout, Menu, X, Server, Database, Cloud, Sparkles,
-  BarChart3, Network, FileText, Quote, BookOpen, Newspaper
+  BarChart3, Network, FileText, Quote, Newspaper
 } from 'lucide-react'
 import { translations } from './i18n'
 import { useLang } from './contexts/LangContext'
@@ -75,7 +75,6 @@ const skillIcons: Record<string, React.ReactNode> = {
 const sectionIcons: Record<string, React.ReactNode> = {
   experience: <Briefcase className="w-4 h-4" />,
   portfolio: <Layout className="w-4 h-4" />,
-  projects: <FolderOpen className="w-4 h-4" />,
   education: <GraduationCap className="w-4 h-4" />,
   skills: <Code2 className="w-4 h-4" />,
   testimonials: <Quote className="w-4 h-4" />,
@@ -254,7 +253,6 @@ function LeftSidebar() {
   const links = [
     { id: 'experience', label: t.nav.experience },
     { id: 'portfolio', label: t.nav.portfolio },
-    { id: 'projects', label: t.nav.projects },
     { id: 'education', label: t.nav.education },
     { id: 'skills', label: t.nav.skills },
     { id: 'testimonials', label: t.sections.testimonials },
@@ -372,8 +370,6 @@ export default function App() {
 
   const parallax = useMouseParallax(15)
 
-  const filteredProjects = t.projects
-
   return (
     <main className="min-h-screen bg-background text-foreground">
       {/* ═══ HERO ═══ */}
@@ -419,10 +415,6 @@ export default function App() {
               <a href={lang === 'ru' ? '/Emelyanov_Sergey_CV.pdf' : '/Sergey_Emelyanov_CV_EN.pdf'} download
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-theme text-white font-medium shadow-lg hover:shadow-xl hover:scale-105 transition-all">
                 <Download className="w-4 h-4" />{t.hero.downloadCV}
-              </a>
-              <a href="https://github.com/Fighter90" target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-card border border-border text-foreground font-medium hover:border-primary/50 hover:shadow-lg transition-all">
-                <Github className="w-4 h-4" />GitHub
               </a>
               <a href={`https://www.linkedin.com/in/${t.contact.linkedin}/`} target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-card border border-border text-foreground font-medium hover:border-[hsl(var(--linkedin))]/50 hover:shadow-lg transition-all">
@@ -528,34 +520,6 @@ export default function App() {
           </div>
         </Section>
 
-        {/* PROJECTS */}
-        <Section id="projects">
-          <h2 className="text-2xl sm:text-3xl font-display font-bold text-foreground mb-8 flex items-center gap-3">
-            <FolderOpen className="w-7 h-7 text-primary" />{t.sections.projects}
-          </h2>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {filteredProjects.map((proj, i) => (
-              <div key={i} className="bg-card border border-border rounded-2xl p-6 hover:border-primary/30 transition-colors flex flex-col">
-                <div className="flex items-start justify-between gap-2 mb-2">
-                  <h3 className="text-lg font-display font-semibold text-foreground">{proj.name}</h3>
-                  {'url' in proj && proj.url && (
-                    <a href={proj.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80 shrink-0" aria-label={proj.name}>
-                      <ExternalLink className="w-4 h-4" />
-                    </a>
-                  )}
-                </div>
-                <p className="text-primary text-sm font-medium mb-1">{proj.description}</p>
-                <p className="text-muted-foreground text-sm mb-3 flex-1">{proj.details}</p>
-                <div className="flex flex-wrap gap-1.5">
-                  {proj.tags.map((tag: string) => (
-                    <span key={tag} className="badge px-2.5 py-0.5 bg-primary/10 text-primary border border-primary/20 text-xs">{tag}</span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </Section>
-
         {/* EDUCATION */}
         <Section id="education">
           <h2 className="text-2xl sm:text-3xl font-display font-bold text-foreground mb-8 flex items-center gap-3">
@@ -576,15 +540,8 @@ export default function App() {
                     )}
                   </div>
                 </div>
-                {'courses' in edu && edu.courses && (
-                  <div className="flex items-start gap-2 mt-2">
-                    <BookOpen className="w-4 h-4 text-muted-foreground mt-0.5 shrink-0" />
-                    <div className="flex flex-wrap gap-1.5">
-                      {edu.courses.map((c: string) => (
-                        <span key={c} className="badge px-2 py-0.5 bg-muted text-muted-foreground text-xs">{c}</span>
-                      ))}
-                    </div>
-                  </div>
+                {'faculty' in edu && edu.faculty && (
+                  <p className="text-muted-foreground text-sm mt-1">{edu.faculty}</p>
                 )}
               </div>
             ))}
@@ -673,17 +630,13 @@ export default function App() {
           </h2>
           <p className="text-muted-foreground mb-8">{t.sections.letsChatDesc}</p>
           <div className="bg-card border border-border rounded-2xl p-6 sm:p-8">
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               <a href={`mailto:${t.contact.email}`} className="flex items-center gap-3 p-4 rounded-xl bg-muted/30 hover:bg-primary/10 transition-colors group min-w-0">
                 <Mail className="w-5 h-5 text-primary group-hover:scale-110 transition-transform shrink-0" />
                 <div className="min-w-0">
                   <p className="text-xs text-muted-foreground">Email</p>
                   <p className="text-foreground font-medium text-xs sm:text-sm truncate">{t.contact.email}</p>
                 </div>
-              </a>
-              <a href={`https://github.com/${t.contact.github}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-4 rounded-xl bg-muted/30 hover:bg-primary/10 transition-colors group">
-                <Github className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
-                <div><p className="text-xs text-muted-foreground">GitHub</p><p className="text-foreground font-medium text-sm">{t.contact.github}</p></div>
               </a>
               <a href={`https://www.linkedin.com/in/${t.contact.linkedin}/`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-4 rounded-xl bg-muted/30 hover:bg-[hsl(var(--linkedin))]/10 transition-colors group min-w-0">
                 <LinkedInIcon className="w-5 h-5 text-[hsl(var(--linkedin))] group-hover:scale-110 transition-transform shrink-0" />

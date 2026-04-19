@@ -1,24 +1,18 @@
 # Sergey Emelyanov — Senior Software Engineer (PHP/Go)
-> 14+ years of backend development. Rambler&Co, ex-Avito, ex-Lamoda, ex-MTS Fintech.
+> 14+ years of backend development. Rambler&Co, ex-Lamoda Tech, ex-MTS Fintech, ex-ETP Gazprombank, ex-Avito.
 > Stack: PHP 8, Go, Symfony, PostgreSQL, Redis, Docker, Kafka, Kubernetes.
-> Research: Agentic AI in Enterprise (ICAIMT 2026). Product: ResumeCraft SaaS.
-> Education: HSE University (Product Management), Kuban State University (Psychology).
+> Research: Agentic AI in Enterprise (ICAIMT 2026).
+> Education: HSE University, Faculty of Business Informatics — IT Product Management (2025-2027, in progress).
 
 ## Experience
-- Rambler&Co (2024-present) — Senior Software Engineer PHP/Go, high-load services, microservices
-- Lamoda Tech (2022-2024) — PHP Developer, e-commerce platform, PHP 7->8 migration
-- Rambler&Co (2021-2022) — Senior PHP Developer, reporting subsystem, ad bid management
-- MTS Fintech (2020-2021) — Senior PHP Developer, config microservice from scratch, Laravel+Orchid
-- ETP Gazprombank (2016-2020) — Senior PHP Developer, government procurement integration
-- Avito (2016) — PHP Developer, billing microservice, payment integrations
-- Mamba/Tourbar (2015-2016) — PHP Developer, social API integrations, real-time features
+- Rambler&Co (2024-present) — Senior Software Engineer PHP/Go, 10+ Go microservices, monolith decomposition, authorization rework
+- Lamoda Tech (2022-2024) — PHP Developer, e-commerce platform, PHP 7.4→8.1 migration, CI/CD optimization
+- Rambler&Co (2021-2022) — Senior PHP Developer, advertising platform, Go bid management
+- MTS Fintech (2020-2021) — Senior PHP Developer / Tech Lead, config microservice from scratch (DDD, RBAC), Laravel+Orchid
+- ETP Gazprombank (2016-2020) — Senior PHP Developer, 44-FZ/223-FZ integration, billing microservice on Phalcon
+- Avito (2016) — PHP Developer, billing microservice, MIR card integration
+- Mamba/Tourbar (2015-2016) — PHP Developer, REST API for mobile apps, Elasticsearch search
 - Sutochno.ru (2011-2015) — Senior PHP Developer, prototype to production, payment systems
-
-## Projects
-- ResumeCraft (resumecraft.ru) — Multi-agent resume optimizer, 5 LLM providers
-- ICAIMT 2026 Paper — EAAMM maturity model, 136 respondents survey
-- Career-Ops — AI job search system adapted for Russian market
-- Avito Travel Product Analysis — PAM/TAM/SAM/SOM, PESTLE, competitive benchmarking
 
 ## Skills
 - Backend: PHP 8, Go, Symfony, Laravel, Phalcon
@@ -26,8 +20,9 @@
 - Infrastructure: Docker, Kubernetes, CI/CD, Nginx
 - AI/ML: Python, FastAPI, LLM integration (Claude API, OpenAI API)
 - Product: Unit Economics, A/B testing, JTBD, CJM
-- Architecture: ArchiMate 3.2, Microservices, Event-Driven, DDD
+- Architecture: Microservices, Event-Driven, DDD
 
 ## Contact
-- GitHub: https://github.com/Fighter90
 - Email: pochtasergeia@gmail.com
+- Telegram: @sergey_in_job
+- LinkedIn: https://www.linkedin.com/in/sergey-emelyanov-in-job
