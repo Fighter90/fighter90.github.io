@@ -42,7 +42,7 @@ Key achievements:
 - Sutochno.ru: grew OTA service from prototype to stable product with hundreds of thousands of guests, designed auction-based top-listing system, automated ~90% of accounting routine
 
 Core stack: PHP 8, Go, Symfony 4, Laravel, PostgreSQL, MySQL, MongoDB, Redis, Kafka, RabbitMQ, Docker, Kubernetes, CI/CD
-AI/ML: Python, FastAPI, Claude API, OpenAI API, Prompt Engineering
+AI/ML: Cursor, Claude Code, OpenAI Codex CLI, Claude API, OpenAI API, Prompt Engineering
 
 Education:
 - HSE University — Master's in IT Product Management (2025-2027, in progress)

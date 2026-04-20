@@ -36,8 +36,8 @@
 ### Контент
 - **8 мест работы**: Rambler&Co, Lamoda, МТС Финтех, ЭТП ГПБ, Авито, Мамба, Суточно.ру — с обязанностями, достижениями и стеком
 - **7 проектов в портфолио**: Alicebot.pro, vl-taxi.ru, система анкетирования, горячая линия, @braidsBot, StartBiz.Space, Karpala.ru
-- **4 проекта**: ResumeCraft (SaaS), ICAIMT 2026 (Research), MirPrognoz (GraphRAG), Career-Ops (AI)
-- **3 образования**: НИУ ВШЭ (в процессе), Кубанский ГУ, УлГТУ — с предметами
+- **Публикация**: ICAIMT 2026 — исследование «Agentic AI in Enterprise» (EAAMM-модель, 136 респондентов)
+- **2 образования**: НИУ ВШЭ (в процессе), УлГТУ — с предметами
 - **6 категорий навыков** с Lucide-иконками
 - **3 отзыва клиентов**: МегаФон Ритейл, Альянс Ритейл Секьюрити, ЦС «ГАРАНТ» — с lightbox
 - **LinkedIn-публикации**: iframe embed реальных постов
@@ -121,7 +121,7 @@ sendToLLM()
 System Prompt (trained on):
   ├─ 8 work experiences with details
   ├─ Tech stack (PHP, Go, Symfony, etc.)
-  ├─ Education (HSE, Kuban SU, UlSTU)
+  ├─ Education (HSE, UlSTU)
   ├─ Projects (ResumeCraft, ICAIMT, MirPrognoz, Career-Ops)
   ├─ Portfolio (7 Webguru services)
   ├─ Client testimonials

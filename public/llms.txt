@@ -18,7 +18,7 @@
 - Backend: PHP 8, Go, Symfony, Laravel, Phalcon
 - Data: PostgreSQL, MySQL, MongoDB, Redis, Kafka, RabbitMQ, Elasticsearch
 - Infrastructure: Docker, Kubernetes, CI/CD, Nginx
-- AI/ML: Python, FastAPI, LLM integration (Claude API, OpenAI API)
+- AI/ML: Cursor, Claude Code, OpenAI Codex CLI, LLM integration (Claude API, OpenAI API)
 - Product: Unit Economics, A/B testing, JTBD, CJM
 - Architecture: Microservices, Event-Driven, DDD
 
