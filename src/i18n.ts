@@ -242,7 +242,7 @@ export const translations = {
       },
       {
         name: 'HR-бот анкетирования персонала',
-        description: 'Автоматизация первичного отбора кандидатов для ритейл-сетей (МегаФон Ритейл)',
+        description: 'Автоматизация первичного отбора кандидатов для ритейл-сетей',
         details: [
           'QR-код с уникальной ссылкой на вакансию у входа в магазин — кандидат проходит анкету в Telegram',
           '4 канала связи: Telegram / Viber / VK / Facebook Messenger — чат-бот на единой платформе',
@@ -663,7 +663,7 @@ export const translations = {
       },
       {
         name: 'HR survey bot',
-        description: 'Automated first-stage candidate screening for retail chains (MegaFon Retail)',
+        description: 'Automated first-stage candidate screening for retail chains',
         details: [
           'QR code with a unique vacancy link at the store entrance — candidate fills the form inside Telegram',
           '4 channels: Telegram / Viber / VK / Facebook Messenger — single chatbot across all platforms',
