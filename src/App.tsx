@@ -4,7 +4,7 @@ import {
   Mail, Send, Briefcase, GraduationCap, Code2, FolderOpen,
   MapPin, Building2, Calendar, Download, ExternalLink, Award,
   Layout, Menu, X, Server, Database, Cloud, Sparkles,
-  BarChart3, Network, FileText, Quote, Newspaper
+  BarChart3, Network, Quote, Newspaper
 } from 'lucide-react'
 import { translations } from './i18n'
 import { useLang } from './contexts/LangContext'
@@ -484,13 +484,11 @@ export default function App() {
             <Layout className="w-7 h-7 text-primary" />{t.sections.portfolio}
           </h2>
           <div className="flex flex-wrap gap-3 mb-8">
-            <a href="/Portfolio.pdf" target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-card border border-border text-foreground text-sm font-medium hover:border-primary/50 transition-colors">
-              <FileText className="w-4 h-4 text-primary" />{lang === 'ru' ? 'Портфолио (PDF)' : 'Portfolio (PDF)'}
-            </a>
-            <a href="/Portfolio.Services.pdf" target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-card border border-border text-foreground text-sm font-medium hover:border-primary/50 transition-colors">
-              <FileText className="w-4 h-4 text-primary" />{lang === 'ru' ? 'Портфолио сервисов (PDF)' : 'Services Portfolio (PDF)'}
+            <a href={lang === 'ru' ? '/Webguru_Portfolio_RU.pdf' : '/Webguru_Portfolio_EN.pdf'} download
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-theme text-white text-sm font-medium shadow-lg hover:shadow-xl hover:scale-105 transition-all">
+              <span aria-hidden="true">📥</span>
+              <Download className="w-4 h-4" />
+              {lang === 'ru' ? 'Скачать портфолио в PDF' : 'Download portfolio in PDF'}
             </a>
           </div>
           <div className="grid gap-5 sm:grid-cols-2">
@@ -609,10 +607,21 @@ export default function App() {
                 className="w-full"
               />
             </div>
-            <div className="rounded-xl overflow-hidden border border-border card-hover bg-white sm:col-span-2 sm:max-w-[calc(50%-0.5rem)]">
+            <div className="rounded-xl overflow-hidden border border-border card-hover bg-white">
               <iframe
                 src="https://www.linkedin.com/embed/feed/update/urn:li:share:7448495920008167425"
                 height="400"
+                width="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                title={lang === 'ru' ? 'Публикация LinkedIn' : 'LinkedIn Post'}
+                className="w-full"
+              />
+            </div>
+            <div className="rounded-xl overflow-hidden border border-border card-hover bg-white">
+              <iframe
+                src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7452802111819513858?collapsed=1"
+                height="533"
                 width="100%"
                 style={{ border: 0 }}
                 allowFullScreen

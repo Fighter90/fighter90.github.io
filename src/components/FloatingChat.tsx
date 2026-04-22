@@ -51,11 +51,19 @@ Education:
 Research:
 - ICAIMT 2026 — Research paper "Agentic AI in Enterprise" (EAAMM model), 136 respondents, accepted at international conference
 
-Portfolio (Webguru.pro era):
-- Alicebot.pro — Yandex Alice skill builder with amoCRM/Bitrix24 integration
-- vl-taxi.ru — Taxi service with Telegram bot notifications and CMS
-- HR Survey System — Chatbots for Telegram/Viber/VK/Facebook for MegaFon Retail and Alliance Retail Security
-- Telegram shop @braidsBot, StartBiz.Space HRM, Karpala.ru taxi system
+Portfolio (Webguru.pro era, 2017-2020, 12 projects):
+- AliceBot.pro — flagship SaaS skill builder for Yandex Alice with multi-platform core (Alice + Telegram + Viber + Facebook Messenger), Phalcon MVC, Robokassa billing
+- HR survey bot — automated first-stage candidate screening for MegaFon Retail (QR + 4 channels + 10 validation types, saved 50-70% of recruiting time)
+- ARS live chat hotline — Alliance Retail Security real-time chat, Angular 5 + Socket.IO + Yii2
+- vl-taxi.ru — taxi service for Crimea: Phalcon CMS (12 modules), SEO, Google Sheets, Codeception
+- Karpala.ru — taxi-order marketplace with Android app (Google Play), Yii2 + state machine
+- StartBiz.space — HRM platform for freight services via Telegram bot, Fat-Free Framework
+- BraidsBot — Telegram e-commerce store, Symfony 4 + Doctrine (11 entities)
+- Centereko_Bot — patient appointment bot for "Centr EKO" IVF clinic network, Symfony 4 + EasyAdmin
+- CRM Raskleika — micro-CRM for field services with separate Java upload module
+- Openpolice_ruBot — legal-aid Telegram bot for openpolice.ru
+- Corporate Telegram bots — AB InBev, PresidentLegal, Brasletservice
+- Telegram bot catalog — 8 more bots: MyConciergeBot, TravelRuBot, TicketsRuBot, Clean Podmoskovye, etc.
 
 Client testimonials: MegaFon Retail, Alliance Retail Security, CS GARANT — all praise professionalism and quality.
 
@@ -259,8 +267,8 @@ export default function FloatingChat() {
         : '14+ years in backend: PHP 8, Go, Symfony. Worked at Rambler&Co, Lamoda, Avito, MTS Fintech, ETP Gazprombank. High-load systems, microservices, CI/CD.'
     if (lower.includes('проект') || lower.includes('project') || lower.includes('portfolio'))
       return lang === 'ru'
-        ? 'В Webguru.pro делал 7+ веб-сервисов: Alicebot.pro (конструктор навыков Алисы), vl-taxi.ru, HR-анкетирование для МегаФон Ритейл и Альянс Ритейл Секьюрити, Telegram-магазин @braidsBot, StartBiz.Space, Karpala.ru. Научная работа — ICAIMT 2026 (EAAMM, 136 респондентов).'
-        : 'At Webguru.pro I built 7+ web services: Alicebot.pro (Yandex Alice skill builder), vl-taxi.ru, HR surveys for MegaFon Retail and Alliance Retail Security, Telegram shop @braidsBot, StartBiz.Space, Karpala.ru. Research — ICAIMT 2026 (EAAMM, 136 respondents).'
+        ? 'В Webguru.pro (2017–2020) сделал 12 проектов: AliceBot.pro (SaaS-конструктор навыков Алисы), HR-бот анкетирования для МегаФон Ритейл, ARS чат-горячая линия, vl-taxi.ru, Karpala.ru (с Android), StartBiz.space, BraidsBot, Centereko_Bot, CRM Raskleika, Openpolice_ruBot, корпоративные боты AB InBev и др., + каталог из 8 Telegram-ботов. Научная работа — ICAIMT 2026 (EAAMM, 136 респондентов).'
+        : 'At Webguru.pro (2017-2020) I delivered 12 projects: AliceBot.pro (Yandex Alice SaaS skill builder), HR survey bot for MegaFon Retail, ARS live chat hotline, vl-taxi.ru, Karpala.ru (with Android), StartBiz.space, BraidsBot, Centereko_Bot, CRM Raskleika, Openpolice_ruBot, corporate bots for AB InBev et al., plus a catalog of 8 Telegram bots. Research — ICAIMT 2026 (EAAMM, 136 respondents).'
     if (lower.includes('почему') || lower.includes('why') || lower.includes('hire') || lower.includes('нанять'))
       return lang === 'ru'
         ? 'Глубокая экспертиза в backend (14+ лет) + магистратура по продуктовому менеджменту в ВШЭ. Умею выстраивать архитектуру, менторить команды, доводить проекты до продакшена. Исследую применение ИИ в бизнесе.'

@@ -35,7 +35,7 @@
 
 ### Контент
 - **8 мест работы**: Rambler&Co, Lamoda, МТС Финтех, ЭТП ГПБ, Авито, Мамба, Суточно.ру — с обязанностями, достижениями и стеком
-- **7 проектов в портфолио**: Alicebot.pro, vl-taxi.ru, система анкетирования, горячая линия, @braidsBot, StartBiz.Space, Karpala.ru
+- **12 проектов в портфолио Webguru.pro (2017–2020)**: AliceBot.pro, HR-анкетирование, ARS чат-линия, vl-taxi.ru, Karpala.ru, StartBiz.space, BraidsBot, Centereko_Bot, CRM Raskleika, Openpolice_ruBot, корпоративные боты, каталог Telegram-ботов
 - **Публикация**: ICAIMT 2026 — исследование «Agentic AI in Enterprise» (EAAMM-модель, 136 респондентов)
 - **2 образования**: НИУ ВШЭ (в процессе), УлГТУ — с предметами
 - **6 категорий навыков** с Lucide-иконками
