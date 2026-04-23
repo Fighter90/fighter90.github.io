@@ -21,90 +21,27 @@ interface QuickPrompt {
 }
 
 /* ------------------------------------------------------------------ */
-/*  System prompt — Sergey's CV knowledge base                         */
+/*  Chat proxy (Vercel Edge Function)                                  */
+/*  The OpenRouter key and SYSTEM_PROMPT live server-side.             */
 /* ------------------------------------------------------------------ */
 
-const SYSTEM_PROMPT = `You are Sergey Emelyanov's AI portfolio assistant. You respond in the same language the user writes to you (Russian or English).
-
-About Sergey:
-- Senior Software Engineer (PHP/Go) at Rambler&Co, Moscow (since March 2024)
-- 14+ years of backend development experience
-- Previous companies: Lamoda Tech (2022-2024), Rambler&Co (2021-2022), MTS Fintech (2020-2021), ETP Gazprombank (2016-2020), Avito (2016), Mamba/Tourbar (2015-2016), Sutochno.ru (2011-2015)
-
-Key achievements:
-- Rambler&Co (2024-present): designed and shipped 10+ Go microservices, contributed to breaking up the PHP/Symfony 4 monolith, reworked portal authorization system
-- Lamoda Tech: migrated all team services from PHP 7.4 to PHP 8.1, optimized CI/CD pipelines (~30% faster delivery), adapted services to Chestny Znak / CRPT labeling requirements
-- Rambler&Co (2021-2022): improved Go-based ad-position bid management service, accelerated report generation for advertisers
-- MTS Fintech (Tech Lead): built config microservice from scratch using DDD (feature flags, pricing, RBAC, admin panel), raised test coverage to 85%
-- ETP Gazprombank: implemented 44-FZ/223-FZ integration with zakupki.gov.ru, built dedicated billing microservice on Phalcon, migrated PHP 5.6→7
-- Avito: integrated MIR card payments into billing microservice, improved payment-pipeline stability
-- Mamba/Tourbar: built REST API from scratch for iOS+Android apps, full-text search on Elasticsearch over millions of profiles
-- Sutochno.ru: grew OTA service from prototype to stable product with hundreds of thousands of guests, designed auction-based top-listing system, automated ~90% of accounting routine
-
-Core stack: PHP 8, Go, Symfony 4, Laravel, PostgreSQL, MySQL, MongoDB, Redis, Kafka, RabbitMQ, Docker, Kubernetes, CI/CD
-AI/ML: Cursor, Claude Code, OpenAI Codex CLI, Claude API, OpenAI API, Prompt Engineering
-
-Education:
-- HSE University — Master's in IT Product Management (2025-2027, in progress)
-- Ulyanovsk State Technical University — Information Systems (2007-2012)
-
-Research:
-- ICAIMT 2026 — Research paper "Agentic AI in Enterprise" (EAAMM model), 136 respondents, accepted at international conference
-
-Portfolio (Webguru.pro era, 2017-2020, 12 projects):
-- AliceBot.pro — flagship SaaS skill builder for Yandex Alice with multi-platform core (Alice + Telegram + Viber + Facebook Messenger), Phalcon MVC, Robokassa billing
-- HR survey bot — automated first-stage candidate screening for MegaFon Retail (QR + 4 channels + 10 validation types, saved 50-70% of recruiting time)
-- ARS live chat hotline — Alliance Retail Security real-time chat, Angular 5 + Socket.IO + Yii2
-- vl-taxi.ru — taxi service for Crimea: Phalcon CMS (12 modules), SEO, Google Sheets, Codeception
-- Karpala.ru — taxi-order marketplace with Android app (Google Play), Yii2 + state machine
-- StartBiz.space — HRM platform for freight services via Telegram bot, Fat-Free Framework
-- BraidsBot — Telegram e-commerce store, Symfony 4 + Doctrine (11 entities)
-- Centereko_Bot — patient appointment bot for "Centr EKO" IVF clinic network, Symfony 4 + EasyAdmin
-- CRM Raskleika — micro-CRM for field services with separate Java upload module
-- Openpolice_ruBot — legal-aid Telegram bot for openpolice.ru
-- Corporate Telegram bots — AB InBev, PresidentLegal, Brasletservice
-- Telegram bot catalog — 8 more bots: MyConciergeBot, TravelRuBot, TicketsRuBot, Clean Podmoskovye, etc.
-
-Client testimonials: MegaFon Retail, Alliance Retail Security, CS GARANT — all praise professionalism and quality.
-
-Contact: pochtasergeia@gmail.com | Telegram: @sergey_in_job | LinkedIn: sergey-emelyanov-in-job
-
-You answer questions about Sergey's experience, skills, and projects. Be helpful, concise, and professional. If asked about something you don't know, say so honestly and suggest contacting Sergey directly.`
-
-/* ------------------------------------------------------------------ */
-/*  OpenRouter API                                                     */
-/* ------------------------------------------------------------------ */
-
-const OPENROUTER_KEY = import.meta.env.VITE_OPENROUTER_KEY ?? ''
-const MODEL = 'deepseek/deepseek-chat-v3-0324'
+const CHAT_PROXY_URL =
+  import.meta.env.VITE_CHAT_PROXY_URL ??
+  'https://fighter90-chat-proxy.vercel.app/api/chat'
 
 async function callLLM(
   messages: { role: string; content: string }[],
   onChunk: (text: string) => void,
   signal?: AbortSignal,
 ): Promise<void> {
-  const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+  const res = await fetch(CHAT_PROXY_URL, {
     method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${OPENROUTER_KEY}`,
-      'Content-Type': 'application/json',
-      'HTTP-Referer': typeof window !== 'undefined' ? window.location.origin : '',
-      'X-Title': 'Sergey Emelyanov Portfolio',
-    },
-    body: JSON.stringify({
-      model: MODEL,
-      messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...messages],
-      stream: true,
-      max_tokens: 500,
-      temperature: 0.7,
-    }),
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ messages }),
     signal,
   })
 
-  if (!res.ok) {
-    const err = await res.text()
-    throw new Error(`OpenRouter error: ${res.status} ${err}`)
-  }
+  if (!res.ok) throw new Error(`Proxy error: ${res.status}`)
 
   const reader = res.body?.getReader()
   if (!reader) throw new Error('No response body')
@@ -288,8 +225,8 @@ export default function FloatingChat() {
     setIsStreaming(true)
     setStreamText('')
 
-    // If no API key, use local fallback
-    if (!OPENROUTER_KEY) {
+    // If proxy URL is not configured, use local fallback
+    if (!CHAT_PROXY_URL) {
       await new Promise(r => setTimeout(r, 600))
       setMessages(prev => [...prev, { id: uid(), role: 'assistant', text: localFallback(userText) }])
       setIsStreaming(false)
