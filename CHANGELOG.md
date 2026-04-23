@@ -75,6 +75,22 @@ semantic-version releases — `main` is always the deployed state.
   browser logs a console error on every iframe mount/unmount when it's
   present via meta. GitHub Pages already sends `X-Frame-Options: deny`
   upstream, so clickjacking protection is preserved without the noise.
+- Removed broken `space-grotesk-cyrillic.woff2` / `dm-sans-cyrillic.woff2`:
+  both files in the repo were 1.6 kB HTML 404 pages, not real woff2
+  (committed that way before this audit). Neither Space Grotesk nor
+  DM Sans ships a Cyrillic cut on Google Fonts, so the files never
+  could have been a proper subset. Dropped the two `@font-face` rules
+  and their `<link rel=preload>` lines; Russian text now explicitly
+  falls back to `system-ui` via the existing stack in `--font-sans` /
+  `--font-display` (which is what the browser was already doing every
+  time the fake woff2 failed to decode — just without the console
+  warnings). If a named Cyrillic font is ever wanted for RU, swap to
+  a Cyrillic-capable pair (e.g. Manrope + Golos Text).
+- `fighter90-chat-proxy@fa48d8b` (separate repo, auto-deploys to Vercel):
+  removed "Webguru.pro era, 2017-2020" framing from the server-side
+  `SYSTEM_PROMPT`; the 12 portfolio projects stay in the prompt but
+  are no longer attributed to a company that isn't in the Experience
+  section. Matches the client-side fix in this repo's P1.5.
 
 ### Verified
 
