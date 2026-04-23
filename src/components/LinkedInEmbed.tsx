@@ -12,7 +12,7 @@ type LinkedInEmbedProps = {
 
 type Status = 'idle' | 'mounted' | 'loaded' | 'failed'
 
-const LOAD_TIMEOUT_MS = 6000
+const LOAD_TIMEOUT_MS = 12000
 
 function LinkedInIcon({ className = 'w-6 h-6' }: { className?: string }) {
   return (
@@ -25,7 +25,7 @@ function LinkedInIcon({ className = 'w-6 h-6' }: { className?: string }) {
 function Skeleton({ height }: { height: number }) {
   return (
     <div
-      className="w-full animate-pulse bg-muted rounded-xl"
+      className="absolute inset-0 animate-pulse bg-muted"
       style={{ height }}
       aria-hidden="true"
     />
@@ -124,7 +124,7 @@ export default function LinkedInEmbed({
   return (
     <div
       ref={containerRef}
-      className="rounded-xl overflow-hidden border border-border card-hover bg-white"
+      className="relative rounded-xl overflow-hidden border border-border card-hover bg-white"
       style={{ minHeight: height }}
     >
       {status === 'failed' ? (
@@ -135,10 +135,9 @@ export default function LinkedInEmbed({
             src={embedUrl}
             height={height}
             width="100%"
-            loading="lazy"
             referrerPolicy="strict-origin-when-cross-origin"
             sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
-            style={{ border: 0, display: status === 'loaded' ? 'block' : 'none' }}
+            style={{ border: 0, display: 'block' }}
             title={title}
             onLoad={handleLoad}
             allowFullScreen

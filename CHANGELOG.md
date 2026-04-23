@@ -86,6 +86,15 @@ semantic-version releases — `main` is always the deployed state.
   time the fake woff2 failed to decode — just without the console
   warnings). If a named Cyrillic font is ever wanted for RU, swap to
   a Cyrillic-capable pair (e.g. Manrope + Golos Text).
+- `LinkedInEmbed` regression: iframes never fired `onLoad` because they
+  combined `loading="lazy"` with `display: none` while waiting for
+  load — a `display: none` element has no layout box, so the native
+  lazy-loader classifies it as "off-screen" and suspends the load
+  indefinitely. Fall-through was always the timeout path, so no RU
+  visitor (even with VPN on) ever saw a live LinkedIn embed. Fixed by
+  dropping `loading="lazy"` (our IntersectionObserver already gates
+  mounting) and overlaying the skeleton absolutely on top of a
+  visible iframe until `load` fires. Timeout bumped from 6 s to 12 s.
 - `fighter90-chat-proxy@fa48d8b` (separate repo, auto-deploys to Vercel):
   removed "Webguru.pro era, 2017-2020" framing from the server-side
   `SYSTEM_PROMPT`; the 12 portfolio projects stay in the prompt but
