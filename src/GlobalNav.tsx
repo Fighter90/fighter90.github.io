@@ -4,11 +4,9 @@ import LangSwitcher from './components/LangSwitcher'
 import { useLang } from './contexts/LangContext'
 
 function useTheme() {
-  const [isDark, setIsDark] = useState(true)
-
-  useEffect(() => {
-    setIsDark(document.documentElement.classList.contains('dark'))
-  }, [])
+  const [isDark, setIsDark] = useState(() =>
+    typeof document !== 'undefined' && document.documentElement.classList.contains('dark')
+  )
 
   useEffect(() => {
     if (localStorage.getItem('theme')) return
@@ -51,7 +49,11 @@ export default function GlobalNav() {
   const { isDark, toggleTheme } = useTheme()
   const { lang } = useLang()
   const [hydrated, setHydrated] = useState(false)
-  useEffect(() => setHydrated(true), [])
+  useEffect(() => {
+    // Defer a frame so SSR-style hydration mismatch cannot flash wrong theme icon.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setHydrated(true)
+  }, [])
 
   if (!hydrated) return null
 

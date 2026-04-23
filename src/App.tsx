@@ -10,6 +10,7 @@ import { translations } from './i18n'
 import { useLang } from './contexts/LangContext'
 
 const FloatingChat = lazy(() => import('./components/FloatingChat'))
+const LinkedInEmbed = lazy(() => import('./components/LinkedInEmbed'))
 
 /* ─── LinkedIn SVG ─── */
 function LinkedInIcon({ className = "w-5 h-5" }: { className?: string }) {
@@ -585,51 +586,18 @@ export default function App() {
             <Newspaper className="w-7 h-7 text-primary" />{t.sections.publications}
           </h2>
           <div className="grid gap-4 sm:grid-cols-2">
-            <div className="rounded-xl overflow-hidden border border-border card-hover bg-white">
-              <iframe
-                src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7447067513676251136"
-                height="400"
-                width="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                title={lang === 'ru' ? 'Публикация LinkedIn' : 'LinkedIn Post'}
-                className="w-full"
-              />
-            </div>
-            <div className="rounded-xl overflow-hidden border border-border card-hover bg-white">
-              {/* ICAIMT 2026 — тот же пост, что publications[0] в i18n.ts (activity ID 7438922298000269312) */}
-              <iframe
-                src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7438922298000269312"
-                height="400"
-                width="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                title={lang === 'ru' ? 'Публикация LinkedIn — ICAIMT 2026' : 'LinkedIn Post — ICAIMT 2026'}
-                className="w-full"
-              />
-            </div>
-            <div className="rounded-xl overflow-hidden border border-border card-hover bg-white">
-              <iframe
-                src="https://www.linkedin.com/embed/feed/update/urn:li:share:7448495920008167425"
-                height="400"
-                width="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                title={lang === 'ru' ? 'Публикация LinkedIn' : 'LinkedIn Post'}
-                className="w-full"
-              />
-            </div>
-            <div className="rounded-xl overflow-hidden border border-border card-hover bg-white">
-              <iframe
-                src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7452802111819513858?collapsed=1"
-                height="533"
-                width="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                title={lang === 'ru' ? 'Публикация LinkedIn' : 'LinkedIn Post'}
-                className="w-full"
-              />
-            </div>
+            <Suspense fallback={null}>
+              {t.publications.map((p, i) => (
+                <LinkedInEmbed
+                  key={i}
+                  embedUrl={p.embedUrl}
+                  postUrl={p.postUrl}
+                  title={p.title}
+                  date={p.date}
+                  height={p.height}
+                />
+              ))}
+            </Suspense>
           </div>
         </Section>
 

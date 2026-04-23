@@ -204,16 +204,16 @@ export default function FloatingChat() {
         : '14+ years in backend: PHP 8, Go, Symfony. Worked at Rambler&Co, Lamoda, Avito, MTS Fintech, ETP Gazprombank. High-load systems, microservices, CI/CD.'
     if (lower.includes('проект') || lower.includes('project') || lower.includes('portfolio'))
       return lang === 'ru'
-        ? 'В Webguru.pro (2017–2020) сделал 12 проектов: AliceBot.pro (SaaS-конструктор навыков Алисы), HR-бот анкетирования для МегаФон Ритейл, ARS чат-горячая линия, vl-taxi.ru, Karpala.ru (с Android), StartBiz.space, BraidsBot, Centereko_Bot, CRM Raskleika, Openpolice_ruBot, корпоративные боты AB InBev и др., + каталог из 8 Telegram-ботов. Научная работа — ICAIMT 2026 (EAAMM, 136 респондентов).'
-        : 'At Webguru.pro (2017-2020) I delivered 12 projects: AliceBot.pro (Yandex Alice SaaS skill builder), HR survey bot for MegaFon Retail, ARS live chat hotline, vl-taxi.ru, Karpala.ru (with Android), StartBiz.space, BraidsBot, Centereko_Bot, CRM Raskleika, Openpolice_ruBot, corporate bots for AB InBev et al., plus a catalog of 8 Telegram bots. Research — ICAIMT 2026 (EAAMM, 136 respondents).'
+        ? 'В портфолио — 12 проектов: AliceBot.pro (SaaS-конструктор навыков Алисы), HR-бот анкетирования для МегаФон Ритейл, ARS чат-горячая линия, vl-taxi.ru, Karpala.ru (с Android), StartBiz.space, BraidsBot, Centereko_Bot, CRM Raskleika, Openpolice_ruBot, корпоративные боты AB InBev и др. Научная работа — ICAIMT 2026 (EAAMM, 136 респондентов).'
+        : 'Portfolio — 12 projects: AliceBot.pro (Yandex Alice SaaS skill builder), HR survey bot for MegaFon Retail, ARS live chat hotline, vl-taxi.ru, Karpala.ru (with Android), StartBiz.space, BraidsBot, Centereko_Bot, CRM Raskleika, Openpolice_ruBot, corporate bots for AB InBev et al. Research — ICAIMT 2026 (EAAMM, 136 respondents).'
     if (lower.includes('почему') || lower.includes('why') || lower.includes('hire') || lower.includes('нанять'))
       return lang === 'ru'
         ? 'Глубокая экспертиза в backend (14+ лет) + магистратура по продуктовому менеджменту в ВШЭ. Умею выстраивать архитектуру, менторить команды, доводить проекты до продакшена. Исследую применение ИИ в бизнесе.'
         : 'Deep backend expertise (14+ years) + pursuing Product Management master\'s at HSE. I design architecture, mentor teams, ship to production. Researching AI in business processes.'
     if (lower.includes('контакт') || lower.includes('contact') || lower.includes('связ'))
       return lang === 'ru'
-        ? 'Email: pochtasergeia@gmail.com\nTelegram: @sergey_in_job\nLinkedIn: linkedin:sergey-emelyanov-in-job'
-        : 'Email: pochtasergeia@gmail.com\nTelegram: @sergey_in_job\nLinkedIn: linkedin:sergey-emelyanov-in-job'
+        ? 'Email: pochtasergeia@gmail.com\nTelegram: @sergey_in_job\nLinkedIn: https://www.linkedin.com/in/sergey-emelyanov-in-job'
+        : 'Email: pochtasergeia@gmail.com\nTelegram: @sergey_in_job\nLinkedIn: https://www.linkedin.com/in/sergey-emelyanov-in-job'
     return lang === 'ru'
       ? 'Спасибо за вопрос! Для подробного ответа напишите мне в Telegram: @sergey_in_job — отвечу лично.'
       : 'Thanks for asking! For a detailed answer, message me on Telegram: @sergey_in_job — I\'ll reply personally.'
@@ -254,7 +254,7 @@ export default function FloatingChat() {
       setStreamText('')
       abortRef.current = null
     }
-  }, [messages, lang, localFallback])
+  }, [messages, localFallback])
 
   const handleQuickPrompt = useCallback((qp: QuickPrompt) => {
     if (isStreaming) return
