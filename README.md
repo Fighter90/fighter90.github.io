@@ -153,6 +153,18 @@ FloatingChat.sendToLLM(userText)
   3. `navigator.language.startsWith('ru')` → `ru`, иначе `en`.
 - Переключатель ([src/components/LangSwitcher.tsx](src/components/LangSwitcher.tsx)) пишет в `localStorage` и ставит `<html lang>`.
 
+### Публикации LinkedIn (`LinkedInEmbed`)
+
+Четыре LinkedIn-поста на странице рендерятся через [src/components/LinkedInEmbed.tsx](src/components/LinkedInEmbed.tsx). Компонент сознательно устойчив к региональной блокировке LinkedIn:
+
+1. **Lazy-mount через `IntersectionObserver`** (`rootMargin: 200px`) — iframe не монтируется, пока пользователь не доскроллит до секции.
+2. **Тайм-аут `6000 ms` на `onLoad`.** Если iframe не успел подгрузиться, состояние переключается в `failed`, iframe размонтируется.
+3. **Fallback-карточка.** В состоянии `failed` рендерится нейтральная карточка с LinkedIn-иконкой, заголовком поста, датой и кнопкой «Открыть в LinkedIn». Без проб сети, без детекции страны — просто «не дождались `onLoad` → показываем ссылку».
+4. **`sandbox` + `referrerPolicy="strict-origin-when-cross-origin"`** на iframe. Контент постов не имеет доступа к родительскому origin.
+5. **Код-сплит через `React.lazy()`** — `LinkedInEmbed` уходит в отдельный chunk и не влияет на время до интерактивности главной страницы.
+
+Единственный источник данных о публикациях — `publications: [{ embedUrl, postUrl, title, date, height }]` в [src/i18n.ts](src/i18n.ts) (по одному массиву на локаль). Чтобы добавить/удалить пост — достаточно отредактировать i18n, JSX трогать не нужно.
+
 ### SPA-роутинг на GitHub Pages
 
 GitHub Pages не знает про клиентский роутинг: запрос `/any/path` без соответствующего файла возвращает `404.html`. Workaround:
@@ -202,7 +214,8 @@ GitHub Pages не знает про клиентский роутинг: зап�
 │   │
 │   └── components/
 │       ├── LangSwitcher.tsx      # RU/EN toggle со SVG-флагами
-│       └── FloatingChat.tsx      # AI-чат: прокси + SSE + fallback + Linkify
+│       ├── FloatingChat.tsx      # AI-чат: прокси + SSE + fallback + Linkify
+│       └── LinkedInEmbed.tsx     # lazy iframe + 6s timeout + fallback-карточка
 │
 ├── index.html                    # Vite entry, мета-теги, JSON-LD
 ├── package.json
@@ -311,6 +324,8 @@ actions/checkout@v4
 3. **Rate limit на стороне прокси** — защита от абуза чужого ключа, даже если кто-то нашёл эндпоинт.
 4. **Никакого `dangerouslySetInnerHTML`, `eval`, `new Function`** в клиентском коде. Markdown из ответа LLM рендерится через React-узлы.
 5. **`.env` не трекается** — проверено в [.gitignore](.gitignore) и `git log --all -S sk-or-`.
+6. **Content-Security-Policy** прописана `<meta http-equiv>` в `index.html`: `frame-src` ограничен `www.linkedin.com`; `connect-src` — `'self'`, прокси и `openrouter.ai`; `object-src 'none'`; `frame-ancestors 'self'`. `Referrer-Policy: strict-origin-when-cross-origin` тоже прописан мета-тегом.
+7. **Регулярный `npm audit`.** В CI/локально — `npm audit` на `high`-уровне. Текущее состояние: `0 vulnerabilities` после апгрейда Vite ≥ 7.3.2 и зависимых транзитивных пакетов.
 
 ### Инварианты, которые проверяет билд
 

@@ -44,7 +44,7 @@ export const translations = {
     },
     experience: [
       {
-        company: 'Rambler&Co',
+        company: 'Rambler&Co · Портал',
         location: 'Москва',
         role: 'Senior Software Engineer | PHP/Go',
         period: 'Март 2024 — н.в.',
@@ -88,7 +88,7 @@ export const translations = {
         stack: 'PHP 8, Symfony 4, PostgreSQL, PHPUnit, Codeception, Docker, GitLab CI',
       },
       {
-        company: 'Rambler&Co',
+        company: 'Rambler&Co · Рекламная платформа',
         location: 'Москва',
         role: 'Senior PHP Developer',
         period: 'Ноябрь 2021 — Июль 2022',
@@ -494,7 +494,7 @@ export const translations = {
     },
     experience: [
       {
-        company: 'Rambler&Co',
+        company: 'Rambler&Co · Portal',
         location: 'Moscow',
         role: 'Senior Software Engineer | PHP/Go',
         period: 'March 2024 — Present',
@@ -538,7 +538,7 @@ export const translations = {
         stack: 'PHP 8, Symfony 4, PostgreSQL, PHPUnit, Codeception, Docker, GitLab CI',
       },
       {
-        company: 'Rambler&Co',
+        company: 'Rambler&Co · Advertising Platform',
         location: 'Moscow',
         role: 'Senior PHP Developer',
         period: 'November 2021 — July 2022',

@@ -26,6 +26,7 @@ function LinkedInIcon({ className = "w-5 h-5" }: { className?: string }) {
 function useMouseParallax(strength = 20) {
   const [offset, setOffset] = useState({ x: 0, y: 0 })
   useEffect(() => {
+    if (!window.matchMedia('(pointer: fine)').matches) return
     const handler = (e: MouseEvent) => {
       const cx = window.innerWidth / 2
       const cy = window.innerHeight / 2
