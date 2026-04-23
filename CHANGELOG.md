@@ -68,6 +68,14 @@ semantic-version releases — `main` is always the deployed state.
   `index.html` JSON-LD `knowsAbout` aligned with `skills.ai.items`
   (Claude API, OpenAI API, Prompt Engineering).
 
+### Fixed (post-deploy Playwright smoke)
+
+- Dropped `frame-ancestors 'self'` from the `<meta>` CSP in
+  `index.html`: the directive is only valid as an HTTP header, and the
+  browser logs a console error on every iframe mount/unmount when it's
+  present via meta. GitHub Pages already sends `X-Frame-Options: deny`
+  upstream, so clickjacking protection is preserved without the noise.
+
 ### Verified
 
 - `npm run lint` — 0 errors, 0 warnings.
