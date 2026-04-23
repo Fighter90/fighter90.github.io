@@ -597,8 +597,9 @@ export default function App() {
               />
             </div>
             <div className="rounded-xl overflow-hidden border border-border card-hover bg-white">
+              {/* ICAIMT 2026 — тот же пост, что publications[0] в i18n.ts (activity ID 7438922298000269312) */}
               <iframe
-                src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7438922296997687296"
+                src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7438922298000269312"
                 height="400"
                 width="100%"
                 style={{ border: 0 }}
