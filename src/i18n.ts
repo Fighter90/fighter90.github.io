@@ -387,14 +387,14 @@ export const translations = {
         person: 'Божков А.И., Директор по персоналу',
         text: 'Благодарим за оперативное и качественное внедрение чат-бота. Продукт полностью удовлетворил нас как заказчиков. Менеджеры Антон Алексеев и Сергей Емельянов оперативно и профессионально решали все вопросы.',
         date: '23.01.2018',
-        image: '/testimonial-megafon.jpg',
+        image: '/testimonial-alliance.jpg',
       },
       {
         company: 'Альянс Ритейл Секьюрити',
         person: 'Горбунова Е.Н., Директор по персоналу',
         text: 'Благодарим за внедрение многофункционального чат-бота. Отдельно благодарим Антона Алексеева и Сергея Емельянова за клиентоориентированный и профессиональный подход.',
         date: '27.07.2018',
-        image: '/testimonial-alliance.jpg',
+        image: '/testimonial-megafon.jpg',
       },
       {
         company: 'ЦС «ГАРАНТ»',
@@ -414,6 +414,27 @@ export const translations = {
     },
     publications: [
       {
+        embedUrl: 'https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7457420581093810176?collapsed=1',
+        postUrl: 'https://www.linkedin.com/feed/update/urn:li:ugcPost:7457420581093810176/',
+        title: 'Публикация LinkedIn',
+        date: 'Май 2026',
+        height: 567,
+      },
+      {
+        embedUrl: 'https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7452802111819513858?collapsed=1',
+        postUrl: 'https://www.linkedin.com/feed/update/urn:li:ugcPost:7452802111819513858/',
+        title: 'Публикация LinkedIn',
+        date: 'Апрель 2026',
+        height: 533,
+      },
+      {
+        embedUrl: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7448495920008167425',
+        postUrl: 'https://www.linkedin.com/feed/update/urn:li:share:7448495920008167425/',
+        title: 'Публикация LinkedIn',
+        date: 'Апрель 2026',
+        height: 400,
+      },
+      {
         embedUrl: 'https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7447067513676251136',
         postUrl: 'https://www.linkedin.com/feed/update/urn:li:ugcPost:7447067513676251136/',
         title: 'Публикация LinkedIn',
@@ -426,20 +447,6 @@ export const translations = {
         title: 'Agentic AI — принят на ICAIMT 2026',
         date: 'Апрель 2026',
         height: 400,
-      },
-      {
-        embedUrl: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7448495920008167425',
-        postUrl: 'https://www.linkedin.com/feed/update/urn:li:share:7448495920008167425/',
-        title: 'Публикация LinkedIn',
-        date: 'Апрель 2026',
-        height: 400,
-      },
-      {
-        embedUrl: 'https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7452802111819513858?collapsed=1',
-        postUrl: 'https://www.linkedin.com/feed/update/urn:li:ugcPost:7452802111819513858/',
-        title: 'Публикация LinkedIn',
-        date: 'Апрель 2026',
-        height: 533,
       },
     ],
     contact: {
@@ -837,14 +844,14 @@ export const translations = {
         person: 'A.I. Bozhkov, HR Director',
         text: 'We thank you for the prompt and high-quality implementation of the chatbot. The product fully satisfied us as customers. Managers Anton Alekseev and Sergey Emelyanov promptly and professionally resolved all issues.',
         date: 'January 23, 2018',
-        image: '/testimonial-megafon.jpg',
+        image: '/testimonial-alliance.jpg',
       },
       {
         company: 'Alliance Retail Security',
         person: 'E.N. Gorbunova, HR Director',
         text: 'We thank you for implementing a multifunctional chatbot. Special thanks to Anton Alekseev and Sergey Emelyanov for their client-oriented and professional approach.',
         date: 'July 27, 2018',
-        image: '/testimonial-alliance.jpg',
+        image: '/testimonial-megafon.jpg',
       },
       {
         company: 'CS GARANT',
@@ -864,6 +871,27 @@ export const translations = {
     },
     publications: [
       {
+        embedUrl: 'https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7457420581093810176?collapsed=1',
+        postUrl: 'https://www.linkedin.com/feed/update/urn:li:ugcPost:7457420581093810176/',
+        title: 'LinkedIn Post',
+        date: 'May 2026',
+        height: 567,
+      },
+      {
+        embedUrl: 'https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7452802111819513858?collapsed=1',
+        postUrl: 'https://www.linkedin.com/feed/update/urn:li:ugcPost:7452802111819513858/',
+        title: 'LinkedIn Post',
+        date: 'April 2026',
+        height: 533,
+      },
+      {
+        embedUrl: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7448495920008167425',
+        postUrl: 'https://www.linkedin.com/feed/update/urn:li:share:7448495920008167425/',
+        title: 'LinkedIn Post',
+        date: 'April 2026',
+        height: 400,
+      },
+      {
         embedUrl: 'https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7447067513676251136',
         postUrl: 'https://www.linkedin.com/feed/update/urn:li:ugcPost:7447067513676251136/',
         title: 'LinkedIn Post',
@@ -876,20 +904,6 @@ export const translations = {
         title: 'Agentic AI — accepted at ICAIMT 2026',
         date: 'April 2026',
         height: 400,
-      },
-      {
-        embedUrl: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7448495920008167425',
-        postUrl: 'https://www.linkedin.com/feed/update/urn:li:share:7448495920008167425/',
-        title: 'LinkedIn Post',
-        date: 'April 2026',
-        height: 400,
-      },
-      {
-        embedUrl: 'https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7452802111819513858?collapsed=1',
-        postUrl: 'https://www.linkedin.com/feed/update/urn:li:ugcPost:7452802111819513858/',
-        title: 'LinkedIn Post',
-        date: 'April 2026',
-        height: 533,
       },
     ],
     contact: {
