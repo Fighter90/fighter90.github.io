@@ -430,13 +430,6 @@ export const translations = {
     },
     publications: [
       {
-        embedUrl: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7476552106963980288?collapsed=1',
-        postUrl: 'https://www.linkedin.com/posts/sergey-emelyanov-in-job_opensource-nodejs-jobsearch-share-7476552106963980288-jqrF/',
-        title: 'Публикация LinkedIn',
-        date: 'Июнь 2026',
-        height: 582,
-      },
-      {
         embedUrl: 'https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7475561213029040128?collapsed=1',
         postUrl: 'https://www.linkedin.com/feed/update/urn:li:ugcPost:7475561213029040128/',
         title: 'Публикация LinkedIn',
@@ -916,13 +909,6 @@ export const translations = {
       architecture: { title: 'Architecture', items: ['Microservices', 'Event-Driven', 'DDD', 'SOLID'] },
     },
     publications: [
-      {
-        embedUrl: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7476552106963980288?collapsed=1',
-        postUrl: 'https://www.linkedin.com/posts/sergey-emelyanov-in-job_opensource-nodejs-jobsearch-share-7476552106963980288-jqrF/',
-        title: 'LinkedIn Post',
-        date: 'June 2026',
-        height: 582,
-      },
       {
         embedUrl: 'https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7475561213029040128?collapsed=1',
         postUrl: 'https://www.linkedin.com/feed/update/urn:li:ugcPost:7475561213029040128/',
