@@ -237,6 +237,21 @@ export const translations = {
     ],
     portfolio: [
       {
+        name: 'CVStart — career-ops-ui',
+        url: 'https://cvstart.org/ru/',
+        repo: 'https://github.com/Fighter90/career-ops-ui',
+        image: '/careerops-dashboard-ru.png',
+        description: 'Open-source командный центр поиска работы — бесплатный, локальный, на 16 языках',
+        details: [
+          'Веб-интерфейс поверх AI-пайплайна career-ops: сканирование ~55 job-бордов в один клик (Greenhouse, Ashby, Lever, Workday, hh.ru, Habr…)',
+          'AI-оценка соответствия вакансии вашему CV по 6 измерениям (0.0–5.0) с порогами действий',
+          'Tailored PDF/DOCX-резюме и cover letters, CRM-трекер откликов, follow-up-борд, mock-интервью',
+          'Private by design: сервер на 127.0.0.1, данные в локальных markdown/yaml — без облака и телеметрии',
+          '59 адаптеров сканера · 6 LLM-провайдеров (свой ключ) или режим без ключа · 1800+ автотестов · MIT',
+        ],
+        tags: ['Node.js', 'Express', 'Vanilla JS', 'AI/LLM', 'Open Source', 'i18n ×16'],
+      },
+      {
         name: 'AliceBot.pro',
         url: 'https://spark.ru/startup/webguru-pro/blog/45356/kak-sozdat-navik-dlya-alisi-bez-znanij-programmirovaniya',
         description: 'Флагманский SaaS-конструктор навыков для голосового помощника Алиса (Яндекс)',
@@ -707,6 +722,21 @@ export const translations = {
       },
     ],
     portfolio: [
+      {
+        name: 'CVStart — career-ops-ui',
+        url: 'https://cvstart.org/',
+        repo: 'https://github.com/Fighter90/career-ops-ui',
+        image: '/careerops-dashboard-en.png',
+        description: 'Open-source job search command center — free, local-first, in 16 languages',
+        details: [
+          'Web UI over the career-ops AI pipeline: one-click scan of ~55 job boards (Greenhouse, Ashby, Lever, Workday, hh.ru, Habr…)',
+          'AI fit scoring of every posting against your CV on a 6-dimension 0.0–5.0 rubric with action thresholds',
+          'Tailored PDF/DOCX resumes and cover letters, application CRM, follow-up cadence board, mock interviews',
+          'Private by design: server binds 127.0.0.1, data lives in local markdown/yaml — no cloud, no telemetry',
+          '59 scanner adapters · 6 LLM providers (bring your own key) or keyless mode · 1,800+ automated tests · MIT',
+        ],
+        tags: ['Node.js', 'Express', 'Vanilla JS', 'AI/LLM', 'Open Source', 'i18n ×16'],
+      },
       {
         name: 'AliceBot.pro',
         url: 'https://spark.ru/startup/webguru-pro/blog/45356/kak-sozdat-navik-dlya-alisi-bez-znanij-programmirovaniya',

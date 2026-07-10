@@ -4,7 +4,7 @@ import {
   Mail, Send, Briefcase, GraduationCap, Code2, FolderOpen,
   MapPin, Building2, Calendar, Download, ExternalLink, Award,
   Layout, Menu, X, Server, Database, Cloud, Sparkles,
-  BarChart3, Network, Quote, Newspaper
+  BarChart3, Network, Quote, Newspaper, Github
 } from 'lucide-react'
 import { translations } from './i18n'
 import { useLang } from './contexts/LangContext'
@@ -496,13 +496,26 @@ export default function App() {
           <div className="grid gap-5 sm:grid-cols-2">
             {t.portfolio.map((item, i) => (
               <div key={i} className="bg-card border border-border rounded-2xl p-6 card-hover hover:border-primary/30 flex flex-col group" style={{ animation: `stagger-in 0.4s ease-out ${i * 0.08}s both` }}>
+                {'image' in item && item.image && (
+                  <a href={'url' in item && item.url ? item.url : undefined} target="_blank" rel="noopener noreferrer" className="block mb-4 -mt-1 overflow-hidden rounded-xl border border-border">
+                    <img src={item.image} alt={item.name} loading="lazy" width={1440} height={900}
+                      className="w-full h-auto group-hover:scale-[1.02] transition-transform" />
+                  </a>
+                )}
                 <div className="flex items-start justify-between gap-2 mb-1">
                   <h3 className="text-lg font-display font-semibold text-foreground group-hover:text-primary transition-colors">{item.name}</h3>
-                  {'url' in item && item.url && (
-                    <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80 shrink-0" aria-label={item.name}>
-                      <ExternalLink className="w-4 h-4" />
-                    </a>
-                  )}
+                  <div className="flex items-center gap-2 shrink-0">
+                    {'repo' in item && item.repo && (
+                      <a href={item.repo} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80" aria-label={`${item.name} — GitHub`}>
+                        <Github className="w-4 h-4" />
+                      </a>
+                    )}
+                    {'url' in item && item.url && (
+                      <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80" aria-label={item.name}>
+                        <ExternalLink className="w-4 h-4" />
+                      </a>
+                    )}
+                  </div>
                 </div>
                 <p className="text-primary text-sm font-medium mb-3">{item.description}</p>
                 <ul className="space-y-1.5 mb-4 flex-1">
