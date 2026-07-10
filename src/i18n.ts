@@ -69,7 +69,7 @@ export const translations = {
       {
         company: 'Lamoda Tech',
         location: 'Москва',
-        role: 'PHP Developer',
+        role: 'Senior PHP Developer',
         period: 'Октябрь 2022 — Февраль 2024',
         description: 'Крупнейший fashion e-commerce в России.',
         responsibilities: [
@@ -549,7 +549,7 @@ export const translations = {
       {
         company: 'Lamoda Tech',
         location: 'Moscow',
-        role: 'PHP Developer',
+        role: 'Senior PHP Developer',
         period: 'October 2022 — February 2024',
         description: "Russia's largest fashion e-commerce.",
         responsibilities: [
