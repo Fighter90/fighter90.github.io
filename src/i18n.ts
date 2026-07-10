@@ -254,6 +254,7 @@ export const translations = {
       {
         name: 'AliceBot.pro',
         url: 'https://spark.ru/startup/webguru-pro/blog/45356/kak-sozdat-navik-dlya-alisi-bez-znanij-programmirovaniya',
+        image: '/alicebot-constructor.png',
         description: 'Флагманский SaaS-конструктор навыков для голосового помощника Алиса (Яндекс)',
         details: [
           'Мультиплатформенное ядро: Алиса + Telegram + Viber + Facebook Messenger — единый backend на Phalcon MVC',
@@ -740,6 +741,7 @@ export const translations = {
       {
         name: 'AliceBot.pro',
         url: 'https://spark.ru/startup/webguru-pro/blog/45356/kak-sozdat-navik-dlya-alisi-bez-znanij-programmirovaniya',
+        image: '/alicebot-constructor.png',
         description: 'Flagship SaaS skill builder for the Alice voice assistant (Yandex)',
         details: [
           'Multi-platform core: Alice + Telegram + Viber + Facebook Messenger — single backend on Phalcon MVC',
