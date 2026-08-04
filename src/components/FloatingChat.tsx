@@ -212,8 +212,8 @@ export default function FloatingChat() {
         : 'Deep backend expertise (14+ years) + pursuing Product Management master\'s at HSE. I design architecture, mentor teams, ship to production. Researching AI in business processes.'
     if (lower.includes('контакт') || lower.includes('contact') || lower.includes('связ'))
       return lang === 'ru'
-        ? 'Email: pochtasergeia@gmail.com\nTelegram: @sergey_in_job\nLinkedIn: https://www.linkedin.com/in/sergey-emelyanov-in-job'
-        : 'Email: pochtasergeia@gmail.com\nTelegram: @sergey_in_job\nLinkedIn: https://www.linkedin.com/in/sergey-emelyanov-in-job'
+        ? 'Email: pochtasergeia@gmail.com\nTelegram: @sergey_in_job\nLinkedIn: https://www.linkedin.com/in/sergei-emelianov-in-job'
+        : 'Email: pochtasergeia@gmail.com\nTelegram: @sergey_in_job\nLinkedIn: https://www.linkedin.com/in/sergei-emelianov-in-job'
     return lang === 'ru'
       ? 'Спасибо за вопрос! Для подробного ответа напишите мне в Telegram: @sergey_in_job — отвечу лично.'
       : 'Thanks for asking! For a detailed answer, message me on Telegram: @sergey_in_job — I\'ll reply personally.'

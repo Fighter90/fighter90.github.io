@@ -466,7 +466,7 @@ export const translations = {
       },
       {
         embedUrl: 'https://www.linkedin.com/embed/feed/update/urn:li:activity:7438922298000269312',
-        postUrl: 'https://www.linkedin.com/posts/sergey-emelyanov-in-job_agentic-ai-in-enterprise-business-processes-activity-7438922298000269312-ThEp',
+        postUrl: 'https://www.linkedin.com/posts/sergei-emelianov-in-job_agentic-ai-in-enterprise-business-processes-activity-7438922298000269312-ThEp',
         title: 'Agentic AI — принят на ICAIMT 2026',
         date: 'Апрель 2026',
         height: 400,
@@ -475,7 +475,7 @@ export const translations = {
     contact: {
       email: 'pochtasergeia@gmail.com',
       telegram: '@sergey_in_job',
-      linkedin: 'sergey-emelyanov-in-job',
+      linkedin: 'sergei-emelianov-in-job',
     },
     footer: {
       builtWith: 'Собрано с помощью React, TypeScript и Claude',
@@ -946,7 +946,7 @@ export const translations = {
       },
       {
         embedUrl: 'https://www.linkedin.com/embed/feed/update/urn:li:activity:7438922298000269312',
-        postUrl: 'https://www.linkedin.com/posts/sergey-emelyanov-in-job_agentic-ai-in-enterprise-business-processes-activity-7438922298000269312-ThEp',
+        postUrl: 'https://www.linkedin.com/posts/sergei-emelianov-in-job_agentic-ai-in-enterprise-business-processes-activity-7438922298000269312-ThEp',
         title: 'Agentic AI — accepted at ICAIMT 2026',
         date: 'April 2026',
         height: 400,
@@ -955,7 +955,7 @@ export const translations = {
     contact: {
       email: 'pochtasergeia@gmail.com',
       telegram: '@sergey_in_job',
-      linkedin: 'sergey-emelyanov-in-job',
+      linkedin: 'sergei-emelianov-in-job',
     },
     footer: {
       builtWith: 'Built with React, TypeScript & Claude',
