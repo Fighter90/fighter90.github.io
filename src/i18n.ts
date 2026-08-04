@@ -491,9 +491,9 @@ export const translations = {
       contact: 'Contact',
     },
     meta: {
-      title: 'Sergey Emelyanov — Senior Software Engineer (PHP/Go) | Portfolio',
+      title: 'Sergei Emelianov — Senior Software Engineer (PHP/Go) | Portfolio',
       description: 'Senior Software Engineer with 14+ years of experience. PHP, Go, PostgreSQL, Kafka. Moscow. Rambler&Co, ex-Avito, ex-Lamoda.',
-      ogTitle: 'Sergey Emelyanov — Senior Software Engineer (PHP/Go)',
+      ogTitle: 'Sergei Emelianov — Senior Software Engineer (PHP/Go)',
       ogDescription: 'Portfolio: backend engineering, high-load systems, AI/ML',
       ogLocale: 'en_US',
     },
@@ -502,7 +502,7 @@ export const translations = {
       openButton: 'Open on LinkedIn →',
     },
     hero: {
-      name: 'Sergey Emelyanov',
+      name: 'Sergei Emelianov',
       company: 'Rambler&Co, Moscow',
       bio: 'Senior Software Engineer (PHP / Go) with 14+ years of backend experience building high-load web services and enterprise platforms. Worked at Russian BigTech and fintech companies: Rambler&Co, Lamoda Tech, MTS Fintech, ETP Gazprombank, Avito.',
       downloadCV: 'CV',
@@ -881,14 +881,14 @@ export const translations = {
       {
         company: 'MegaFon Retail',
         person: 'A.I. Bozhkov, HR Director',
-        text: 'We thank you for the prompt and high-quality implementation of the chatbot. The product fully satisfied us as customers. Managers Anton Alekseev and Sergey Emelyanov promptly and professionally resolved all issues.',
+        text: 'We thank you for the prompt and high-quality implementation of the chatbot. The product fully satisfied us as customers. Managers Anton Alekseev and Sergei Emelianov promptly and professionally resolved all issues.',
         date: 'January 23, 2018',
         image: '/testimonial-alliance.jpg',
       },
       {
         company: 'Alliance Retail Security',
         person: 'E.N. Gorbunova, HR Director',
-        text: 'We thank you for implementing a multifunctional chatbot. Special thanks to Anton Alekseev and Sergey Emelyanov for their client-oriented and professional approach.',
+        text: 'We thank you for implementing a multifunctional chatbot. Special thanks to Anton Alekseev and Sergei Emelianov for their client-oriented and professional approach.',
         date: 'July 27, 2018',
         image: '/testimonial-megafon.jpg',
       },

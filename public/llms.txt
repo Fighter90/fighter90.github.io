@@ -1,4 +1,4 @@
-# Sergey Emelyanov — Senior Software Engineer (PHP/Go)
+# Sergei Emelianov — Senior Software Engineer (PHP/Go)
 > 14+ years of backend development. Rambler&Co, ex-Lamoda Tech, ex-MTS Fintech, ex-ETP Gazprombank, ex-Avito.
 > Stack: PHP 8, Go, Symfony, PostgreSQL, Redis, Docker, Kafka, Kubernetes.
 > Research: Agentic AI in Enterprise (ICAIMT 2026).
