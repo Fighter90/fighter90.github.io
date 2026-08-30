@@ -430,6 +430,20 @@ export const translations = {
     },
     publications: [
       {
+        embedUrl: 'https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7499833596610822144?collapsed=1',
+        postUrl: 'https://www.linkedin.com/feed/update/urn:li:ugcPost:7499833596610822144/',
+        title: 'Публикация LinkedIn',
+        date: 'Август 2026',
+        height: 567,
+      },
+      {
+        embedUrl: 'https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7495799428440584192?collapsed=1',
+        postUrl: 'https://www.linkedin.com/feed/update/urn:li:ugcPost:7495799428440584192/',
+        title: 'Публикация LinkedIn',
+        date: 'Август 2026',
+        height: 567,
+      },
+      {
         embedUrl: 'https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7475561213029040128?collapsed=1',
         postUrl: 'https://www.linkedin.com/feed/update/urn:li:ugcPost:7475561213029040128/',
         title: 'Публикация LinkedIn',
@@ -909,6 +923,20 @@ export const translations = {
       architecture: { title: 'Architecture', items: ['Microservices', 'Event-Driven', 'DDD', 'SOLID'] },
     },
     publications: [
+      {
+        embedUrl: 'https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7499833596610822144?collapsed=1',
+        postUrl: 'https://www.linkedin.com/feed/update/urn:li:ugcPost:7499833596610822144/',
+        title: 'LinkedIn Post',
+        date: 'August 2026',
+        height: 567,
+      },
+      {
+        embedUrl: 'https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7495799428440584192?collapsed=1',
+        postUrl: 'https://www.linkedin.com/feed/update/urn:li:ugcPost:7495799428440584192/',
+        title: 'LinkedIn Post',
+        date: 'August 2026',
+        height: 567,
+      },
       {
         embedUrl: 'https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7475561213029040128?collapsed=1',
         postUrl: 'https://www.linkedin.com/feed/update/urn:li:ugcPost:7475561213029040128/',
