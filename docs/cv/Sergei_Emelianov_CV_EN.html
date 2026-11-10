@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sergei Emelianov — CV</title>
+<!-- Source of public/Sergey_Emelyanov_CV_EN.pdf. English translation of the hh.ru CV
+     "Емельянов Сергей Борисович" updated 2026-11-10. Render with:
+     chrome --headless --print-to-pdf=... --no-pdf-header-footer docs/cv/Sergei_Emelianov_CV_EN.html -->
+<style>
+  @page { size: A4; margin: 16mm 16mm 16mm 16mm; }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, "Helvetica Neue", Arial, sans-serif; font-size: 10pt; line-height: 1.42; color: #1a1a1a; margin: 0; }
+  a { color: #1a4fa0; text-decoration: none; }
+  header { display: flex; gap: 18px; align-items: flex-start; padding-bottom: 10px; border-bottom: 2px solid #1a4fa0; }
+  header img { width: 92px; height: 92px; object-fit: cover; border-radius: 6px; }
+  h1 { font-size: 22pt; margin: 0 0 2px; letter-spacing: .2px; }
+  .title { font-size: 12pt; font-weight: 600; color: #1a4fa0; margin-bottom: 6px; }
+  .contacts { font-size: 9pt; color: #333; }
+  .contacts span { white-space: nowrap; margin-right: 12px; }
+  h2 { font-size: 11.5pt; text-transform: uppercase; letter-spacing: .8px; color: #1a4fa0; border-bottom: 1px solid #c9d4e6; padding-bottom: 2px; margin: 16px 0 8px; break-after: avoid; }
+  .job { margin-bottom: 12px; }
+  .job-head { display: flex; justify-content: space-between; gap: 12px; break-after: avoid; }
+  .company { font-weight: 700; font-size: 11pt; }
+  .role { font-weight: 600; color: #333; }
+  .period { color: #555; font-size: 9pt; white-space: nowrap; text-align: right; }
+  .about { font-style: italic; color: #444; margin: 3px 0 4px; }
+  .label { font-weight: 600; margin: 4px 0 1px; break-after: avoid; }
+  ul { margin: 0 0 2px; padding-left: 16px; }
+  li { margin: 1px 0; break-inside: avoid; }
+  .stack { font-size: 9pt; color: #444; margin-top: 3px; }
+  .stack b { color: #1a4fa0; }
+  .grid { break-inside: avoid; display: grid; grid-template-columns: 130px 1fr; gap: 3px 12px; }
+  .grid .k { color: #555; }
+  .certs li { list-style: none; margin-left: -16px; display: flex; }
+  .certs .y { flex: 0 0 38px; color: #1a4fa0; font-weight: 600; }
+  p { margin: 0 0 6px; }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="../../public/foto-avatar.webp" alt="Sergei Emelianov">
+  <div>
+    <h1>Sergei Emelianov</h1>
+    <div class="title">Senior Backend Developer / Lead Engineer (PHP, Go)</div>
+    <div class="contacts">
+      <span>✉ <a href="mailto:pochtasergeia@gmail.com">pochtasergeia@gmail.com</a> (preferred)</span>
+      <span>☎ +7 (918) 276-25-33</span>
+      <span>Telegram: <a href="https://t.me/sergey_in_job">@sergey_in_job</a></span><br>
+      <span>Portfolio: <a href="https://sergey-cv.com">sergey-cv.com</a></span>
+      <span>LinkedIn: <a href="https://www.linkedin.com/in/sergei-emelianov-in-job">sergei-emelianov-in-job</a></span><br>
+      <span>Moscow, Russia · Russian citizen · Not relocating, open to business travel</span><br>
+      <span>Full-time · On-site, remote or hybrid</span>
+    </div>
+  </div>
+</header>
+
+<h2>Summary</h2>
+<p>Senior Backend Developer / Lead Engineer (PHP, Go) with 15+ years of backend development of high-load web services and enterprise platforms. Worked at leading Russian BigTech and fintech companies: Rambler&amp;Co, Lamoda Tech, MTS Fintech, ETP Gazprombank, Avito.</p>
+<p>I specialize in microservice architecture design (including DDD), integration of relational and NoSQL databases, event-driven architecture on Apache Kafka / RabbitMQ, and performance optimization. Strong in code review, mentoring and technical leadership (Team Lead at MTS Fintech, tech lead at Rambler&amp;Co), task decomposition and estimation, and documenting architecture and APIs in Confluence. I use AI tools deliberately to speed up development and improve code quality.</p>
+<p>Hands-on domain experience: ad-tech (bidding and auctions, ad-platform billing), fintech (centralized configuration microservice, RBAC), electronic procurement platforms under Russian federal laws 44-FZ and 223-FZ with integration into the government EIS (zakupki.gov.ru), classifieds billing (Avito), an international high-load social product with millions of profiles, and an OTA short-term rental service from the MVP stage.</p>
+
+<h2>Work Experience — 15 years</h2>
+
+<div class="job">
+  <div class="job-head">
+    <div><div class="company">Rambler&amp;Co</div><div class="role">Senior / Lead Backend Developer (PHP, Go)</div></div>
+    <div class="period">March 2024 — present<br>Moscow · rambler.ru</div>
+  </div>
+  <div class="about">High-load media portal (B2C, millions of users) — news and entertainment services; SOA and microservice architecture. Team of 10: development, QA, analytics, DevOps. Kanban.</div>
+  <div class="label">Responsibilities</div>
+  <ul>
+    <li>Technical leadership: own architectural decisions, engineering standards and code quality; drive projects from requirements analysis to release.</li>
+    <li>Mentoring and growing engineers: onboarding new team members, code review as a system, knowledge rotation.</li>
+    <li>Task decomposition, estimation and prioritization; systems analysis of requirements.</li>
+    <li>Bridge between business and engineering: turning business requirements into technical solutions; cross-team communication (product, analytics, infrastructure).</li>
+    <li>Designing and building Go microservices; evolving the PHP 8 / Symfony 4 monolith; designing REST APIs and inter-service contracts.</li>
+    <li>Integrating MySQL / PostgreSQL / MongoDB and Redis; event-driven communication via Apache Kafka; maintaining the Docker environment.</li>
+  </ul>
+  <div class="label">Key results</div>
+  <ul>
+    <li>Designed and shipped 10+ Go microservices to production (some from scratch), offloading the monolith.</li>
+    <li>Contributed to breaking up the PHP / Symfony monolith — reduced code coupling and sped up feature delivery.</li>
+    <li>Reworked the portal authorization system — a key user access-management subsystem.</li>
+    <li>Established the code review process and technical documentation in Confluence — cut onboarding time for new engineers.</li>
+  </ul>
+  <div class="stack"><b>Stack:</b> PHP 8, Symfony 4, Go, MySQL, PostgreSQL, MongoDB, Redis, Apache Kafka, RabbitMQ, PHPUnit, Codeception, Docker, Confluence, GitLab.</div>
+</div>
+
+<div class="job">
+  <div class="job-head">
+    <div><div class="company">Lamoda Tech</div><div class="role">Senior PHP Developer</div></div>
+    <div class="period">October 2022 — February 2024<br>Moscow</div>
+  </div>
+  <div class="about">Internal services of Lamoda — one of the largest fashion e-commerce platforms in Russia and the CIS (millions of users). Scrum / Agile sprints. Grew from middle to senior during my tenure.</div>
+  <div class="label">Responsibilities</div>
+  <ul>
+    <li>Developing internal services on PHP 8 / Symfony 4 / PostgreSQL.</li>
+    <li>Migrating services to current PHP versions and updating Symfony dependencies.</li>
+    <li>Writing unit and integration tests (PHPUnit, Codeception).</li>
+    <li>Bug fixing, code review, maintaining coding standards.</li>
+    <li>Technical analysis, decomposition and estimation of critical tasks.</li>
+    <li>Configuring and optimizing the Docker environment and CI/CD pipelines.</li>
+    <li>Adapting services to new regulatory requirements (integration with the Chestny Znak / CRPT mandatory product-labeling system).</li>
+  </ul>
+  <div class="label">Key results</div>
+  <ul>
+    <li>Migrated all team services from PHP 7.4 to PHP 8.1 — reduced technical debt, moved to an actively supported branch with security updates, removed deprecated and unsafe constructs.</li>
+    <li>Upgraded key Symfony components to compatible versions — secured long-term framework support and ecosystem compatibility.</li>
+    <li>Optimized CI/CD deployment pipelines — cut delivery time to production by about 30%.</li>
+    <li>Covered the main service scenarios with unit and functional tests (PHPUnit, Codeception).</li>
+    <li>Adapted services to the expanded list of product categories under mandatory labeling (Chestny Znak / CRPT) — the company met regulatory requirements on time, with no penalties.</li>
+  </ul>
+  <div class="stack"><b>Stack:</b> PHP 8, Symfony 4, PostgreSQL, PHPUnit, Codeception, Docker, GitLab CI.</div>
+</div>
+
+<div class="job">
+  <div class="job-head">
+    <div><div class="company">Rambler&amp;Co</div><div class="role">Senior PHP Developer</div></div>
+    <div class="period">November 2021 — July 2022<br>Moscow · rambler.ru</div>
+  </div>
+  <div class="about">Rambler&amp;Co advertising platform (ad-tech, B2B): bid and auction management for ad placements, billing and reporting for advertisers of the portal's media network.</div>
+  <div class="label">Responsibilities</div>
+  <ul>
+    <li>Developing and supporting ad-platform services on PHP 8 / Symfony 4.</li>
+    <li>Improving the Go-based ad-placement bid management service.</li>
+    <li>Designing and evolving internal REST APIs between platform services.</li>
+    <li>Integrating asynchronous inter-service communication via Apache Kafka.</li>
+    <li>Writing unit tests (PHPUnit); code review and code-quality control.</li>
+    <li>Maintaining the Docker environment for local development.</li>
+  </ul>
+  <div class="label">Key results</div>
+  <ul>
+    <li>Improved the Go-based ad-placement bid management service — a key subsystem driving media-network revenue.</li>
+    <li>Extended and optimized banner bid management across adjacent platform projects.</li>
+    <li>Improved the advertiser reporting subsystem — faster report generation and easier addition of new metrics.</li>
+    <li>Evolved the platform's internal REST APIs: extended functionality and optimized endpoint performance.</li>
+    <li>Refactored critical ad-platform modules — better readability and maintainability, lower regression risk.</li>
+    <li>Covered key service scenarios with unit tests — more reliable releases.</li>
+    <li>Prepared complete technical documentation and REST API specifications for internal consumers.</li>
+  </ul>
+  <div class="stack"><b>Stack:</b> PHP 8, Symfony 4, Go, MariaDB, Redis, Apache Kafka, RabbitMQ, PHPUnit, Docker.</div>
+</div>
+
+<div class="job">
+  <div class="job-head">
+    <div><div class="company">MTS Fintech</div><div class="role">Team Lead (PHP)</div></div>
+    <div class="period">November 2020 — November 2021<br>Moscow · mtsbank.ru</div>
+  </div>
+  <div class="about">Fintech unit of MTS Bank — internal B2B services (centralized configuration, RBAC, admin panels). Team of 5–7 (engineers, QA).</div>
+  <div class="label">Responsibilities</div>
+  <ul>
+    <li>Day-to-day management of a 5-engineer team: hiring, onboarding, motivation, one-on-ones, development plans.</li>
+    <li>Technical interviews and hiring; mentoring Junior/Middle engineers (code review, growth guidance).</li>
+    <li>Building and prioritizing the backlog with the Product Owner: handling business requests, sprint planning, task assignment (Scrum), facilitating ceremonies.</li>
+    <li>Choosing the tech stack, making architectural decisions and enforcing code quality (PSR standards).</li>
+    <li>Designing new services with DDD; designing data models and PostgreSQL migrations.</li>
+    <li>Documenting architecture, APIs and business processes in Confluence.</li>
+  </ul>
+  <div class="label">Key results</div>
+  <ul>
+    <li>Initiated the team's move to Laravel + Orchid — faster delivery of admin panels and standard CRUD interfaces.</li>
+    <li>Built a centralized configuration microservice from scratch with DDD (feature flags, pricing, business rules, admin panel) — a single source of truth instead of scattered settings.</li>
+    <li>Single-handedly designed and implemented the RBAC subsystem (roles, permissions, API- and UI-level access control).</li>
+    <li>Raised unit and functional test coverage of key scenarios to 85%.</li>
+    <li>Introduced predictable Scrum planning and systematic code review, improving code consistency across the team.</li>
+  </ul>
+  <div class="stack"><b>Stack:</b> PHP, Laravel, Orchid, PostgreSQL, Redis, PHPUnit, JavaScript, Docker, Confluence, GitLab.</div>
+</div>
+
+<div class="job">
+  <div class="job-head">
+    <div><div class="company">Webguru.pro</div><div class="role">CTO / Co-founder</div></div>
+    <div class="period">January 2017 — October 2020<br>webguru.pro</div>
+  </div>
+  <div class="about">Full-cycle product studio (startup, co-founder): chatbots for Telegram / Viber / VK / Facebook, Yandex Alice skills, turnkey web services and CRMs. Clients ranged from local businesses to national companies (AB InBev, MegaFon, Alliance Retail Group, etc.). 50+ delivered projects. Team of 5–8 (engineers, QA). Own venture, run alongside my main job at ETP Gazprombank.</div>
+  <div class="label">Responsibilities</div>
+  <ul>
+    <li>CTO and co-founder: technical and organizational leadership of the studio; product development strategy.</li>
+    <li>Building and managing the engineering team (5–8 people): hiring, technical interviews, onboarding, mentoring and growth, workload planning.</li>
+    <li>Client work: requirements gathering and analysis, specifications, concept approval, budget estimation and defense, negotiations.</li>
+    <li>Service architecture design, tech-stack selection, API contract design.</li>
+    <li>Backlog and priority management, task decomposition and assignment, deadline and quality control.</li>
+    <li>Code review and hands-on implementation of key modules (middleware, billing, dialog builder).</li>
+    <li>Acceptance testing, quality control, project handover and sign-off with clients.</li>
+  </ul>
+  <div class="label">Key results</div>
+  <ul>
+    <li>Launched the studio from scratch and grew it to 50+ delivered projects for major clients (AB InBev, MegaFon, Alliance Retail Group, etc.).</li>
+    <li>Built the flagship SaaS Alice skill builder (AliceBot.pro) with a multi-platform core (Alice + Telegram + Viber + Facebook): 20+ data models, visual dialog builder, Robokassa billing.</li>
+    <li>Built an HR bot automating first-stage candidate screening for retail chains — cut recruiting team time by 50–70%.</li>
+    <li>Set up repeatable processes for development, code review and turnkey delivery; hired and grew the engineering team.</li>
+  </ul>
+  <div class="stack"><b>Stack:</b> PHP 7, Phalcon Framework, Yii2, MySQL, Telegram / Viber / Facebook Bot API, Node.js, Angular, Robokassa, SendGrid, Docker.</div>
+</div>
+
+<div class="job">
+  <div class="job-head">
+    <div><div class="company">ETP Gazprombank (electronic trading platform)</div><div class="role">Senior PHP Developer</div></div>
+    <div class="period">November 2016 — August 2020<br>Moscow · etp.gazprombank.ru</div>
+  </div>
+  <div class="about">etpgpb.ru — Gazprombank's electronic trading platform (B2B): corporate procurement under 44-FZ and 223-FZ, integration with the government EIS (zakupki.gov.ru), auctions and participant billing.</div>
+  <div class="label">Responsibilities</div>
+  <ul>
+    <li>Supporting and developing the etpgpb.ru web service in the corporate procurement segment.</li>
+    <li>Designing and developing server-side PHP modules (Phalcon Framework, Zend Framework).</li>
+    <li>Designing and implementing dedicated microservices for integrations with external systems and payment infrastructure.</li>
+    <li>Improving frontend modules built on Ext JS.</li>
+    <li>Refactoring and profiling the codebase, performance optimization; code review.</li>
+  </ul>
+  <div class="label">Key results</div>
+  <ul>
+    <li>Implemented integration with the government EIS (zakupki.gov.ru) through a dedicated Phalcon microservice — procurement data exchange compliant with 44-FZ and 223-FZ.</li>
+    <li>Enhanced the etpgpb.ru trading system: shipped key platform features for corporate procurement, covered critical areas with tests, evolved Ext JS frontend modules.</li>
+    <li>Built a dedicated billing microservice for auction participants on Phalcon: account top-ups and payment of participation fees.</li>
+    <li>Integrated new payment instruments into the billing microservice — cards, acquiring, SBP (Faster Payments System).</li>
+    <li>Migrated the project from PHP 5.6 to PHP 7 — noticeably faster backend thanks to the new engine.</li>
+    <li>Performed deep refactoring of critical code with XHProf profiling, covering changed areas with PHPUnit tests beforehand to prevent regressions.</li>
+    <li>Optimized complex PostgreSQL queries — lower response time for critical trading-system queries.</li>
+    <li>Improved Sphinx full-text search over procurement notices and participant bids.</li>
+  </ul>
+  <div class="stack"><b>Stack:</b> PHP 5.6 / 7, Phalcon, Zend Framework, Laravel, PostgreSQL, Redis, Memcached, Sphinx, JavaScript, Ext JS, RabbitMQ, PHPUnit, GitLab, YouTrack.</div>
+</div>
+
+<div class="job">
+  <div class="job-head">
+    <div><div class="company">Avito</div><div class="role">PHP Developer</div></div>
+    <div class="period">July 2016 — October 2016<br>Moscow · avito.ru</div>
+  </div>
+  <div class="about">Avito.ru — Russia's largest classifieds platform (B2C, tens of millions of users); payment subsystem and billing of paid services.</div>
+  <div class="label">Responsibilities</div>
+  <ul>
+    <li>Supporting and developing modules of the Avito.ru payment subsystem.</li>
+    <li>Designing and implementing server-side billing components in PHP.</li>
+    <li>Integrating and maintaining payment-service APIs.</li>
+    <li>Improving the billing microservice and adding new payment instruments.</li>
+  </ul>
+  <div class="label">Key results</div>
+  <ul>
+    <li>Integrated MIR card payments into the billing microservice — expanded payment options for private Avito users as the market moved to the national payment system.</li>
+    <li>Improved payment-pipeline stability: reduced payment-processing errors (confirmed by monitoring).</li>
+  </ul>
+  <div class="stack"><b>Stack:</b> PHP, PostgreSQL, RabbitMQ, Redis.</div>
+</div>
+
+<div class="job">
+  <div class="job-head">
+    <div><div class="company">Mamba</div><div class="role">PHP Developer</div></div>
+    <div class="period">July 2015 — July 2016<br>Moscow · corp.mamba.ru</div>
+  </div>
+  <div class="about">tourbar.com (Mamba) — international high-load social service for dating and travel (B2C) with millions of profiles, monetized through a premium subscription.</div>
+  <div class="label">Responsibilities</div>
+  <ul>
+    <li>Supporting and developing the tourbar.com web service (high-load, international product).</li>
+    <li>Designing and implementing new feature modules.</li>
+    <li>Integrating and maintaining payment APIs (PayPal, Paymentwall) for the premium subscription.</li>
+    <li>Integrating and maintaining social network APIs (Twitter, VK, Facebook, Google, Instagram).</li>
+    <li>Developing and evolving the REST API for mobile apps (iOS and Android).</li>
+    <li>Optimizing PHP and SQL code for a large volume of profiles.</li>
+  </ul>
+  <div class="label">Key results</div>
+  <ul>
+    <li>Built the REST API from scratch for the Tourbar mobile apps (iOS + Android) — key endpoints for content and profile management.</li>
+    <li>Implemented an in-house marketing mailing subsystem (digests, trip selections) with audience segmentation by geography, interests and activity — a mix of custom PHP code and an external email provider; improved open rates (confirmed by analytics).</li>
+    <li>Improved full-text user search and filters on Elasticsearch — smooth work with a base of millions of profiles and flexible filter combinations.</li>
+    <li>Implemented real-time display of online users.</li>
+    <li>Integrated PayPal and Paymentwall for the premium subscription.</li>
+    <li>Refactored existing code — better readability and modularity, easier further development.</li>
+    <li>Extended the admin panel with tools for sending mailings and moderating user photos.</li>
+  </ul>
+  <div class="stack"><b>Stack:</b> PHP, PostgreSQL, Elasticsearch, Redis, Memcached, RabbitMQ.</div>
+</div>
+
+<div class="job">
+  <div class="job-head">
+    <div><div class="company">Sutochno.ru</div><div class="role">Senior PHP Developer</div></div>
+    <div class="period">October 2011 — July 2015<br>Ulyanovsk</div>
+  </div>
+  <div class="about">sutochno.ru — OTA service for short-term rentals (B2C). Joined at an early product stage and grew from middle to senior over 3+ years, helping take the service from prototype to a stable product with thousands of hosts and hundreds of thousands of guests.</div>
+  <div class="label">Responsibilities</div>
+  <ul>
+    <li>Designing and developing key server-side modules of sutochno.ru.</li>
+    <li>Integrating external payment systems (Robokassa, PayU, Yandex.Kassa) and social OAuth login.</li>
+    <li>Optimizing application architecture, PHP and SQL code for growing load.</li>
+    <li>Developing the client side (billing, calendar, paid services) with responsive layouts.</li>
+    <li>Contributing to related projects of the holding while keeping the shared architecture consistent.</li>
+  </ul>
+  <div class="label">Key results</div>
+  <ul>
+    <li>Helped take the project from an early prototype to a stable service with hundreds of thousands of guests.</li>
+    <li>Designed and rolled out a unified payment system across Robokassa, PayU and Yandex.Kassa — one way to work with heterogeneous payment providers.</li>
+    <li>Designed and built an auction system for promoting listings to the top (users bid and win positions) — increased paid-service conversion (confirmed by dashboards).</li>
+    <li>Built the booking-calendar subsystem for rental properties — bookings grew after launch (tracked by product analytics).</li>
+    <li>Designed an in-house analytics system for payment accounting and reports — according to the accounting team, it automated up to 90% of routine operations.</li>
+    <li>Built paid services for promoting listings; implemented the client side of billing, calendar and paid services with responsive layouts (HTML5, CSS, JavaScript, jQuery).</li>
+    <li>Implemented social login via OAuth 2.0 (Twitter, VK, Facebook, Google, Yandex).</li>
+    <li>Performed deep refactoring with XHProf profiling, covering changed areas with PHPUnit tests beforehand to prevent regressions.</li>
+    <li>Optimized complex MySQL queries for growing data volumes; used MongoDB for logs and analytics and Sphinx for full-text listing search.</li>
+  </ul>
+  <div class="stack"><b>Stack:</b> PHP, MySQL, MongoDB, Sphinx, HTML5, CSS, JavaScript, AJAX, jQuery, JSON.</div>
+</div>
+
+<h2>Education</h2>
+<div class="grid">
+  <div class="k">2027 (in progress)</div>
+  <div><b>HSE University (National Research University Higher School of Economics), Moscow</b><br>Faculty of Business Informatics — IT Product Management (Master's)</div>
+  <div class="k">2012</div>
+  <div><b>Ulyanovsk State Technical University, Ulyanovsk</b><br>Faculty of Information Systems and Technologies — Information Systems and Technologies in Computer Graphics Systems</div>
+</div>
+
+<h2>Certificates &amp; Conferences</h2>
+<ul class="certs">
+  <li><span class="y">2026</span>Certificate of Oral Presentation — DMI 2026, 5th International Conference on Digitalization and Management Innovation (Xi'an, China)</li>
+  <li><span class="y">2026</span>Certificate of Participation — ICAIMT 2026, International Conference on Artificial Intelligence Management and Trends (Abu Dhabi, UAE, online)</li>
+  <li><span class="y">2026</span>Top-10 finalist, "Leaders of Digital Transformation" hackathon (Moscow Mayor's project) — "Negotiation Arena", a negotiation-skills simulator</li>
+  <li><span class="y">2026</span>"Tochka Sborki" hackathon — finalist team (top 10), Digital Development Academy</li>
+  <li><span class="y">2026</span>Robozon (Ozon Tech) hackathon, qualifying round — "Sorting-center simulation modeling" track</li>
+  <li><span class="y">2026</span>Ostrovok hackathon — participant, "One step to the perfect hotel" track</li>
+  <li><span class="y">2026</span>Intensive course "Building AI-Powered Products" (October 13–31, 2026)</li>
+  <li><span class="y">2026</span>Agents Week intensive, Yandex School of Data Analysis</li>
+  <li><span class="y">2026</span>Podlodka Techlead Crew #11 — Tech Lead in the AI Era</li>
+  <li><span class="y">2026</span>Podlodka AI Crew — Season #4: Multi-Agent Systems</li>
+  <li><span class="y">2026</span>Podlodka AI Crew #3 — AI-First Development</li>
+  <li><span class="y">2026</span>Podlodka Go Crew #7 — Go Best Practices</li>
+  <li><span class="y">2026</span>Podlodka Product Crew #8 — AI Tools for Product Managers</li>
+  <li><span class="y">2015</span>Luxoft — "Software and IT Solution Development Project Management", IT Project Management module (custom course)</li>
+</ul>
+
+<h2>Skills</h2>
+<div class="grid">
+  <div class="k">Languages &amp; frameworks</div><div>PHP 8, Go, Symfony, Laravel, Phalcon, Zend Framework, Yii2, JavaScript, jQuery, Smarty</div>
+  <div class="k">Data &amp; messaging</div><div>PostgreSQL, MySQL, MongoDB, Redis, Memcached, Elasticsearch, Apache Kafka, RabbitMQ, NoSQL</div>
+  <div class="k">Architecture</div><div>Microservice architecture, high-load system design, DDD, event-driven architecture</div>
+  <div class="k">Engineering practice</div><div>Code review, refactoring, PHPUnit, Docker, Git, Linux server administration, Agile</div>
+  <div class="k">Spoken languages</div><div>Russian — native; English — B2 (upper-intermediate)</div>
+</div>
+
+</body>
+</html>
