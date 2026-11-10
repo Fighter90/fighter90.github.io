@@ -199,7 +199,7 @@ GitHub Pages не знает про клиентский роутинг: зап�
 │   ├── Sergey_Emelyanov_CV_EN.pdf
 │   ├── Webguru_Portfolio_RU.pdf
 │   ├── Webguru_Portfolio_EN.pdf
-│   └── fonts/                    # Space Grotesk + DM Sans (self-hosted)
+│   └── fonts/                    # Onest + DM Sans (self-hosted)
 │
 ├── src/
 │   ├── App.tsx                   # Hero, Story, Experience, Portfolio, Education,
