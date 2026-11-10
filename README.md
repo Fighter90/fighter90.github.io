@@ -2,7 +2,7 @@
 
 Интерактивное персональное портфолио-приложение, собираемое в статический артефакт и хостящееся на GitHub Pages. Содержит AI-ассистента поверх DeepSeek V3, двуязычный UI (RU/EN), параллакс-анимации и SPA-роутинг.
 
-[![Demo](https://img.shields.io/badge/demo-fighter90.github.io-blue?style=flat-square)](https://fighter90.github.io)
+[![Demo](https://img.shields.io/badge/demo-sergey--cv.com-blue?style=flat-square)](https://sergey-cv.com)
 [![Proxy](https://img.shields.io/badge/proxy-fighter90--chat--proxy-000000?style=flat-square&logo=vercel)](https://github.com/Fighter90/fighter90-chat-proxy)
 [![Built with Claude Code](https://img.shields.io/badge/built%20with-Claude%20Code-blueviolet?style=flat-square)](https://claude.ai/code)
 
@@ -75,7 +75,7 @@
                                      │  actions/deploy-pages
                                      ▼
                 ┌───────────────────────────────────────────┐
-                │   GitHub Pages  (fighter90.github.io)     │
+                │   GitHub Pages  (sergey-cv.com)           │
                 │   ─────────────────────────────────────── │
                 │   Static HTML/JS/CSS + 404.html SPA shim  │
                 └────────────────────┬──────────────────────┘
@@ -109,7 +109,7 @@
 **Прокси** ([fighter90-chat-proxy/api/chat.ts](https://github.com/Fighter90/fighter90-chat-proxy/blob/main/api/chat.ts)):
 
 - Vercel Edge Function (`runtime: 'edge'`) — близко к пользователю, холодный старт ~миллисекунды.
-- Проверяет `Origin` по allowlist: `https://fighter90.github.io`, `http://localhost:5173`. Иначе `403`.
+- Проверяет `Origin` по allowlist: `https://sergey-cv.com`, `https://www.sergey-cv.com`, `https://fighter90.github.io`, `http://localhost:5173`. Иначе `403`.
 - Per-IP rate limit: 20 запросов в минуту, sliding window в `Map` (сбрасывается на cold start — устраивает текущий трафик).
 - Принимает `POST { messages: [...] }`, берёт последние 20, дописывает серверный `SYSTEM_PROMPT` как `role: system`, форвардит в `openrouter.ai/api/v1/chat/completions` с `stream: true`.
 - `response.body` отдаётся клиенту as-is → тот же SSE-формат. Upstream-ошибка → `502`.
@@ -362,7 +362,7 @@ grep -n 'VITE_OPENROUTER_KEY' .github/workflows/deploy.yml && echo FAIL || echo 
 # 3. Прокси отвечает SSE с правильного Origin
 curl -N -X POST https://fighter90-chat-proxy.vercel.app/api/chat \
   -H 'content-type: application/json' \
-  -H 'origin: https://fighter90.github.io' \
+  -H 'origin: https://sergey-cv.com' \
   -d '{"messages":[{"role":"user","content":"Say OK."}]}'
 
 # 4. Прокси режет левый Origin
@@ -374,6 +374,6 @@ curl -s -o /dev/null -w "%{http_code}\n" -X POST \
 # expect: 403
 
 # 5. 404.html сохраняет search и hash
-# Открыть https://fighter90.github.io/any/missing?lang=en#contact
+# Открыть https://sergey-cv.com/any/missing?lang=en#contact
 # После редиректа URL должен быть тем же, язык — en.
 ```
