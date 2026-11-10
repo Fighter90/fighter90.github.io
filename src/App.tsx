@@ -186,8 +186,8 @@ function StorySection() {
   const visible = useInView(ref as React.RefObject<HTMLElement | null>)
 
   const headline = lang === 'ru'
-    ? { pre: '', highlight: '14+', post: ' лет разрабатываю высоконагруженные системы' }
-    : { pre: '', highlight: '14+', post: ' years building high-load systems' }
+    ? { pre: '', highlight: '15+', post: ' лет разрабатываю высоконагруженные системы' }
+    : { pre: '', highlight: '15+', post: ' years building high-load systems' }
 
   const subtext = lang === 'ru'
     ? 'От стартапов до крупнейших компаний России — backend, микросервисы, платёжные системы. Изучаю продуктовый менеджмент в НИУ ВШЭ и исследую агентный ИИ.'
@@ -366,8 +366,8 @@ export default function App() {
   const { lang } = useLang()
   const t = translations[lang]
   const roles = lang === 'ru'
-    ? ['Senior Software Engineer', 'Backend-архитектор', 'PHP/Go разработчик', 'AI-исследователь'] as const
-    : ['Senior Software Engineer', 'Backend Architect', 'PHP/Go Developer', 'AI Researcher'] as const
+    ? ['Senior Backend Developer', 'Tech Lead', 'PHP/Go разработчик', 'AI-исследователь'] as const
+    : ['Senior Backend Developer', 'Tech Lead', 'PHP/Go Developer', 'AI Researcher'] as const
   const typedRole = useTypewriter(roles)
 
   const parallax = useMouseParallax(15)
@@ -559,6 +559,17 @@ export default function App() {
               </div>
             ))}
           </div>
+          <h3 className="text-lg font-display font-semibold text-foreground mt-10 mb-4 flex items-center gap-2">
+            <Award className="w-5 h-5 text-gold" />{t.sections.certificates}
+          </h3>
+          <ul className="bg-card border border-border rounded-2xl p-6 space-y-2.5">
+            {t.certificates.map((cert) => (
+              <li key={cert.title} className="flex gap-3 text-sm">
+                <span className="text-primary font-medium tabular-nums shrink-0">{cert.year}</span>
+                <span className="text-muted-foreground">{cert.title}</span>
+              </li>
+            ))}
+          </ul>
         </Section>
 
         {/* SKILLS */}

@@ -1,26 +1,28 @@
-# Sergei Emelianov — Senior Software Engineer (PHP/Go)
-> 14+ years of backend development. Rambler&Co, ex-Lamoda Tech, ex-MTS Fintech, ex-ETP Gazprombank, ex-Avito.
-> Stack: PHP 8, Go, Symfony, PostgreSQL, Redis, Docker, Kafka, Kubernetes.
-> Research: Agentic AI in Enterprise (ICAIMT 2026).
+# Sergei Emelianov — Senior Backend Developer / Lead Engineer (PHP, Go)
+> 15+ years of backend development of high-load web services and enterprise platforms. Rambler&Co, ex-Lamoda Tech, ex-MTS Fintech, ex-ETP Gazprombank, ex-Avito.
+> Stack: PHP 8, Go, Symfony, PostgreSQL, MySQL, MongoDB, Redis, Kafka, RabbitMQ, Docker.
+> Research: Agentic AI in Enterprise (ICAIMT 2026); oral presentation at DMI 2026.
 > Education: HSE University, Faculty of Business Informatics — IT Product Management (2025-2027, in progress).
+> Site: https://sergey-cv.com · CV (PDF): https://sergey-cv.com/Emelyanov_Sergey_CV.pdf (RU), https://sergey-cv.com/Sergey_Emelyanov_CV_EN.pdf (EN)
 
 ## Experience
-- Rambler&Co · Portal (2024-present) — Senior Software Engineer PHP/Go, 10+ Go microservices, monolith decomposition, authorization rework
-- Lamoda Tech (2022-2024) — PHP Developer, e-commerce platform, PHP 7.4→8.1 migration, CI/CD optimization
-- Rambler&Co · Advertising Platform (2021-2022) — Senior PHP Developer, Go bid management
-- MTS Fintech (2020-2021) — Senior PHP Developer / Tech Lead, config microservice from scratch (DDD, RBAC), Laravel+Orchid
-- ETP Gazprombank (2016-2020) — Senior PHP Developer, 44-FZ/223-FZ integration, billing microservice on Phalcon
-- Avito (2016) — PHP Developer, billing microservice, MIR card integration
-- Mamba/Tourbar (2015-2016) — PHP Developer, REST API for mobile apps, Elasticsearch search
-- Sutochno.ru (2011-2015) — Senior PHP Developer, prototype to production, payment systems
+- Rambler&Co · Portal (2024-present) — Senior / Lead Backend Developer (PHP, Go): tech lead of a 10-person team, 10+ Go microservices, monolith decomposition, authorization rework, code review process
+- Lamoda Tech (2022-2024) — Senior PHP Developer: PHP 7.4→8.1 migration, ~30% faster CI/CD delivery, Chestny Znak / CRPT labeling compliance
+- Rambler&Co · Advertising Platform (2021-2022) — Senior PHP Developer: Go bid management, advertiser reporting, REST APIs
+- MTS Fintech (2020-2021) — Team Lead (PHP): team of 5–7, centralized config microservice from scratch (DDD), RBAC, 85% test coverage
+- Webguru.pro (2017-2020) — CTO / Co-founder: 50+ projects (AB InBev, MegaFon, Alliance Retail Group), AliceBot.pro SaaS, team of 5–8
+- ETP Gazprombank (2016-2020) — Senior PHP Developer: 44-FZ/223-FZ EIS integration, billing microservice on Phalcon, PHP 5.6→7
+- Avito (2016) — PHP Developer: billing microservice, MIR card integration
+- Mamba/Tourbar (2015-2016) — PHP Developer: REST API for mobile apps, Elasticsearch search over millions of profiles
+- Sutochno.ru (2011-2015) — Senior PHP Developer: prototype to production, unified payments, auction-based top listings
 
 ## Skills
-- Backend: PHP 8, Go, Symfony, Laravel, Phalcon
-- Data: PostgreSQL, MySQL, MongoDB, Redis, Kafka, RabbitMQ, Elasticsearch
-- Infrastructure: Docker, Kubernetes, CI/CD, Nginx
+- Backend: PHP 8, Go, Symfony, Laravel, Phalcon, Zend, Yii2
+- Data: PostgreSQL, MySQL, MongoDB, Redis, Kafka, RabbitMQ, Elasticsearch, Sphinx
+- Infrastructure: Docker, CI/CD (GitLab CI), Linux, Nginx
 - AI/ML: Cursor, Claude Code, OpenAI Codex CLI, Claude API, OpenAI API, Prompt Engineering
-- Product: Unit Economics, A/B testing, JTBD, CJM
-- Architecture: Microservices, Event-Driven, DDD
+- Leadership: tech leadership, mentoring, hiring, Scrum/Kanban, code review
+- Architecture: Microservices, SOA, Event-Driven, DDD
 
 ## Contact
 - Email: pochtasergeia@gmail.com

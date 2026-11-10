@@ -105,7 +105,7 @@ const quickPrompts: QuickPrompt[] = [
 
 const headerCopy: Record<Lang, { name: string; subtitle: string; greeting: string }> = {
   ru: { name: 'Сергей', subtitle: 'AI-ассистент портфолио', greeting: 'Привет! Я AI-ассистент Сергея. Спросите что угодно о моём опыте, проектах или навыках.' },
-  en: { name: 'Sergey', subtitle: 'AI Portfolio Assistant', greeting: "Hi! I'm Sergey's AI assistant. Ask me anything about his experience, projects, or skills." },
+  en: { name: 'Sergei', subtitle: 'AI Portfolio Assistant', greeting: "Hi! I'm Sergei's AI assistant. Ask me anything about his experience, projects, or skills." },
 }
 
 /* ------------------------------------------------------------------ */
@@ -200,16 +200,16 @@ export default function FloatingChat() {
     const lower = text.toLowerCase()
     if (lower.includes('опыт') || lower.includes('experience') || lower.includes('работ'))
       return lang === 'ru'
-        ? '14+ лет в backend-разработке: PHP 8, Go, Symfony. Работал в Rambler&Co, Lamoda, Авито, МТС Финтех, ЭТП Газпромбанка. Строю высоконагруженные системы, микросервисы, настраиваю CI/CD.'
-        : '14+ years in backend: PHP 8, Go, Symfony. Worked at Rambler&Co, Lamoda, Avito, MTS Fintech, ETP Gazprombank. High-load systems, microservices, CI/CD.'
+        ? '15+ лет в backend-разработке: PHP 8, Go, Symfony. Сейчас — Senior / Lead Backend Developer в Rambler&Co (10+ микросервисов на Go, техлидство в команде из 10 человек). Ранее — Lamoda Tech, МТС Финтех (Team Lead), ЭТП Газпромбанка, Авито, а также CTO и сооснователь студии Webguru.pro.'
+        : '15+ years in backend: PHP 8, Go, Symfony. Currently Senior / Lead Backend Developer at Rambler&Co (10+ Go microservices, tech lead of a 10-person team). Previously Lamoda Tech, MTS Fintech (Team Lead), ETP Gazprombank, Avito, and CTO & co-founder of the Webguru.pro studio.'
     if (lower.includes('проект') || lower.includes('project') || lower.includes('portfolio'))
       return lang === 'ru'
         ? 'В портфолио — 12 проектов: AliceBot.pro (SaaS-конструктор навыков Алисы), HR-бот анкетирования для МегаФон Ритейл, ARS чат-горячая линия, vl-taxi.ru, Karpala.ru (с Android), StartBiz.space, BraidsBot, Centereko_Bot, CRM Raskleika, Openpolice_ruBot, корпоративные боты AB InBev и др. Научная работа — ICAIMT 2026 (EAAMM, 136 респондентов).'
         : 'Portfolio — 12 projects: AliceBot.pro (Yandex Alice SaaS skill builder), HR survey bot for MegaFon Retail, ARS live chat hotline, vl-taxi.ru, Karpala.ru (with Android), StartBiz.space, BraidsBot, Centereko_Bot, CRM Raskleika, Openpolice_ruBot, corporate bots for AB InBev et al. Research — ICAIMT 2026 (EAAMM, 136 respondents).'
     if (lower.includes('почему') || lower.includes('why') || lower.includes('hire') || lower.includes('нанять'))
       return lang === 'ru'
-        ? 'Глубокая экспертиза в backend (14+ лет) + магистратура по продуктовому менеджменту в ВШЭ. Умею выстраивать архитектуру, менторить команды, доводить проекты до продакшена. Исследую применение ИИ в бизнесе.'
-        : 'Deep backend expertise (14+ years) + pursuing Product Management master\'s at HSE. I design architecture, mentor teams, ship to production. Researching AI in business processes.'
+        ? 'Глубокая экспертиза в backend (15+ лет) + магистратура по продуктовому менеджменту в ВШЭ. Умею выстраивать архитектуру, менторить команды, доводить проекты до продакшена. Исследую применение ИИ в бизнесе.'
+        : 'Deep backend expertise (15+ years) + pursuing Product Management master\'s at HSE. I design architecture, mentor teams, ship to production. Researching AI in business processes.'
     if (lower.includes('контакт') || lower.includes('contact') || lower.includes('связ'))
       return lang === 'ru'
         ? 'Email: pochtasergeia@gmail.com\nTelegram: @sergey_in_job\nLinkedIn: https://www.linkedin.com/in/sergei-emelianov-in-job'
