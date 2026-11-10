@@ -98,6 +98,14 @@
       ]
     }
     </script>
+    <!-- Stale-HTML recovery: GitHub Pages caches index.html for up to 10 min, while each
+         deploy deletes the previous hashed bundles. A cached page then requests a missing
+         /assets/*.js and renders blank. Reload once with a cache-busting param, then drop it. -->
+    <script>
+      (function(){var K='_r',u=new URL(location.href);if(u.searchParams.has(K)){u.searchParams.delete(K);history.replaceState(null,'',u.pathname+u.search+u.hash)}
+      window.addEventListener('error',function(e){var t=e.target;if(!t||t===window||!/\/assets\/[^/]+\.(js|css)$/.test(t.src||t.href||''))return;try{if(sessionStorage.getItem(K))return;sessionStorage.setItem(K,'1')}catch(_){return}var n=new URL(location.href);n.searchParams.set(K,Date.now());location.replace(n.href)},true);
+      window.addEventListener('load',function(){try{sessionStorage.removeItem(K)}catch(_){}})})()
+    </script>
     <!-- Theme detection before first paint -->
     <script>
       (function(){var s=localStorage.getItem('theme');var d=s?s==='dark':window.matchMedia('(prefers-color-scheme:dark)').matches;var h=document.documentElement;h.classList.toggle('dark',d);h.classList.toggle('light',!d);var m=document.querySelector('meta[name="color-scheme"]');if(m)m.content=d?'dark':'light';var t=document.querySelector('meta[name="theme-color"]');if(t)t.content=d?'#0a0a0a':'#ffffff'})()
