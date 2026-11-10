@@ -358,7 +358,7 @@ export default function FloatingChat() {
         {/* Input */}
         <div className="border-t border-border px-3 py-2.5">
           <div className="flex items-center gap-2">
-            <input ref={inputRef} type="text" value={input}
+            <input id="chat-message" name="message" autoComplete="off" ref={inputRef} type="text" value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
               disabled={isStreaming}

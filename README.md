@@ -195,6 +195,7 @@ GitHub Pages не знает про клиентский роутинг: зап�
 │   ├── foto-avatar.webp          # основное фото
 │   ├── foto-avatar-sm.webp       # уменьшенное фото для чата
 │   ├── testimonial-*.jpg         # сканы отзывов (lightbox)
+│   ├── certificates/*.webp       # сертификаты (lightbox с прогрессом); исходники — docs/certification/
 │   ├── Emelyanov_Sergey_CV.pdf
 │   ├── Sergey_Emelyanov_CV_EN.pdf
 │   ├── Webguru_Portfolio_RU.pdf

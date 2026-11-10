@@ -1,13 +1,14 @@
+// TODO: split by concern (sections, nav, hero, testimonials) — file is over 400 lines
 import { useEffect, useState, useRef, useCallback, lazy, Suspense } from 'react'
-import { createPortal } from 'react-dom'
 import {
   Mail, Send, Briefcase, GraduationCap, Code2, FolderOpen,
   MapPin, Building2, Calendar, Download, ExternalLink, Award,
   Layout, Menu, X, Server, Database, Cloud, Sparkles,
-  BarChart3, Network, Quote, Newspaper, Github
+  BarChart3, Network, Quote, Newspaper, Github, Image as ImageIcon
 } from 'lucide-react'
 import { translations } from './i18n'
 import { useLang } from './contexts/LangContext'
+import ImageLightbox, { type LightboxLabels } from './components/ImageLightbox'
 
 const FloatingChat = lazy(() => import('./components/FloatingChat'))
 const LinkedInEmbed = lazy(() => import('./components/LinkedInEmbed'))
@@ -312,25 +313,21 @@ function LeftSidebar() {
 
 /* ─── Testimonial with expandable image ─── */
 
-function TestimonialCard({ testimonial }: { testimonial: { company: string; person: string; text: string; date: string; image: string } }) {
+function TestimonialCard({ testimonial, labels, openLabel }: {
+  testimonial: { company: string; person: string; text: string; date: string; image: string }
+  labels: LightboxLabels
+  openLabel: string
+}) {
   const [expanded, setExpanded] = useState(false)
-
-  // Lock body scroll + Escape key when lightbox is open
-  useEffect(() => {
-    if (!expanded) return
-    document.body.style.overflow = 'hidden'
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setExpanded(false) }
-    window.addEventListener('keydown', onKey)
-    return () => { document.body.style.overflow = ''; window.removeEventListener('keydown', onKey) }
-  }, [expanded])
+  const close = useCallback(() => setExpanded(false), [])
 
   return (
     <>
       <div className="bg-card border border-border rounded-2xl p-6 card-hover hover:border-primary/30">
         <div className="flex items-start gap-3 mb-3">
-          <button type="button" onClick={() => setExpanded(true)}
+          <button type="button" onClick={() => setExpanded(true)} aria-label={`${openLabel}: ${testimonial.company}`}
             className="w-16 h-16 rounded-xl border-2 border-border overflow-hidden shrink-0 hover:border-primary/50 hover:shadow-lg transition-all cursor-pointer">
-            <img src={testimonial.image} alt={testimonial.company} className="w-full h-full object-cover" loading="lazy" />
+            <img src={testimonial.image} alt={testimonial.company} width={64} height={64} className="w-full h-full object-cover" loading="lazy" />
           </button>
           <div>
             <h3 className="font-display font-semibold text-foreground text-sm">{testimonial.company}</h3>
@@ -341,21 +338,7 @@ function TestimonialCard({ testimonial }: { testimonial: { company: string; pers
         <p className="text-muted-foreground text-sm leading-relaxed italic">"{testimonial.text}"</p>
       </div>
 
-      {/* Lightbox — z-[200] to cover EVERYTHING including sidebar and chat */}
-      {expanded && createPortal(
-        <div className="fixed inset-0 z-[200] bg-black/85 backdrop-blur-lg flex items-center justify-center p-3 sm:p-6"
-          onClick={() => setExpanded(false)} style={{ animation: 'lightbox-in 0.3s ease-out' }}>
-          <div className="relative max-w-4xl w-full" onClick={(e) => e.stopPropagation()}>
-            <img src={testimonial.image} alt={testimonial.company}
-              className="w-full h-auto max-h-[90vh] object-contain rounded-2xl shadow-2xl" />
-            <button type="button" onClick={() => setExpanded(false)}
-              className="absolute top-3 right-3 w-10 h-10 rounded-full bg-white/90 dark:bg-card flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
-              <X className="w-5 h-5" />
-            </button>
-          </div>
-        </div>,
-        document.body
-      )}
+      {expanded && <ImageLightbox url={testimonial.image} alt={testimonial.company} labels={labels} onClose={close} />}
     </>
   )
 }
@@ -369,6 +352,14 @@ export default function App() {
     ? ['Senior Backend Developer', 'Tech Lead', 'PHP/Go разработчик', 'AI-исследователь'] as const
     : ['Senior Backend Developer', 'Tech Lead', 'PHP/Go Developer', 'AI Researcher'] as const
   const typedRole = useTypewriter(roles)
+  const lightboxLabels: LightboxLabels = {
+    loading: t.sections.lightboxLoading,
+    error: t.sections.lightboxError,
+    retry: t.sections.lightboxRetry,
+    close: t.sections.lightboxClose,
+  }
+  const [openCert, setOpenCert] = useState<{ url: string; title: string } | null>(null)
+  const closeCert = useCallback(() => setOpenCert(null), [])
 
   const parallax = useMouseParallax(15)
 
@@ -566,10 +557,20 @@ export default function App() {
             {t.certificates.map((cert) => (
               <li key={cert.title} className="flex gap-3 text-sm">
                 <span className="text-primary font-medium tabular-nums shrink-0">{cert.year}</span>
-                <span className="text-muted-foreground">{cert.title}</span>
+                {'image' in cert && cert.image ? (
+                  <button type="button" onClick={() => setOpenCert({ url: cert.image, title: cert.title })}
+                    aria-label={`${t.sections.openCertificate}: ${cert.title}`}
+                    className="group text-left text-foreground/85 hover:text-primary transition-colors cursor-pointer">
+                    <span className="underline decoration-primary/30 decoration-dotted underline-offset-4 group-hover:decoration-primary">{cert.title}</span>
+                    <ImageIcon className="inline-block w-3.5 h-3.5 ml-1.5 -mt-0.5 text-primary/60 group-hover:text-primary" aria-hidden="true" />
+                  </button>
+                ) : (
+                  <span className="text-muted-foreground">{cert.title}</span>
+                )}
               </li>
             ))}
           </ul>
+          {openCert && <ImageLightbox url={openCert.url} alt={openCert.title} labels={lightboxLabels} onClose={closeCert} />}
         </Section>
 
         {/* SKILLS */}
@@ -600,7 +601,7 @@ export default function App() {
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {t.testimonials.map((item, i) => (
-              <TestimonialCard key={i} testimonial={item} />
+              <TestimonialCard key={i} testimonial={item} labels={lightboxLabels} openLabel={t.sections.openTestimonial} />
             ))}
           </div>
         </Section>
