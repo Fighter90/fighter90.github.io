@@ -570,7 +570,7 @@ export default function App() {
               </li>
             ))}
           </ul>
-          {openCert && <ImageLightbox url={openCert.url} alt={openCert.title} labels={lightboxLabels} onClose={closeCert} />}
+          {openCert && <ImageLightbox key={openCert.url} url={openCert.url} alt={openCert.title} labels={lightboxLabels} onClose={closeCert} />}
         </Section>
 
         {/* SKILLS */}
