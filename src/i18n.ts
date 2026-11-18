@@ -24,7 +24,7 @@ export const translations = {
     hero: {
       name: 'Сергей Емельянов',
       company: 'Rambler&Co, Москва',
-      bio: 'Hands-on Tech Lead (PHP, Go): веду команду и сам проектирую архитектуру. В Rambler&Co — техлид команды из 10 человек, 3 backend-разработчика в прямом подчинении; переносим PHP-монолит на микросервисы Go (Kafka, Kubernetes), внедрил AI-разработку и RAG. Ранее — Team Lead в МТС Финтех и CTO собственной студии. 15 лет в backend: платежи и биллинг, ставки и аукционы, ЭТП по 44-ФЗ и 223-ФЗ, highload B2C.',
+      bio: 'Hands-on Tech Lead (PHP, Go): веду команду и сам проектирую архитектуру. 15 лет в backend высоконагруженных продуктов — от разработчика до техлида, тимлида и CTO. Строю микросервисную архитектуру, перевожу монолиты на Go, внедряю AI в процесс разработки. Сильные домены — платежи и биллинг, маркетплейсы и B2B-платформы, highload B2C и медиа.',
       downloadCV: 'Резюме',
       telegram: 'Telegram',
     },
@@ -599,7 +599,7 @@ export const translations = {
     hero: {
       name: 'Sergei Emelianov',
       company: 'Rambler&Co, Moscow',
-      bio: 'Hands-on Tech Lead (PHP, Go): I lead the team and design the architecture myself. At Rambler&Co I am the tech lead of a 10-person team with 3 backend engineers reporting to me; we are moving a PHP monolith to Go microservices (Kafka, Kubernetes), and I introduced AI-assisted development and RAG. Previously Team Lead at MTS Fintech and CTO of my own studio. 15 years in backend: payments and billing, bidding and auctions, e-procurement platforms, high-load B2C.',
+      bio: 'Hands-on Tech Lead (PHP, Go): I lead the team and design the architecture myself. 15 years in backend for high-load products — from engineer to tech lead, team lead and CTO. I build microservice architectures, move monoliths to Go and bring AI into the development process. Strongest domains: payments and billing, marketplaces and B2B platforms, high-load B2C and media.',
       downloadCV: 'CV',
       telegram: 'Telegram',
     },
