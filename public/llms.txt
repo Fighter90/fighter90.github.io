@@ -1,30 +1,41 @@
-# Sergei Emelianov — Senior Backend Developer / Lead Engineer (PHP, Go)
-> 15+ years of backend development of high-load web services and enterprise platforms. Rambler&Co, ex-Lamoda Tech, ex-MTS Fintech, ex-ETP Gazprombank, ex-Avito.
-> Stack: PHP 8, Go, Symfony, PostgreSQL, MySQL, MongoDB, Redis, Kafka, RabbitMQ, Docker.
+# Sergei Emelianov — Team Lead / Tech Lead (PHP, Go)
+> Hands-on Tech Lead: leads the team and designs the architecture himself. 15 years in backend of high-load services. Rambler&Co, ex-Lamoda Tech, ex-MTS Fintech, ex-ETP Gazprombank, ex-Avito.
+> Stack: Go, PHP 8, Symfony, PostgreSQL, MySQL, MongoDB, Redis, Kafka, RabbitMQ, Kubernetes, Docker, Qdrant, LiteLLM.
 > Research: Agentic AI in Enterprise (ICAIMT 2026); oral presentation at DMI 2026.
 > Education: HSE University, Faculty of Business Informatics — IT Product Management (2025-2027, in progress).
 > Site: https://sergey-cv.com · CV (PDF): https://sergey-cv.com/Emelyanov_Sergey_CV.pdf (RU), https://sergey-cv.com/Sergey_Emelyanov_CV_EN.pdf (EN)
 
+## Looking for
+- Tech Lead / Team Lead role in a product team of 3–8 engineers, keeping 30–50% hands-on engineering. Fintech and payments, e-commerce and marketplaces, B2B platforms, high-load media. Remote or hybrid, Moscow.
+
 ## Experience
-- Rambler&Co · Portal (2024-present) — Senior / Lead Backend Developer (PHP, Go): tech lead of a 10-person team, 10+ Go microservices, monolith decomposition, authorization rework, code review process
-- Lamoda Tech (2022-2024) — Senior PHP Developer: PHP 7.4→8.1 migration, ~30% faster CI/CD delivery, Chestny Znak / CRPT labeling compliance
-- Rambler&Co · Advertising Platform (2021-2022) — Senior PHP Developer: Go bid management, advertiser reporting, REST APIs
-- MTS Fintech (2020-2021) — Team Lead (PHP): team of 5–7, centralized config microservice from scratch (DDD), RBAC, 85% test coverage
-- Webguru.pro (2017-2020) — CTO / Co-founder: 50+ projects (AB InBev, MegaFon, Alliance Retail Group), AliceBot.pro SaaS, team of 5–8
-- ETP Gazprombank (2016-2020) — Senior PHP Developer: 44-FZ/223-FZ EIS integration, billing microservice on Phalcon, PHP 5.6→7
+- Rambler&Co · Portal (2024-present) — Tech Lead / Lead Backend Developer (PHP, Go): tech lead of a 10-person cross-functional team, 3 direct reports; leading the PHP monolith → Go microservices move (10+ services on Kafka in Kubernetes); AI-assisted development (OpenCode, LiteLLM) with ~1.5–2x release frequency; RAG system for the Championat sports portal (~30M visits/month)
+- Lamoda Tech (2022-2024) — Senior PHP Developer: Chestny Znak / CRPT labeling compliance on time, PHP 7.4→8.1 migration, ~30% faster CI/CD delivery
+- Rambler&Co · Advertising Platform (2021-2022) — Senior PHP Developer: Go bidding and auction service, advertiser reporting, REST APIs on Kafka
+- MTS Fintech (2020-2021) — Team Lead (PHP): team of 5 engineers (hiring, 1:1s, Scrum), centralized config and feature-flag service from scratch (DDD), RBAC, 85% test coverage
+- Webguru.pro (2017-2020) — CTO / Co-founder (own studio, part-time): 50+ projects (AB InBev, MegaFon, Alliance Retail Group), AliceBot.pro SaaS, team of up to 8
+- ETP Gazprombank (2016-2020) — Senior PHP Developer: participant billing microservice (cards, acquiring, SBP), EIS integration under 44-FZ/223-FZ, PHP 5.6→7
 - Avito (2016) — PHP Developer: billing microservice, MIR card integration
 - Mamba/Tourbar (2015-2016) — PHP Developer: REST API for mobile apps, Elasticsearch search over millions of profiles
-- Sutochno.ru (2011-2015) — Senior PHP Developer: prototype to production, unified payments, auction-based top listings
+- Sutochno.ru (2011-2015) — Senior PHP Developer: auction-based top listings, unified payments, accounting automation
+
+## Projects
+- CVStart / career-ops-ui (https://cvstart.org, https://github.com/Fighter90/career-ops-ui): open-source local-first job search command center, 140+ job sources, AI fit scoring, CV Studio, 19 languages, 18 LLM providers, 8,500+ tests, MIT
+- Strategist (https://strategyproduct.ru, https://github.com/Fighter90/product-factory-strategist-agent): open AI agent for product directors — 12-step verifiable strategy process, evidence registry, Excel models, bilingual six-pager; 101 skills, 8 subagents, Python CLI/MCP
+- ProductCamp Analytics (https://dashboardcamp.ru, https://github.com/Fighter90/ai-product-copilot): Yandex Metrika → SQLite → role-based analytics cabinet with real-time funnel, GOST DOCX/PDF reports with AI hypotheses (ICE), RAG assistant
 
 ## Skills
-- Backend: PHP 8, Go, Symfony, Laravel, Phalcon, Zend, Yii2
-- Data: PostgreSQL, MySQL, MongoDB, Redis, Kafka, RabbitMQ, Elasticsearch, Sphinx
-- Infrastructure: Docker, CI/CD (GitLab CI), Linux, Nginx
-- AI/ML: Cursor, Claude Code, OpenAI Codex CLI, Claude API, OpenAI API, Prompt Engineering
-- Leadership: tech leadership, mentoring, hiring, Scrum/Kanban, code review
-- Architecture: Microservices, SOA, Event-Driven, DDD
+- Leadership: tech leadership, team management, hiring, 1:1s, mentoring, Scrum/Kanban, tech debt management
+- Backend: Go, PHP 8, Symfony, Laravel, Phalcon
+- Data: PostgreSQL, MySQL, MongoDB, Redis, Kafka, RabbitMQ, Elasticsearch, Qdrant
+- Infrastructure: Kubernetes, Docker, CI/CD (GitLab CI), Linux, Nginx
+- AI: RAG, LLM gateways (LiteLLM), agentic development (Claude Code, OpenCode, Cursor)
+- Architecture: Microservices, SOA, Event-Driven, DDD, System Design
+- Domains: payments and billing, bidding and auctions, e-procurement (44-FZ/223-FZ), high-load B2C
 
 ## Contact
 - Email: pochtasergeia@gmail.com
 - Telegram: @sergey_in_job
 - LinkedIn: https://www.linkedin.com/in/sergei-emelianov-in-job
+- GitHub: https://github.com/Fighter90
+- Habr Career: https://career.habr.com/sergey_in_job

@@ -4,6 +4,25 @@ All notable user-facing and architectural changes are tracked here.
 Format is loosely based on Keep a Changelog; the project does not cut
 semantic-version releases — `main` is always the deployed state.
 
+## 2026-11-18 — Repositioning as Team Lead / Tech Lead
+
+### Changed
+
+- Positioning across the site, meta tags, JSON-LD and `llms.txt`: Senior Backend
+  Developer → **Team Lead / Tech Lead (PHP, Go)**, hands-on.
+- Rambler&Co (2024–present): role, team and direct reports, Go migration,
+  AI-assisted development, RAG for Championat; Lamoda and Webguru wording aligned
+  with the hh.ru resume (RU + EN).
+- Portfolio: CVStart / career-ops-ui card refreshed from the current README
+  (140+ sources, 19 languages, 18 LLM providers, 8,500+ tests) with new screenshots.
+- Downloadable CVs (`public/Emelyanov_Sergey_CV.pdf`, `public/Sergey_Emelyanov_CV_EN.pdf`)
+  regenerated from `docs/cv/build_cv.py` — one data source, RU + EN.
+
+### Added
+
+- Portfolio: **Strategist — strategyproduct.ru** (product-factory-strategist-agent) and
+  **ProductCamp Analytics — dashboardcamp.ru** (ai-product-copilot), RU + EN, with screenshots.
+
 ## [Unreleased] — 2026-04-23
 
 ### Security (P0)

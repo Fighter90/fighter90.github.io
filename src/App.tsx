@@ -349,8 +349,8 @@ export default function App() {
   const { lang } = useLang()
   const t = translations[lang]
   const roles = lang === 'ru'
-    ? ['Senior Backend Developer', 'Tech Lead', 'PHP/Go разработчик', 'AI-исследователь'] as const
-    : ['Senior Backend Developer', 'Tech Lead', 'PHP/Go Developer', 'AI Researcher'] as const
+    ? ['Tech Lead', 'Team Lead', 'PHP/Go разработчик', 'AI-продукты'] as const
+    : ['Tech Lead', 'Team Lead', 'PHP/Go Engineer', 'AI Products'] as const
   const typedRole = useTypewriter(roles)
   const lightboxLabels: LightboxLabels = {
     loading: t.sections.lightboxLoading,
