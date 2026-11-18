@@ -24,7 +24,7 @@ export const translations = {
     hero: {
       name: 'Сергей Емельянов',
       company: 'Rambler&Co, Москва',
-      bio: 'Hands-on Tech Lead (PHP, Go): веду команду и сам проектирую архитектуру. 15 лет в backend высоконагруженных продуктов — от разработчика до техлида, тимлида и CTO. Строю микросервисную архитектуру, перевожу монолиты на Go, внедряю AI в процесс разработки. Сильные домены — платежи и биллинг, маркетплейсы и B2B-платформы, highload B2C и медиа.',
+      bio: 'Hands-on Tech Lead (PHP, Go): веду команду и сам проектирую архитектуру. 15 лет в backend высоконагруженных продуктов — от разработчика до техлида, тимлида и CTO. Работаю с PHP и Go, строю микросервисную архитектуру, внедряю AI в процесс разработки. Сильные домены — платежи и биллинг, маркетплейсы и B2B-платформы, highload B2C и медиа.',
       downloadCV: 'Резюме',
       telegram: 'Telegram',
     },
@@ -599,7 +599,7 @@ export const translations = {
     hero: {
       name: 'Sergei Emelianov',
       company: 'Rambler&Co, Moscow',
-      bio: 'Hands-on Tech Lead (PHP, Go): I lead the team and design the architecture myself. 15 years in backend for high-load products — from engineer to tech lead, team lead and CTO. I build microservice architectures, move monoliths to Go and bring AI into the development process. Strongest domains: payments and billing, marketplaces and B2B platforms, high-load B2C and media.',
+      bio: 'Hands-on Tech Lead (PHP, Go): I lead the team and design the architecture myself. 15 years in backend for high-load products — from engineer to tech lead, team lead and CTO. I work with PHP and Go, build microservice architectures and bring AI into the development process. Strongest domains: payments and billing, marketplaces and B2B platforms, high-load B2C and media.',
       downloadCV: 'CV',
       telegram: 'Telegram',
     },
